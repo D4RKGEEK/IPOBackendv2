@@ -34,7 +34,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02: Write ingestion modules for Upstox API and browser-emulated NSE endpoints.
+- [x] 01-02: Write ingestion modules for Upstox API and browser-emulated NSE endpoints.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -121,7 +121,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 1. Master List Ingest | v1.0 | 1/3 | In Progress|  |
+| 1. Master List Ingest | v1.0 | 2/3 | In Progress|  |
 | 2. PDF Processing | v1.0 | 0/3 | Not started | - |
 | 3. LLM Ratio Extract | v1.0 | 0/3 | Not started | - |
 | 4. GMP & Historicals | v1.0 | 0/2 | Not started | - |

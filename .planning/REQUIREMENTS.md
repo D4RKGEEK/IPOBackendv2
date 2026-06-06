@@ -10,7 +10,7 @@ Requirements for the initial release, mapped to roadmap phases.
 ### Ingestion (INGEST)
 
 - [x] **INGEST-01**: Ingest active, upcoming, and closed IPO metadata from the Upstox API.
-- [ ] **INGEST-02**: Ingest IPO schedules and document links from the NSE-BSE API using a browser-emulated session handshake with cookie persistence.
+- [x] **INGEST-02**: Ingest IPO schedules and document links from the NSE-BSE API using a browser-emulated session handshake with cookie persistence.
 
 ### Merge & Deduplication (MERGE)
 
@@ -73,7 +73,7 @@ This table tracks which phase covers each v1 requirement.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INGEST-01   | Phase 1 | Complete |
-| INGEST-02   | Phase 1 | Pending |
+| INGEST-02   | Phase 1 | Complete |
 | MERGE-01    | Phase 1 | Pending |
 | MERGE-02    | Phase 1 | Complete |
 | DOCS-01     | Phase 2 | Pending |

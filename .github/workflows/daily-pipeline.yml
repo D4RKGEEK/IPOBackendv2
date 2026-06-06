@@ -1,0 +1,93 @@
+name: Daily IPO Pipeline
+
+on:
+  schedule:
+    # Run every day at 06:30 UTC (12:00 IST)
+    - cron: '30 6 * * *'
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Year to process (default: current year)'
+        required: false
+        default: ''
+      from_date:
+        description: 'From date YYYY-MM-DD (overrides year)'
+        required: false
+        default: ''
+      to_date:
+        description: 'To date YYYY-MM-DD (overrides year)'
+        required: false
+        default: ''
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run IPO pipeline
+        env:
+          UPSTOX_ACCESS_TOKEN: ${{ secrets.UPSTOX_ACCESS_TOKEN }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE: ${{ secrets.R2_PUBLIC_BASE }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PARSER_PROVIDER: ${{ secrets.PARSER_PROVIDER }}
+          LOG_LEVEL: info
+        run: |
+          # Build CLI args from inputs
+          ARGS=""
+          if [ -n "${{ github.event.inputs.from_date }}" ] && [ -n "${{ github.event.inputs.to_date }}" ]; then
+            ARGS="--from ${{ github.event.inputs.from_date }} --to ${{ github.event.inputs.to_date }}"
+          elif [ -n "${{ github.event.inputs.year }}" ]; then
+            ARGS="--year ${{ github.event.inputs.year }}"
+          fi
+
+          node run_pipeline.js $ARGS
+        id: pipeline
+
+      - name: Commit updated data files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ipo_master.json ipo_borderline.json || true
+          git diff --staged --quiet || git commit -m "chore: daily pipeline update $(date -u +%Y-%m-%d)"
+
+      - name: Push data updates
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Notify Telegram on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          node -e "
+            const axios = require('axios');
+            const msg = '❌ IPO Pipeline FAILED on \$(date -u +%Y-%m-%d)\n\nCheck: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+            axios.post('https://api.telegram.org/bot' + process.env.TELEGRAM_BOT_TOKEN + '/sendMessage', {
+              chat_id: process.env.TELEGRAM_CHAT_ID,
+              text: msg,
+              parse_mode: 'HTML'
+            }).catch(e => console.error('Telegram notify failed:', e.message));
+          "

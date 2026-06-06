@@ -9,7 +9,7 @@ This roadmap defines the implementation path for a lightweight, extensible Node.
 - [x] **Phase 1: Ingest, Deduplication & Master Listing** - Merge Upstox and NSE lists into a unified JSON database.
 - [x] **Phase 2: PDF Downloader & Dynamic Section Page Isolator** - Download prospectuses and dynamically isolate target page ranges.
 - [x] **Phase 3: Cloudflare R2 Staging & Firecrawl/LLM Extraction** - Upload isolated markdown to R2 and extract ratios.
-- [ ] **Phase 4: InvestorGain GMP Crawler & Daily Candles** - Aggregate grey market premium histories and listed price candles.
+- [x] **Phase 4: InvestorGain GMP Crawler & Daily Candles** - Aggregate grey market premium histories and listed price candles.
 - [ ] **Phase 5: GitHub Actions runner & Telegram Alerts** - Configure CI/CD scheduling and Telegram alert feeds.
 
 ## Phase Details

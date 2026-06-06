@@ -1,0 +1,5 @@
+node_modules
+.env
+/ipo.json
+/upstox_ipo.json
+/nse_cookies_http1.json

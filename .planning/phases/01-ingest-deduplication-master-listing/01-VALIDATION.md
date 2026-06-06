@@ -39,8 +39,9 @@ created: 2026-06-06
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
 | 01-01-01 | 01 | 1 | INGEST-01 | — | `dotenv` loads tokens securely | unit | `npx vitest run test/config.test.js` | ❌ W0 | ⬜ pending |
-| 01-02-01 | 02 | 2 | INGEST-01 | — | Upstox client parses active/upcoming/closed IPOs | integration | `npx vitest run test/upstox.test.js` | ❌ W0 | ⬜ pending |
-| 01-02-02 | 02 | 2 | INGEST-02 | — | NSE client parses listings via SDK | integration | `npx vitest run test/nse.test.js` | ❌ W0 | ⬜ pending |
+| 01-02-01 | 02 | 2 | INGEST-01 | — | Normalizers parse dates/symbols/names correctly | unit | `npx vitest run test/normalizers.test.js` | ❌ W0 | ⬜ pending |
+| 01-02-02 | 02 | 2 | INGEST-01 | — | Upstox client parses active/upcoming/closed IPOs | integration | `npx vitest run test/upstox.test.js` | ❌ W0 | ⬜ pending |
+| 01-02-03 | 02 | 2 | INGEST-02 | — | NSE client parses listings via SDK | integration | `npx vitest run test/nse.test.js` | ❌ W0 | ⬜ pending |
 | 01-03-01 | 03 | 3 | MERGE-01 | — | Jaro-Winkler name matcher validates correct similarity | unit | `npx vitest run test/jaroWinkler.test.js` | ❌ W0 | ⬜ pending |
 | 01-03-02 | 03 | 3 | MERGE-02 | — | Atomic write helper writes temp-then-rename | unit | `npx vitest run test/atomicWrite.test.js` | ❌ W0 | ⬜ pending |
 | 01-03-03 | 03 | 3 | MERGE-01 | — | Merge pipeline merges schema with precedence | integration | `npx vitest run test/pipeline.test.js` | ❌ W0 | ⬜ pending |
@@ -51,6 +52,7 @@ created: 2026-06-06
 
 ## Wave 0 Requirements
 
+- [ ] `test/normalizers.test.js` — stubs for normalization tests
 - [ ] `test/jaroWinkler.test.js` — stubs for similarity tests
 - [ ] `test/atomicWrite.test.js` — stubs for write-temp-then-rename checks
 - [ ] Install `vitest` as a devDependency in `package.json`

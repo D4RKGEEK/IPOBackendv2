@@ -9,13 +9,13 @@ Requirements for the initial release, mapped to roadmap phases.
 
 ### Ingestion (INGEST)
 
-- [ ] **INGEST-01**: Ingest active, upcoming, and closed IPO metadata from the Upstox API.
+- [x] **INGEST-01**: Ingest active, upcoming, and closed IPO metadata from the Upstox API.
 - [ ] **INGEST-02**: Ingest IPO schedules and document links from the NSE-BSE API using a browser-emulated session handshake with cookie persistence.
 
 ### Merge & Deduplication (MERGE)
 
 - [ ] **MERGE-01**: Merge and deduplicate IPO records across Upstox and NSE-BSE feeds by primary key matches (ISIN, normalized Symbol) or fuzzy company name matching (Jaro-Winkler distance) with date-range safety checks.
-- [ ] **MERGE-02**: Save the consolidated listings list to a local atomic JSON file (`ipo_master.json`) using the write-temp-then-rename pattern.
+- [x] **MERGE-02**: Save the consolidated listings list to a local atomic JSON file (`ipo_master.json`) using the write-temp-then-rename pattern.
 
 ### Prospectus Processing (DOCS)
 
@@ -72,10 +72,10 @@ This table tracks which phase covers each v1 requirement.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INGEST-01   | Phase 1 | Pending |
+| INGEST-01   | Phase 1 | Complete |
 | INGEST-02   | Phase 1 | Pending |
 | MERGE-01    | Phase 1 | Pending |
-| MERGE-02    | Phase 1 | Pending |
+| MERGE-02    | Phase 1 | Complete |
 | DOCS-01     | Phase 2 | Pending |
 | DOCS-02     | Phase 2 | Pending |
 | DOCS-03     | Phase 2 | Pending |
@@ -91,6 +91,7 @@ This table tracks which phase covers each v1 requirement.
 | PRICES-02   | Phase 4 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 17 total
 - Mapped to phases: 17
 - Unmapped: 0 ✓

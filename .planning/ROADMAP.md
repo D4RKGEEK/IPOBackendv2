@@ -30,7 +30,7 @@ This roadmap defines the implementation path for a lightweight, extensible Node.
 Plans:
 **Wave 1**
 
-- [ ] 01-01: Set up project config, dependencies, and environment variable loaders.
+- [x] 01-01: Set up project config, dependencies, and environment variable loaders.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -121,7 +121,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 1. Master List Ingest | v1.0 | 0/3 | Not started | - |
+| 1. Master List Ingest | v1.0 | 1/3 | In Progress|  |
 | 2. PDF Processing | v1.0 | 0/3 | Not started | - |
 | 3. LLM Ratio Extract | v1.0 | 0/3 | Not started | - |
 | 4. GMP & Historicals | v1.0 | 0/2 | Not started | - |

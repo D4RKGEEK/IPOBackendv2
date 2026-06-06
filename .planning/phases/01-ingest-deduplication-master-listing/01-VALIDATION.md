@@ -3,7 +3,7 @@ phase: 1
 slug: ingest-deduplication-master-listing
 status: draft
 nyquist_compliant: true
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-06-06
 ---
 
@@ -52,10 +52,10 @@ created: 2026-06-06
 
 ## Wave 0 Requirements
 
-- [ ] `test/normalizers.test.js` — stubs for normalization tests
-- [ ] `test/jaroWinkler.test.js` — stubs for similarity tests
-- [ ] `test/atomicWrite.test.js` — stubs for write-temp-then-rename checks
-- [ ] Install `vitest` as a devDependency in `package.json`
+- [x] `test/normalizers.test.js` — stubs for normalization tests
+- [x] `test/jaroWinkler.test.js` — stubs for similarity tests
+- [x] `test/atomicWrite.test.js` — stubs for write-temp-then-rename checks
+- [x] Install `vitest` as a devDependency in `package.json`
 
 ---
 

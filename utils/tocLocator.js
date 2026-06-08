@@ -5,10 +5,19 @@ const { PdfReader } = require('pdfreader');
  * Maps a canonical key -> array of heading patterns (case-insensitive substring match).
  */
 const SECTION_TARGETS = {
+  GENERAL_INFORMATION: [
+    'general information',
+    'general information of the company',
+  ],
+  CAPITAL_STRUCTURE: [
+    'capital structure',
+    'capital structure of the company',
+    'capitalisation statement',
+  ],
   OBJECTS_OF_THE_OFFER: [
     'objects of the offer',
     'objects of the issue',
-    'objects of this issue',
+    'object of the issue',
     'use of proceeds',
     'utilization of proceeds',
     'utilisation of net proceeds',
@@ -22,20 +31,88 @@ const SECTION_TARGETS = {
     'basis for the offer price',
     'basis for the issue price',
   ],
-  FINANCIAL_STATEMENTS: [
-    'financial statements',
+  RESTATED_FINANCIAL_STATEMENTS: [
     'restated financial statements',
-    'restated consolidated financial statements',
-    'restated standalone financial statements',
-    'audited financial statements',
-    'financial information',
+    'restated financial statement',
     'restated financial information',
+    'restated consolidated financial statements',
     'restated consolidated financial information',
+    'financial information',
+    'financial information of the company',
+    'audited financial statements',
   ],
   RISK_FACTORS: [
     'risk factors',
   ],
+  OUR_MANAGEMENT: [
+    'our management',
+  ],
+  OUR_PROMOTERS_AND_PROMOTER_GROUP: [
+    'our promoters and promoter group',
+    'our promoters & promoter group',
+    'our promoter & promoter group',
+  ],
+  DIVIDEND_POLICY: [
+    'dividend policy',
+  ],
+  INDUSTRY_OVERVIEW: [
+    'industry overview',
+  ],
+  OUR_BUSINESS: [
+    'our business',
+    'business overview',
+  ],
+  STATEMENT_OF_SPECIAL_TAX_BENEFITS: [
+    'statement of special tax benefits',
+    'statement of possible special tax benefits',
+    'statement of tax benefits',
+  ],
+  OTHER_FINANCIAL_INFORMATION: [
+    'other financial information',
+  ],
+  STATEMENT_OF_FINANCIAL_INDEBTEDNESS: [
+    'statement of financial indebtedness',
+    'financial indebtedness',
+  ],
+  OUTSTANDING_LITIGATION: [
+    'outstanding litigation',
+    'outstanding litigation and material developments',
+    'outstanding litigations and material developments',
+    'outstanding litigation and other material developments',
+  ],
+  ISSUE_PROCEDURE: [
+    'issue procedure',
+    'terms of the issue',
+    'terms of the offer',
+  ],
+  ISSUE_STRUCTURE: [
+    'issue structure',
+    'offer structure',
+  ],
+  OUR_GROUP_COMPANIES: [
+    'our group companies',
+    'our group company',
+  ],
+  KEY_REGULATIONS_AND_POLICIES: [
+    'key regulations and policies',
+    'key industry regulations and policies',
+    'key industry regulations',
+    'government and other approvals',
+    'government and other statutory approvals',
+  ],
+  HISTORY_AND_CERTAIN_CORPORATE_MATTERS: [
+    'history and certain corporate matters',
+    'history and corporate structure',
+    'our history and corporate structure',
+    'our history and certain corporate matters',
+  ],
+  ABOUT_THE_COMPANY: [
+    'about the company',
+    'about our company',
+    'about company',
+  ],
 };
+
 
 /**
  * Normalize a heading line for matching: lowercase, collapse whitespace, strip punctuation.

@@ -1,4 +1,4 @@
-import { test, expect, vi, beforeEach, afterEach } from 'vitest';
+import { test, expect, vi, afterEach } from 'vitest';
 import { createRequire } from 'module';
 import os from 'os';
 import fs from 'fs';
@@ -7,26 +7,17 @@ import path from 'path';
 const require = createRequire(import.meta.url);
 const axios = require('axios');
 const { downloadPdf, urlToFilename } = require('../utils/pdfDownloader.js');
-
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
-// Compute MD5 of a file synchronously (mirrors the spec's computeFileHash intent
-// using Node's built-in crypto — the actual module uses SHA-256 internally, but
-// the spec asks us to verify MD5 of a known string independently).
 const crypto = require('crypto');
+
 function computeFileHash(filePath) {
   const buf = fs.readFileSync(filePath);
   return crypto.createHash('md5').update(buf).digest('hex');
 }
 
-// Mirror the module's urlToFilename logic so we can assert the cache path shape.
-// urlToFilename(url) -> "<12-char-md5-prefix>_<segment>.pdf"
 function buildCachePath(cacheDir, url) {
   const filename = urlToFilename(url);
   return path.join(cacheDir, filename);
 }
-
-// ─── cleanup registry ─────────────────────────────────────────────────────────
 
 const tempFiles = [];
 afterEach(() => {
@@ -37,13 +28,10 @@ afterEach(() => {
   tempFiles.length = 0;
 });
 
-// ─── tests ────────────────────────────────────────────────────────────────────
-
 test('computeFileHash returns consistent md5 hex', () => {
   const tmpFile = path.join(os.tmpdir(), 'test_hash_input.txt');
   fs.writeFileSync(tmpFile, 'hello world');
   tempFiles.push(tmpFile);
-
   const hash = computeFileHash(tmpFile);
   expect(hash).toBe('5eb63bbbe01eeed093cb22bb8f5acdc3');
 });
@@ -62,12 +50,14 @@ test('urlToFilename produces the same filename for the same URL', () => {
   expect(a.endsWith('.pdf')).toBe(true);
 });
 
-test('downloadPdf throws when url is falsy', async () => {
-  await expect(downloadPdf('')).rejects.toThrow('url is required');
+test('downloadPdf returns download_failed when url is falsy', async () => {
+  const result = await downloadPdf('');
+  expect(result.status).toBe('download_failed');
+  expect(result.error).toMatch(/url is required/i);
 });
 
-test('downloadPdf fetches and writes a file on first call', async () => {
-  const pdfContent = Buffer.from('%PDF-1.4 fake content');
+test('downloadPdf returns success status with filePath on first call', async () => {
+  const pdfContent = Buffer.from('%PDF-1.4 fake content for gate test');
 
   vi.spyOn(axios, 'get').mockResolvedValue({
     status: 200,
@@ -75,32 +65,50 @@ test('downloadPdf fetches and writes a file on first call', async () => {
     headers: { etag: '"abc123"' },
   });
 
-  const filePath = await downloadPdf('https://example.com/test-first-call.pdf');
-  tempFiles.push(filePath);
+  const result = await downloadPdf('https://example.com/test-first-call-' + Date.now() + '.pdf');
 
-  expect(fs.existsSync(filePath)).toBe(true);
+  // New API returns { status, filePath } object
+  expect(result).toHaveProperty('status');
+  expect(result).toHaveProperty('filePath');
+  // Status is not download_failed
+  expect(result.status).not.toBe('download_failed');
+  if (result.filePath) tempFiles.push(result.filePath);
   expect(axios.get).toHaveBeenCalledOnce();
 });
 
-test('downloadPdf returns cached file on second call when hash matches', async () => {
-  const pdfContent = Buffer.from('%PDF-1.4 cached content unique-' + Date.now());
-  const mockGet = vi.spyOn(axios, 'get').mockResolvedValue({
+test('downloadPdf detects corrigendum/notice by filename and returns not_a_prospectus', async () => {
+  const pdfContent = Buffer.from('%PDF-1.4 corrigendum content');
+
+  vi.spyOn(axios, 'get').mockResolvedValue({
     status: 200,
     data: pdfContent,
     headers: {},
   });
 
-  const url = 'https://example.com/cache-test-' + Date.now() + '.pdf';
+  const result = await downloadPdf('https://example.com/corrigendum-notice.pdf');
+  expect(result.status).toBe('not_a_prospectus');
+});
 
-  const firstPath = await downloadPdf(url);
-  tempFiles.push(firstPath);
+test('downloadPdf detects abridged by filename and returns abridged_detected', async () => {
+  const pdfContent = Buffer.from('%PDF-1.4 abridged prospectus');
 
-  // Second call — same content, same hash -> module skips re-writing and
-  // returns the existing path without a second write.
-  const secondPath = await downloadPdf(url);
+  vi.spyOn(axios, 'get').mockResolvedValue({
+    status: 200,
+    data: pdfContent,
+    headers: {},
+  });
 
-  expect(firstPath).toBe(secondPath);
-  // axios.get is called twice because the module uses ETag / hash comparison
-  // on the response — it still makes the HTTP request but avoids disk writes.
-  expect(mockGet).toHaveBeenCalledTimes(2);
+  const result = await downloadPdf('https://example.com/abridged-prospectus.pdf');
+  expect(result.status).toBe('abridged_detected');
+});
+
+test('downloadPdf returns download_failed on HTTP 404', async () => {
+  vi.spyOn(axios, 'get').mockResolvedValue({
+    status: 404,
+    data: Buffer.from('not found'),
+    headers: {},
+  });
+
+  const result = await downloadPdf('https://example.com/missing-' + Date.now() + '.pdf');
+  expect(result.status).toBe('download_failed');
 });

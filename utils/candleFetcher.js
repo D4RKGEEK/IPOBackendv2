@@ -158,8 +158,21 @@ async function fetchAndMergeCandles(ipoRecords, options = {}) {
   return { updated, skipped, errors };
 }
 
+/**
+ * Fetch today's candle only for a given ISIN.
+ * @param {string} isin
+ * @param {string} accessToken
+ * @returns {Promise<object|null>}
+ */
+async function fetchTodayCandle(isin, accessToken) {
+  const today = formatDate(new Date());
+  const candles = await fetchDailyCandles(isin, today, today, accessToken);
+  return candles.length > 0 ? candles[0] : null;
+}
+
 module.exports = {
   fetchDailyCandles,
+  fetchTodayCandle,
   fetchAndMergeCandles,
   buildInstrumentKey,
   formatDate,

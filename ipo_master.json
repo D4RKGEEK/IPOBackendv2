@@ -70,7 +70,30 @@
         "noOfSharesOffered": "3435600",
         "noOfTime": "0.56"
       }
-    }
+    },
+    "ratios": {
+      "_columns": [
+        "March 31,",
+        "March 31,",
+        "March 31,"
+      ],
+      "revenueFromOperations": {
+        "fy0": 2853.18,
+        "fy1": 6.95,
+        "fy2": 1657.01
+      },
+      "totalIncome": {
+        "fy0": 2887.98,
+        "fy1": 2420.81,
+        "fy2": 1660.88
+      },
+      "_sourcePage": 62,
+      "promoterHolding": {
+        "preIssue": null,
+        "postIssue": null
+      }
+    },
+    "_enrichedAt": "2026-06-06T21:49:33.989Z"
   },
   {
     "isin": "INE0JUI01012",
@@ -141,7 +164,145 @@
         "status": "Active",
         "symbol": "HEXAGON"
       }
-    }
+    },
+    "ratios": {
+      "_columns": [
+        "December 10, 2005 and a Special Resolution passed by our Shareholder",
+        "dated December 30, 2005 and a fresh Certificate of Incorporation dated"
+      ],
+      "_sourcePage": 2,
+      "promoterHolding": {
+        "preIssue": null,
+        "postIssue": null
+      }
+    },
+    "_enrichedAt": "2026-06-06T22:00:24.599Z",
+    "sections": {
+      "GENERAL_INFORMATION": {
+        "status": "extracted",
+        "pdfPages": "127-137",
+        "pdfFile": "GENERAL_INFORMATION.pdf",
+        "mdFile": "GENERAL_INFORMATION.md"
+      },
+      "CAPITAL_STRUCTURE": {
+        "status": "extracted",
+        "pdfPages": "138-167",
+        "pdfFile": "CAPITAL_STRUCTURE.pdf",
+        "mdFile": "CAPITAL_STRUCTURE.md"
+      },
+      "OBJECTS_OF_THE_OFFER": {
+        "status": "extracted",
+        "pdfPages": "168-170",
+        "pdfFile": "OBJECTS_OF_THE_OFFER.pdf",
+        "mdFile": "OBJECTS_OF_THE_OFFER.md"
+      },
+      "BASIS_FOR_OFFER_PRICE": {
+        "status": "extracted",
+        "pdfPages": "171-197",
+        "pdfFile": "BASIS_FOR_OFFER_PRICE.pdf",
+        "mdFile": "BASIS_FOR_OFFER_PRICE.md"
+      },
+      "RESTATED_FINANCIAL_STATEMENTS": {
+        "status": "extracted",
+        "pdfPages": "114-126",
+        "pdfFile": "RESTATED_FINANCIAL_STATEMENTS.pdf",
+        "mdFile": "RESTATED_FINANCIAL_STATEMENTS.md"
+      },
+      "RISK_FACTORS": {
+        "status": "extracted",
+        "pdfPages": "30-110",
+        "pdfFile": "RISK_FACTORS.pdf",
+        "mdFile": "RISK_FACTORS.md"
+      },
+      "OUR_MANAGEMENT": {
+        "status": "extracted",
+        "pdfPages": "370-394",
+        "pdfFile": "OUR_MANAGEMENT.pdf",
+        "mdFile": "OUR_MANAGEMENT.md"
+      },
+      "OUR_PROMOTERS_AND_PROMOTER_GROUP": {
+        "status": "extracted",
+        "pdfPages": "395-399",
+        "pdfFile": "OUR_PROMOTERS_AND_PROMOTER_GROUP.pdf",
+        "mdFile": "OUR_PROMOTERS_AND_PROMOTER_GROUP.md"
+      },
+      "DIVIDEND_POLICY": {
+        "status": "extracted",
+        "pdfPages": "401-479",
+        "pdfFile": "DIVIDEND_POLICY.pdf",
+        "mdFile": "DIVIDEND_POLICY.md"
+      },
+      "INDUSTRY_OVERVIEW": {
+        "status": "skipped",
+        "reason": "endPage(204) < startPage(205)"
+      },
+      "OUR_BUSINESS": {
+        "status": "extracted",
+        "pdfPages": "270-336",
+        "pdfFile": "OUR_BUSINESS.pdf",
+        "mdFile": "OUR_BUSINESS.md"
+      },
+      "STATEMENT_OF_SPECIAL_TAX_BENEFITS": {
+        "status": "extracted",
+        "pdfPages": "198-204",
+        "pdfFile": "STATEMENT_OF_SPECIAL_TAX_BENEFITS.pdf",
+        "mdFile": "STATEMENT_OF_SPECIAL_TAX_BENEFITS.md"
+      },
+      "OTHER_FINANCIAL_INFORMATION": {
+        "status": "extracted",
+        "pdfPages": "480-481",
+        "pdfFile": "OTHER_FINANCIAL_INFORMATION.pdf",
+        "mdFile": "OTHER_FINANCIAL_INFORMATION.md"
+      },
+      "STATEMENT_OF_FINANCIAL_INDEBTEDNESS": {
+        "status": "extracted",
+        "pdfPages": "482-524",
+        "pdfFile": "STATEMENT_OF_FINANCIAL_INDEBTEDNESS.pdf",
+        "mdFile": "STATEMENT_OF_FINANCIAL_INDEBTEDNESS.md"
+      },
+      "OUTSTANDING_LITIGATION": {
+        "status": "extracted",
+        "pdfPages": "525-565",
+        "pdfFile": "OUTSTANDING_LITIGATION.pdf",
+        "mdFile": "OUTSTANDING_LITIGATION.md"
+      },
+      "ISSUE_PROCEDURE": {
+        "status": "extracted",
+        "pdfPages": "566-571",
+        "pdfFile": "ISSUE_PROCEDURE.pdf",
+        "mdFile": "ISSUE_PROCEDURE.md"
+      },
+      "ISSUE_STRUCTURE": {
+        "status": "extracted",
+        "pdfPages": "572-632",
+        "pdfFile": "ISSUE_STRUCTURE.pdf",
+        "mdFile": "ISSUE_STRUCTURE.md"
+      },
+      "OUR_GROUP_COMPANIES": {
+        "status": "extracted",
+        "pdfPages": "400-400",
+        "pdfFile": "OUR_GROUP_COMPANIES.pdf",
+        "mdFile": "OUR_GROUP_COMPANIES.md"
+      },
+      "KEY_REGULATIONS_AND_POLICIES": {
+        "status": "extracted",
+        "pdfPages": "337-346",
+        "pdfFile": "KEY_REGULATIONS_AND_POLICIES.pdf",
+        "mdFile": "KEY_REGULATIONS_AND_POLICIES.md"
+      },
+      "HISTORY_AND_CERTAIN_CORPORATE_MATTERS": {
+        "status": "extracted",
+        "pdfPages": "347-369",
+        "pdfFile": "HISTORY_AND_CERTAIN_CORPORATE_MATTERS.pdf",
+        "mdFile": "HISTORY_AND_CERTAIN_CORPORATE_MATTERS.md"
+      },
+      "ABOUT_THE_COMPANY": {
+        "status": "skipped",
+        "reason": "endPage(204) < startPage(205)"
+      }
+    },
+    "_sectionsPdfStatus": "already_parsed",
+    "_sectionsErrors": []
   },
   {
     "isin": "INE0YZ901011",
@@ -202,7 +363,143 @@
         },
         "total_subscription": "1.05"
       }
-    }
+    },
+    "ratios": {
+      "revenueFromOperations": 17,
+      "totalIncome": 4529.09,
+      "_sourcePage": 71,
+      "promoterHolding": {
+        "preIssue": null,
+        "postIssue": null
+      }
+    },
+    "_enrichedAt": "2026-06-06T21:58:02.632Z",
+    "sections": {
+      "GENERAL_INFORMATION": {
+        "status": "extracted",
+        "pdfPages": "66-79",
+        "pdfFile": "GENERAL_INFORMATION.pdf",
+        "mdFile": "GENERAL_INFORMATION.md"
+      },
+      "CAPITAL_STRUCTURE": {
+        "status": "extracted",
+        "pdfPages": "80-100",
+        "pdfFile": "CAPITAL_STRUCTURE.pdf",
+        "mdFile": "CAPITAL_STRUCTURE.md"
+      },
+      "OBJECTS_OF_THE_OFFER": {
+        "status": "extracted",
+        "pdfPages": "101-122",
+        "pdfFile": "OBJECTS_OF_THE_OFFER.pdf",
+        "mdFile": "OBJECTS_OF_THE_OFFER.md"
+      },
+      "BASIS_FOR_OFFER_PRICE": {
+        "status": "extracted",
+        "pdfPages": "123-135",
+        "pdfFile": "BASIS_FOR_OFFER_PRICE.pdf",
+        "mdFile": "BASIS_FOR_OFFER_PRICE.md"
+      },
+      "RESTATED_FINANCIAL_STATEMENTS": {
+        "status": "extracted",
+        "pdfPages": "3-23",
+        "pdfFile": "RESTATED_FINANCIAL_STATEMENTS.pdf",
+        "mdFile": "RESTATED_FINANCIAL_STATEMENTS.md"
+      },
+      "RISK_FACTORS": {
+        "status": "extracted",
+        "pdfPages": "24-65",
+        "pdfFile": "RISK_FACTORS.pdf",
+        "mdFile": "RISK_FACTORS.md"
+      },
+      "OUR_MANAGEMENT": {
+        "status": "extracted",
+        "pdfPages": "192-207",
+        "pdfFile": "OUR_MANAGEMENT.pdf",
+        "mdFile": "OUR_MANAGEMENT.md"
+      },
+      "OUR_PROMOTERS_AND_PROMOTER_GROUP": {
+        "status": "extracted",
+        "pdfPages": "208-212",
+        "pdfFile": "OUR_PROMOTERS_AND_PROMOTER_GROUP.pdf",
+        "mdFile": "OUR_PROMOTERS_AND_PROMOTER_GROUP.md"
+      },
+      "DIVIDEND_POLICY": {
+        "status": "extracted",
+        "pdfPages": "216-217",
+        "pdfFile": "DIVIDEND_POLICY.pdf",
+        "mdFile": "DIVIDEND_POLICY.md"
+      },
+      "INDUSTRY_OVERVIEW": {
+        "status": "skipped",
+        "reason": "endPage(135) < startPage(136)"
+      },
+      "OUR_BUSINESS": {
+        "status": "extracted",
+        "pdfPages": "155-177",
+        "pdfFile": "OUR_BUSINESS.pdf",
+        "mdFile": "OUR_BUSINESS.md"
+      },
+      "STATEMENT_OF_SPECIAL_TAX_BENEFITS": {
+        "status": "extracted",
+        "pdfPages": "78-138",
+        "pdfFile": "STATEMENT_OF_SPECIAL_TAX_BENEFITS.pdf",
+        "mdFile": "STATEMENT_OF_SPECIAL_TAX_BENEFITS.md"
+      },
+      "OTHER_FINANCIAL_INFORMATION": {
+        "status": "extracted",
+        "pdfPages": "218-231",
+        "pdfFile": "OTHER_FINANCIAL_INFORMATION.pdf",
+        "mdFile": "OTHER_FINANCIAL_INFORMATION.md"
+      },
+      "STATEMENT_OF_FINANCIAL_INDEBTEDNESS": {
+        "status": "extracted",
+        "pdfPages": "232-232",
+        "pdfFile": "STATEMENT_OF_FINANCIAL_INDEBTEDNESS.pdf",
+        "mdFile": "STATEMENT_OF_FINANCIAL_INDEBTEDNESS.md"
+      },
+      "OUTSTANDING_LITIGATION": {
+        "status": "extracted",
+        "pdfPages": "233-259",
+        "pdfFile": "OUTSTANDING_LITIGATION.pdf",
+        "mdFile": "OUTSTANDING_LITIGATION.md"
+      },
+      "ISSUE_PROCEDURE": {
+        "status": "extracted",
+        "pdfPages": "260-273",
+        "pdfFile": "ISSUE_PROCEDURE.pdf",
+        "mdFile": "ISSUE_PROCEDURE.md"
+      },
+      "ISSUE_STRUCTURE": {
+        "status": "extracted",
+        "pdfPages": "274-334",
+        "pdfFile": "ISSUE_STRUCTURE.pdf",
+        "mdFile": "ISSUE_STRUCTURE.md"
+      },
+      "OUR_GROUP_COMPANIES": {
+        "status": "extracted",
+        "pdfPages": "213-215",
+        "pdfFile": "OUR_GROUP_COMPANIES.pdf",
+        "mdFile": "OUR_GROUP_COMPANIES.md"
+      },
+      "KEY_REGULATIONS_AND_POLICIES": {
+        "status": "extracted",
+        "pdfPages": "178-185",
+        "pdfFile": "KEY_REGULATIONS_AND_POLICIES.pdf",
+        "mdFile": "KEY_REGULATIONS_AND_POLICIES.md"
+      },
+      "HISTORY_AND_CERTAIN_CORPORATE_MATTERS": {
+        "status": "extracted",
+        "pdfPages": "186-191",
+        "pdfFile": "HISTORY_AND_CERTAIN_CORPORATE_MATTERS.pdf",
+        "mdFile": "HISTORY_AND_CERTAIN_CORPORATE_MATTERS.md"
+      },
+      "ABOUT_THE_COMPANY": {
+        "status": "skipped",
+        "reason": "endPage(135) < startPage(136)"
+      }
+    },
+    "_sectionsPdfStatus": "already_parsed",
+    "_sectionsErrors": []
   },
   {
     "isin": "INE0H3U01013",
@@ -263,7 +560,187 @@
         },
         "total_subscription": "6.52"
       }
-    }
+    },
+    "ratios": {
+      "_columns": [
+        "financial years ended on March 31, 202",
+        ", March 31, 202",
+        "March 31, 202",
+        "and the period ended September 30,"
+      ],
+      "equityShareCapital": {
+        "fy1": 606.39,
+        "fy2": 536.78,
+        "fy3": 5
+      },
+      "netWorth": {
+        "fy1": 1201.45,
+        "fy2": 686.99,
+        "fy3": 68.24
+      },
+      "revenueFromOperations": {
+        "fy1": 1652.47,
+        "fy2": 2374.71,
+        "fy3": 745.74
+      },
+      "netProfit": {
+        "fy1": 207.76,
+        "fy2": 258.22,
+        "fy3": 16.94
+      },
+      "basicEPS": {
+        "fy1": 3.25,
+        "fy2": 4.99,
+        "fy3": 0.32
+      },
+      "dilutedEPS": {
+        "fy1": 3.25,
+        "fy2": 4.99,
+        "fy3": 0.32
+      },
+      "navPerShare": {
+        "fy1": 19.81,
+        "fy2": 12.8,
+        "fy3": 136.48
+      },
+      "totalBorrowings": {
+        "fy1": 793.28,
+        "fy2": 1125.35,
+        "fy3": 276.79
+      },
+      "_sourcePage": 27,
+      "promoterHolding": {
+        "preIssue": null,
+        "postIssue": null
+      }
+    },
+    "sections": {
+      "GENERAL_INFORMATION": {
+        "status": "extracted",
+        "pdfPages": "58-66",
+        "pdfFile": "GENERAL_INFORMATION.pdf",
+        "mdFile": "GENERAL_INFORMATION.md"
+      },
+      "CAPITAL_STRUCTURE": {
+        "status": "extracted",
+        "pdfPages": "67-81",
+        "pdfFile": "CAPITAL_STRUCTURE.pdf",
+        "mdFile": "CAPITAL_STRUCTURE.md"
+      },
+      "OBJECTS_OF_THE_OFFER": {
+        "status": "extracted",
+        "pdfPages": "82-99",
+        "pdfFile": "OBJECTS_OF_THE_OFFER.pdf",
+        "mdFile": "OBJECTS_OF_THE_OFFER.md"
+      },
+      "BASIS_FOR_OFFER_PRICE": {
+        "status": "extracted",
+        "pdfPages": "100-112",
+        "pdfFile": "BASIS_FOR_OFFER_PRICE.pdf",
+        "mdFile": "BASIS_FOR_OFFER_PRICE.md"
+      },
+      "RESTATED_FINANCIAL_STATEMENTS": {
+        "status": "extracted",
+        "pdfPages": "53-57",
+        "pdfFile": "RESTATED_FINANCIAL_STATEMENTS.pdf",
+        "mdFile": "RESTATED_FINANCIAL_STATEMENTS.md"
+      },
+      "RISK_FACTORS": {
+        "status": "extracted",
+        "pdfPages": "28-52",
+        "pdfFile": "RISK_FACTORS.pdf",
+        "mdFile": "RISK_FACTORS.md"
+      },
+      "OUR_MANAGEMENT": {
+        "status": "extracted",
+        "pdfPages": "153-168",
+        "pdfFile": "OUR_MANAGEMENT.pdf",
+        "mdFile": "OUR_MANAGEMENT.md"
+      },
+      "OUR_PROMOTERS_AND_PROMOTER_GROUP": {
+        "status": "extracted",
+        "pdfPages": "26-86",
+        "pdfFile": "OUR_PROMOTERS_AND_PROMOTER_GROUP.pdf",
+        "mdFile": "OUR_PROMOTERS_AND_PROMOTER_GROUP.md"
+      },
+      "DIVIDEND_POLICY": {
+        "status": "extracted",
+        "pdfPages": "171-222",
+        "pdfFile": "DIVIDEND_POLICY.pdf",
+        "mdFile": "DIVIDEND_POLICY.md"
+      },
+      "INDUSTRY_OVERVIEW": {
+        "status": "skipped",
+        "reason": "endPage(112) < startPage(113)"
+      },
+      "OUR_BUSINESS": {
+        "status": "extracted",
+        "pdfPages": "126-139",
+        "pdfFile": "OUR_BUSINESS.pdf",
+        "mdFile": "OUR_BUSINESS.md"
+      },
+      "STATEMENT_OF_SPECIAL_TAX_BENEFITS": {
+        "status": "extracted",
+        "pdfPages": "5-65",
+        "pdfFile": "STATEMENT_OF_SPECIAL_TAX_BENEFITS.pdf",
+        "mdFile": "STATEMENT_OF_SPECIAL_TAX_BENEFITS.md"
+      },
+      "OTHER_FINANCIAL_INFORMATION": {
+        "status": "extracted",
+        "pdfPages": "179-239",
+        "pdfFile": "OTHER_FINANCIAL_INFORMATION.pdf",
+        "mdFile": "OTHER_FINANCIAL_INFORMATION.md"
+      },
+      "STATEMENT_OF_FINANCIAL_INDEBTEDNESS": {
+        "status": "extracted",
+        "pdfPages": "223-241",
+        "pdfFile": "STATEMENT_OF_FINANCIAL_INDEBTEDNESS.pdf",
+        "mdFile": "STATEMENT_OF_FINANCIAL_INDEBTEDNESS.md"
+      },
+      "OUTSTANDING_LITIGATION": {
+        "status": "extracted",
+        "pdfPages": "242-272",
+        "pdfFile": "OUTSTANDING_LITIGATION.pdf",
+        "mdFile": "OUTSTANDING_LITIGATION.md"
+      },
+      "ISSUE_PROCEDURE": {
+        "status": "extracted",
+        "pdfPages": "273-282",
+        "pdfFile": "ISSUE_PROCEDURE.pdf",
+        "mdFile": "ISSUE_PROCEDURE.md"
+      },
+      "ISSUE_STRUCTURE": {
+        "status": "extracted",
+        "pdfPages": "283-343",
+        "pdfFile": "ISSUE_STRUCTURE.pdf",
+        "mdFile": "ISSUE_STRUCTURE.md"
+      },
+      "OUR_GROUP_COMPANIES": {
+        "status": "extracted",
+        "pdfPages": "169-170",
+        "pdfFile": "OUR_GROUP_COMPANIES.pdf",
+        "mdFile": "OUR_GROUP_COMPANIES.md"
+      },
+      "KEY_REGULATIONS_AND_POLICIES": {
+        "status": "extracted",
+        "pdfPages": "140-147",
+        "pdfFile": "KEY_REGULATIONS_AND_POLICIES.pdf",
+        "mdFile": "KEY_REGULATIONS_AND_POLICIES.md"
+      },
+      "HISTORY_AND_CERTAIN_CORPORATE_MATTERS": {
+        "status": "extracted",
+        "pdfPages": "148-152",
+        "pdfFile": "HISTORY_AND_CERTAIN_CORPORATE_MATTERS.pdf",
+        "mdFile": "HISTORY_AND_CERTAIN_CORPORATE_MATTERS.md"
+      },
+      "ABOUT_THE_COMPANY": {
+        "status": "skipped",
+        "reason": "endPage(112) < startPage(113)"
+      }
+    },
+    "_sectionsPdfStatus": "already_parsed",
+    "_sectionsErrors": [],
+    "_enrichedAt": "2026-06-06T21:55:08.057Z"
   },
   {
     "isin": "INE00WV01027",

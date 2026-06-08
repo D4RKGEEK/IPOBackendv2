@@ -1,68 +1,17 @@
 {
-  "https://example.com/test-first-call.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/22b54ae81154_test-first-call.pdf",
+  "https://example.com/test-first-call-1780784241476.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/5df19428cd13_test-first-call-1780784241476.pdf",
     "etag": "\"abc123\"",
-    "sha256": "3b43ec6ec0c8acdacd3d7fbf26014157f8b2290a7c9a84d518f9fbe410d96b72",
-    "downloadedAt": "2026-06-06T20:56:47.729Z"
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-06T22:17:21.479Z"
   },
-  "https://example.com/cache-test-1780777383129.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/ee3714344b90_cache-test-1780777383129.pdf",
-    "etag": null,
-    "sha256": "e41519d1891081dda48f367bde13102fb1bc80da9926cbf4ace05f3ef64c4c59",
-    "downloadedAt": "2026-06-06T20:23:03.129Z"
+  "https://example.com/corrigendum-notice.pdf": {
+    "status": "not_a_prospectus",
+    "checkedAt": "2026-06-06T22:17:21.485Z"
   },
-  "https://example.com/cache-test-1780777858470.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/dd9299b6d378_cache-test-1780777858470.pdf",
-    "etag": null,
-    "sha256": "0c15cdb74139ee5fc70f941f25b577152ac31c29a4822cde10c1213dc294aa24",
-    "downloadedAt": "2026-06-06T20:30:58.470Z"
-  },
-  "https://example.com/cache-test-1780777881378.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/b31cb53dbc2b_cache-test-1780777881378.pdf",
-    "etag": null,
-    "sha256": "7c503b763f6d9a43967d953ba87a9348f74674b8969541137b966866a0693011",
-    "downloadedAt": "2026-06-06T20:31:21.379Z"
-  },
-  "https://example.com/cache-test-1780777928906.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/bbfb8aa6833a_cache-test-1780777928906.pdf",
-    "etag": null,
-    "sha256": "5f19de1606294992900592049a4c5ec208e798f3dab19618b5743edb6009be2a",
-    "downloadedAt": "2026-06-06T20:32:08.906Z"
-  },
-  "https://example.com/cache-test-1780777973987.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/205916983314_cache-test-1780777973987.pdf",
-    "etag": null,
-    "sha256": "be7477922c08b5063ad52733fad47e45ae262836ade2af4e1716be747edfa86d",
-    "downloadedAt": "2026-06-06T20:32:53.987Z"
-  },
-  "https://example.com/cache-test-1780778366827.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/3cacd232a3ab_cache-test-1780778366827.pdf",
-    "etag": null,
-    "sha256": "46e68c5f0d5bf0515f3659d35f325d9a63e9931e167d09f066af5ab61e44fdbf",
-    "downloadedAt": "2026-06-06T20:39:26.827Z"
-  },
-  "https://example.com/cache-test-1780778408436.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/2f48ac0ea8e2_cache-test-1780778408436.pdf",
-    "etag": null,
-    "sha256": "e47d3d4ffbc0ad6e24aacc9b8d3f0796f486b118ce130918f435c08529866b40",
-    "downloadedAt": "2026-06-06T20:40:08.437Z"
-  },
-  "https://example.com/cache-test-1780779264742.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/b21e85d794ab_cache-test-1780779264742.pdf",
-    "etag": null,
-    "sha256": "a18fac3378685d443ef829892c1b9855498c0e9ade257b1ca99a03ccb2a2bf29",
-    "downloadedAt": "2026-06-06T20:54:24.743Z"
-  },
-  "https://example.com/cache-test-1780779314337.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/e36f706b8b2a_cache-test-1780779314337.pdf",
-    "etag": null,
-    "sha256": "3ab55743170b4515cbea80a02766dff3115aed7cabbf78bcba9a8be48d2900ad",
-    "downloadedAt": "2026-06-06T20:55:14.337Z"
-  },
-  "https://example.com/cache-test-1780779407733.pdf": {
-    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/ad0e3d826678_cache-test-1780779407733.pdf",
-    "etag": null,
-    "sha256": "a56ce469fa02e98b21e4bacf27d21a4d859ce5edde40dc5310fae935b0e5b91c",
-    "downloadedAt": "2026-06-06T20:56:47.737Z"
+  "https://example.com/abridged-prospectus.pdf": {
+    "status": "abridged_detected",
+    "checkedAt": "2026-06-06T22:17:21.486Z"
   }
 }

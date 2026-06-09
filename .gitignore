@@ -19,6 +19,9 @@ downloads/
 # Generated extraction output
 out/
 
+# Cached downloaded PDFs (keep the small cache_index.json)
+pdf_cache/*.pdf
+
 # Session cookies (regenerated, sensitive)
 nse_cookies_http1.json
 *cookies*.json

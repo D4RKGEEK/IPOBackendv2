@@ -136,4 +136,13 @@ async function deleteBySlug(slug) {
   return collections.ipos().deleteOne({ slug });
 }
 
-module.exports = { upsertRecord, findBySlug, query, deleteBySlug, findExisting, resolveSlug, diffFields };
+/** Append an error to an IPO's rolling log (keeps the last 5 per the data model). */
+async function recordError(slug, operation, message) {
+  const entry = { operation, error: String(message), at: new Date().toISOString() };
+  await collections.ipos().updateOne(
+    { slug },
+    { $push: { errors: { $each: [entry], $slice: -5 } } },
+  );
+}
+
+module.exports = { upsertRecord, findBySlug, query, deleteBySlug, recordError, findExisting, resolveSlug, diffFields };

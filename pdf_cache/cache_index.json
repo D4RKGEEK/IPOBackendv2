@@ -146,5 +146,54 @@
     "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
     "status": "success",
     "downloadedAt": "2026-06-09T12:13:37.835Z"
+  },
+  "https://example.com/test-first-call-1781007513810.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/6092b2b01cf8_test-first-call-1781007513810.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:18:33.812Z"
+  },
+  "https://example.com/test-first-call-1781007532659.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/2709cc54e268_test-first-call-1781007532659.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:18:52.661Z"
+  },
+  "https://example.com/test-first-call-1781007624659.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/8063b1a578ab_test-first-call-1781007624659.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:20:24.662Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/genxai-analytics-rhp.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/ab5bc624f2c1_genxai-analytics-rhp.pdf",
+    "etag": "W/\"54a9fe411198411d6f7245c1c5586bff\"",
+    "sha256": "5278d8ed2130d986061d0eabaa40d6cf3bfbc260b890d00b016b9098e483d089",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:24:49.152Z"
+  },
+  "https://example.com/test-first-call-1781007943950.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/ce3c9a07fc09_test-first-call-1781007943950.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:25:43.953Z"
+  },
+  "https://example.com/test-first-call-1781008218918.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/86b5d0ce8375_test-first-call-1781008218918.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:30:18.921Z"
+  },
+  "https://example.com/test-first-call-1781008502861.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/242d95dd9080_test-first-call-1781008502861.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:35:02.862Z"
   }
 }

@@ -25,6 +25,13 @@ async function findExisting(record) {
     const bySym = await ipos.findOne({ symbol: record.symbol });
     if (bySym) return bySym;
   }
+  // Fallback: same slug = same company. Catches cross-source records that lack a
+  // shared ISIN/symbol (e.g. rumoured upcoming IPOs with no identifiers/dates),
+  // which would otherwise collide on the unique slug index.
+  if (record.companyName) {
+    const bySlug = await ipos.findOne({ slug: slugify(record.companyName) });
+    if (bySlug) return bySlug;
+  }
   return null;
 }
 
@@ -61,9 +68,24 @@ async function upsertRecord(record, opts = {}) {
 
   if (!existing) {
     const doc = { ...incoming, createdAt: now };
-    await ipos.insertOne(doc);
-    return { action: 'new', slug, changes: [] };
+    try {
+      await ipos.insertOne(doc);
+      return { action: 'new', slug, changes: [] };
+    } catch (e) {
+      if (e.code !== 11000) throw e;
+      // Lost a race / slug already taken — fall through to merge into it.
+      const clash = await ipos.findOne({ slug });
+      if (!clash) throw e;
+      return upsertInto(clash, incoming, now);
+    }
   }
+
+  return upsertInto(existing, incoming, now);
+}
+
+/** Merge incoming into an existing doc; returns {action, slug, changes}. */
+async function upsertInto(existing, incoming, now) {
+  const ipos = collections.ipos();
 
   // Merge: documents/sources/raw_sources deep-merge; scalars prefer incoming-if-present.
   const merged = mergePreferIncoming(existing, incoming);
@@ -78,11 +100,11 @@ async function upsertRecord(record, opts = {}) {
   if (changes.length === 0) {
     // touch source lastFetched only
     await ipos.updateOne({ _id: existing._id }, { $set: { sources: merged.sources } });
-    return { action: 'unchanged', slug, changes: [] };
+    return { action: 'unchanged', slug: merged.slug, changes: [] };
   }
   merged.updatedAt = now;
   await ipos.updateOne({ _id: existing._id }, { $set: merged });
-  return { action: 'updated', slug, changes };
+  return { action: 'updated', slug: merged.slug, changes };
 }
 
 /** Which meaningful top-level fields changed (ignores timestamps/sources/raw). */

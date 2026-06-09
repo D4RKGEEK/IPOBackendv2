@@ -55,9 +55,11 @@ function pageOverlap(rhpHashes, drhpHashes) {
  * @returns {Promise<object>} result for this docType
  */
 async function processOne(ipo, docType, opts = {}) {
+  const log = opts.log || (() => {});
   const docMeta = (ipo.documents || {})[docType];
   const url = docMeta && docMeta.url;
   if (!url) return { status: 'error', reason: 'no_document_url' };
+  log(`${docType}: downloading ${url.slice(0, 80)}`);
 
   // 1. Download
   let dl;
@@ -81,6 +83,7 @@ async function processOne(ipo, docType, opts = {}) {
   const pageHashes = pages.map(sha256);
   const cover = classifyFromCoverText(pages[0] || '');
   const confirmedType = cover ? cover.docType : docType;
+  log(`${docType}: ${pages.length} pages, cover says "${confirmedType}"`);
 
   // 3. DRHP/RHP overlap dedup — skip RHP re-extraction if mostly in DRHP
   let overlapInfo = null;
@@ -88,23 +91,27 @@ async function processOne(ipo, docType, opts = {}) {
     const { overlap, uniquePages } = pageOverlap(pageHashes, ipo.documents.drhp.pageHashes);
     overlapInfo = { overlap, uniquePages };
     const ratio = pageHashes.length ? overlap / pageHashes.length : 0;
+    log(`${docType}: overlaps DRHP by ${overlap}/${pageHashes.length} pages (${uniquePages} unique)`);
     if (ratio >= OVERLAP_SKIP && !opts.reUpload) {
       const stored = {
         ...docMeta, pageCount: pages.length, pageHashes,
         confirmedType, overlap, uniquePages, status: 'skipped', uploadedAt: new Date().toISOString(),
       };
       await saveDocMeta(ipo.slug, docType, stored);
+      log(`${docType}: skipped extraction (mostly in DRHP)`);
       return { status: 'skipped', reason: 'mostly overlaps DRHP', overlap, uniquePages, pageCount: pages.length };
     }
   }
 
   // 4. R2 archive + Firecrawl markdown (cached unless reUpload)
+  log(`${docType}: uploading to R2 + Firecrawl markdown...`);
   let pipe;
   try {
     pipe = await pipelineProcess({ symbol: ipo.symbol || ipo.slug, docType, localPath, force: opts.reUpload });
   } catch (e) {
     return { status: 'error', reason: `pipeline_failed: ${e.message}` };
   }
+  log(`${docType}: markdown ${pipe.cached ? 'cached' : 'generated'} → ${pipe.mdUrl}`);
 
   // 5. Sections (from page text; markdown also fine)
   const sections = detectSections(pages.join(' ').slice(0, 200000));

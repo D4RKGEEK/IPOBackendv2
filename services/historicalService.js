@@ -32,6 +32,7 @@ function deriveHistorical(candles, issuePrice) {
  * @param {object} [opts] { status?: 'listed', since?: 'YYYY-MM-DD', limit?: number, accessToken? }
  */
 async function runHistorical(opts = {}) {
+  const log = opts.log || (() => {});
   const ipos = collections.ipos();
   const token = opts.accessToken || process.env.UPSTOX_ACCESS_TOKEN;
   if (!token) return { processed: 0, results: [], skipped: [{ reason: 'missing UPSTOX_ACCESS_TOKEN' }] };
@@ -40,6 +41,7 @@ async function runHistorical(opts = {}) {
   if (opts.since) filter.listingDate = { $gte: opts.since };
   const limit = Math.min(100, opts.limit || 10);
   const targets = await ipos.find(filter).limit(limit).toArray();
+  log(`${targets.length} listed IPOs to process`);
 
   const results = [];
   const skipped = [];
@@ -53,6 +55,7 @@ async function runHistorical(opts = {}) {
       const hist = deriveHistorical(candles, issuePrice);
       if (!hist) { skipped.push({ slug: ipo.slug, reason: 'no candle data' }); continue; }
       await ipos.updateOne({ slug: ipo.slug }, { $set: { historical: hist, updatedAt: now } });
+      log(`${ipo.slug}: listing ${hist.listingPrice} → current ${hist.currentPrice} (${hist.openingGain}%)`);
       results.push({ slug: ipo.slug, isin: ipo.isin, listingDate: ipo.listingDate, ...hist });
     } catch (e) {
       skipped.push({ slug: ipo.slug, reason: e.message });

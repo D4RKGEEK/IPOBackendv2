@@ -39,6 +39,7 @@ const ALL_SOURCES = Object.keys(DEFAULT_FETCHERS);
  * @returns {Promise<object>} summary { scraped, details, errors, perSource }
  */
 async function runScrape(opts = {}) {
+  const log = opts.log || (() => {});
   const fetchers = opts.fetchers || DEFAULT_FETCHERS;
   const sources = (opts.sources && opts.sources.length ? opts.sources : ALL_SOURCES)
     .filter((s) => { if (fetchers[s]) return true; return false; });
@@ -46,14 +47,17 @@ async function runScrape(opts = {}) {
   const perSource = {};
   const all = [];
 
+  log(`scraping sources: ${sources.join(', ')}`);
   await Promise.all(sources.map(async (s) => {
     try {
       const recs = await fetchers[s]();
       perSource[s] = Array.isArray(recs) ? recs.length : 0;
       if (Array.isArray(recs)) all.push(...recs);
+      log(`fetched ${perSource[s]} from ${s}`);
     } catch (e) {
       perSource[s] = 0;
       errors.push({ source: s, error: e.message });
+      log(`source ${s} failed: ${e.message}`);
     }
   }));
   // Unknown sources requested
@@ -62,8 +66,10 @@ async function runScrape(opts = {}) {
   }
 
   const { master } = deduplicateRecords(all);
+  log(`merged ${all.length} raw → ${master.length} unique IPOs`);
 
   if (opts.dryRun) {
+    log('dryRun: skipping DB writes');
     return { dryRun: true, perSource, wouldUpsert: master.length, scraped: { new: 0, updated: 0, unchanged: 0, errors: errors.length }, errors };
   }
 
@@ -79,6 +85,7 @@ async function runScrape(opts = {}) {
       errors.push({ slug: rec.symbol || rec.companyName, error: e.message });
     }
   }
+  log(`upsert done — new ${scraped.new}, updated ${scraped.updated}, unchanged ${scraped.unchanged}, errors ${scraped.errors}`);
   return { scraped, details, errors, perSource };
 }
 

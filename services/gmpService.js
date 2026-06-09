@@ -31,6 +31,7 @@ function matchGmp(ipo, gmpList) {
  * @param {object} [opts] { slugs?: string[], status?: 'open'|'upcoming'|'all' }
  */
 async function runGmp(opts = {}) {
+  const log = opts.log || (() => {});
   const ipos = collections.ipos();
   const now = new Date().toISOString();
 
@@ -43,6 +44,7 @@ async function runGmp(opts = {}) {
   }
 
   const gmpList = await fetchGmpList();
+  log(`fetched ${gmpList.length} InvestorGain entries; ${targets.length} target IPOs`);
   const results = [];
   const skipped = [];
 
@@ -74,6 +76,7 @@ async function runGmp(opts = {}) {
       );
       if (r.upsertedCount) added++;
     }
+    log(`matched ${ipo.slug} — gmp ${gmp.value} (${percentage}%), +${added} history points`);
     results.push({ slug: ipo.slug, gmp, historyPoints: series.length, newHistoryPoints: added, source: 'investorgain' });
   }
 

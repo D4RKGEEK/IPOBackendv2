@@ -13,7 +13,7 @@ const { runScrape, ALL_SOURCES } = require('./services/scrapeService');
 const { processDocuments } = require('./services/documentService');
 const { runGmp } = require('./services/gmpService');
 const { runHistorical } = require('./services/historicalService');
-const { createJob, completeJob, failJob, getJob, listJobs } = require('./db/jobRepository');
+const { createJob, appendLog, completeJob, failJob, getJob, listJobs } = require('./db/jobRepository');
 
 function buildApp() {
   const app = express();
@@ -23,6 +23,37 @@ function buildApp() {
     console.error(`[api] ${req.method} ${req.path}:`, e.message);
     res.status(500).json({ error: e.message });
   });
+
+  /**
+   * Run a POST operation as a tracked job. fn(log) does the work and returns the
+   * result. Long ops run async by default (return jobId, poll /jobs/:id); pass
+   * { wait:true } in the body to run synchronously. Short ops omit longOp.
+   */
+  async function runTracked(res, { type, params, longOp = false, wait = false }, fn) {
+    const jobId = await createJob(type, params);
+    // Serialize log writes so they persist in call order (services call log() without await).
+    let logChain = Promise.resolve();
+    const log = (msg) => { logChain = logChain.then(() => appendLog(jobId, msg)); return logChain; };
+    const exec = async () => {
+      const t0 = Date.now();
+      try {
+        const result = await fn(log);
+        await logChain; // ensure all milestone logs are flushed before result
+        await completeJob(jobId, result, Date.now() - t0);
+        return result;
+      } catch (e) {
+        await logChain;
+        await failJob(jobId, e.message, Date.now() - t0);
+        throw e;
+      }
+    };
+    if (longOp && !wait) {
+      exec().catch(() => {}); // tracked via the job; errors recorded there
+      return res.status(202).json({ jobId, status: 'running', poll: `/jobs/${jobId}` });
+    }
+    const result = await exec();
+    return res.json({ jobId, status: 'completed', ...result });
+  }
 
   // ── Index card projection for GET /ipos ────────────────────────────────────
   function toCard(doc) {
@@ -93,34 +124,20 @@ function buildApp() {
   // Body: { sources?, dryRun?, force?, async? }. Synchronous by default (returns
   // summary); pass async:true to get a jobId immediately and poll GET /jobs/:id.
   app.post('/ipos/scrape', asyncH(async (req, res) => {
-    const { sources, dryRun = false, force = false, async: isAsync = false } = req.body || {};
-    const params = { sources: sources || ALL_SOURCES, dryRun, force };
-    const jobId = await createJob('scrape', params);
-
-    if (isAsync) {
-      runScrape({ sources, dryRun, force })
-        .then((summary) => completeJob(jobId, summary))
-        .catch((e) => failJob(jobId, e.message));
-      return res.status(202).json({ jobId, status: 'running', poll: `/jobs/${jobId}` });
-    }
-
-    try {
-      const summary = await runScrape({ sources, dryRun, force });
-      await completeJob(jobId, summary);
-      res.json({ jobId, ...summary });
-    } catch (e) {
-      await failJob(jobId, e.message);
-      throw e;
-    }
+    const { sources, dryRun = false, force = false, wait = false } = req.body || {};
+    await runTracked(res,
+      { type: 'scrape', params: { sources: sources || ALL_SOURCES, dryRun, force }, longOp: true, wait },
+      (log) => runScrape({ sources, dryRun, force, log }));
   }));
 
   // API 4: POST /ipos/:slug/documents — extract & upload PDFs
   // Body: { documents?: ["drhp","rhp"], reUpload?: false }
   app.post('/ipos/:slug/documents', asyncH(async (req, res) => {
-    const { documents, reUpload = false } = req.body || {};
-    const out = await processDocuments(req.params.slug, { documents, reUpload });
-    if (out.error) return res.status(404).json(out);
-    res.json(out);
+    const { documents, reUpload = false, wait = false } = req.body || {};
+    if (!(await findBySlug(req.params.slug))) return res.status(404).json({ error: 'IPO not found', slug: req.params.slug });
+    await runTracked(res,
+      { type: 'documents', params: { slug: req.params.slug, documents, reUpload }, longOp: true, wait },
+      (log) => processDocuments(req.params.slug, { documents, reUpload, log }));
   }));
 
   // GET /ipos/:slug/history — GMP / status time series
@@ -138,13 +155,13 @@ function buildApp() {
   // API 5: POST /ipos/gmp — scrape GMP (open/upcoming only), store + time-series
   app.post('/ipos/gmp', asyncH(async (req, res) => {
     const { slugs, status } = req.body || {};
-    res.json(await runGmp({ slugs, status }));
+    await runTracked(res, { type: 'gmp', params: { slugs, status } }, (log) => runGmp({ slugs, status, log }));
   }));
 
   // API 6: POST /ipos/historical — post-listing price data for listed IPOs
   app.post('/ipos/historical', asyncH(async (req, res) => {
     const { status, since, limit } = req.body || {};
-    res.json(await runHistorical({ status, since, limit }));
+    await runTracked(res, { type: 'historical', params: { status, since, limit } }, (log) => runHistorical({ status, since, limit, log }));
   }));
 
   // POST /ipos/:slug/retry — retry failed document extraction
@@ -155,8 +172,10 @@ function buildApp() {
     const errored = Object.entries(ipo.documents || {}).filter(([, m]) => m && m.status === 'error').map(([t]) => t);
     const documents = (req.body && req.body.documents) || errored;
     if (!documents.length) return res.json({ retried: [], message: 'nothing in error state' });
-    const out = await processDocuments(req.params.slug, { documents, reUpload: true });
-    res.json({ retried: documents, result: out });
+    const wait = !!(req.body && req.body.wait);
+    await runTracked(res,
+      { type: 'retry', params: { slug: req.params.slug, documents }, longOp: true, wait },
+      async (log) => ({ retried: documents, result: await processDocuments(req.params.slug, { documents, reUpload: true, log }) }));
   }));
 
   // DELETE /ipos/:slug — remove IPO + its documents (R2) + GMP history

@@ -202,5 +202,12 @@
     "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
     "status": "success",
     "downloadedAt": "2026-06-09T12:48:46.783Z"
+  },
+  "https://example.com/test-first-call-1781010450555.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/2c8a9b24750b_test-first-call-1781010450555.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T13:07:30.558Z"
   }
 }

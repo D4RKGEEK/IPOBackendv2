@@ -117,14 +117,21 @@ async function query(q = {}) {
     ];
   }
 
-  const sortField = ({ listingDate: 'listingDate', name: 'companyName', createdAt: 'createdAt' })[q.sort] || 'createdAt';
+  // Default: latest IPOs first (by bidding date), then most-recently-updated.
+  const sortField = ({
+    listingDate: 'listingDate', name: 'companyName', createdAt: 'createdAt',
+    biddingStart: 'biddingStart', date: 'biddingStart', latest: 'biddingStart',
+  })[q.sort] || 'biddingStart';
   const order = q.order === 'asc' ? 1 : -1;
+  const sortSpec = sortField === 'companyName'
+    ? { companyName: order }
+    : { [sortField]: order, updatedAt: -1, createdAt: -1 };
   const page = Math.max(1, parseInt(q.page, 10) || 1);
   const limit = Math.min(200, Math.max(1, parseInt(q.limit, 10) || 50));
 
   const total = await ipos.countDocuments(filter);
   const data = await ipos.find(filter)
-    .sort({ [sortField]: order })
+    .sort(sortSpec)
     .skip((page - 1) * limit)
     .limit(limit)
     .toArray();

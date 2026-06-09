@@ -70,7 +70,7 @@ test('fetchUpstoxIpos queries list and detail and handles standard flow', async 
   });
 
   const ipos = await fetchUpstoxIpos();
-  expect(ipos.length).toBe(4); // 4 statuses
+  expect(ipos.length).toBe(3); // 3 statuses (upcoming, open, closed — listed dropped)
   expect(ipos[0].symbol).toBe('TEST');
   expect(ipos[0].priceBand.minimum).toBe(100);
   expect(mockGet).toHaveBeenCalled();

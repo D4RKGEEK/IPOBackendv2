@@ -152,6 +152,7 @@ async function fetchGrowwIpos(opts = {}) {
   const statuses = opts.statuses || ['open', 'upcoming', 'closed'];
   const fetchDetails = opts.fetchDetails !== false;
   const docsOnly = opts.docsOnly === true;
+  const includeListed = opts.includeListed === true; // listed IPOs no longer update
   const delay = opts.detailDelayMs ?? 120;
 
   // Collect list items per bucket, de-duplicating within Groww by searchId/symbol.
@@ -183,6 +184,7 @@ async function fetchGrowwIpos(opts = {}) {
       if (delay) await sleep(delay);
     }
     const rec = mapGrowwRecord(item, detail, bucket);
+    if (!includeListed && rec.status === 'listed') continue; // skip listed — no updates
     if (docsOnly && rec.raw_sources.groww) {
       // Keep only what's needed to collect documents; drop financials/subscription/about.
       const g = rec.raw_sources.groww;

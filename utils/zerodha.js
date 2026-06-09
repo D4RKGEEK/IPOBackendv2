@@ -176,6 +176,7 @@ function mapZerodhaRecord(row, prospectusUrl, now = new Date()) {
  */
 async function fetchZerodhaIpos(opts = {}) {
   const fetchDetails = opts.fetchDetails !== false;
+  const includeListed = opts.includeListed === true; // listed IPOs no longer update
   const delay = opts.detailDelayMs ?? 150;
   const now = new Date();
 
@@ -190,6 +191,12 @@ async function fetchZerodhaIpos(opts = {}) {
   const records = [];
   let count = 0;
   for (const row of rows) {
+    // Skip listed IPOs up front (no updates) — also avoids their detail fetch.
+    if (!includeListed) {
+      const { start, end } = parseDateRange(row.biddingRange);
+      const ld = parseIndianDate(row.listingDateText);
+      if (inferStatus(start, end, ld ? formatDateISO(ld) : null, now) === 'listed') continue;
+    }
     let prospectusUrl = null;
     if (fetchDetails && (opts.maxDetails == null || count < opts.maxDetails)) {
       try {

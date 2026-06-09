@@ -19,9 +19,13 @@ const { upsertRecord } = require('../db/ipoRepository');
 
 const ROOT = path.join(__dirname, '..');
 
+// NSE has no clean listed/closed split, so limit its "past" window to recent
+// issues (still in the closed/allotment phase) rather than 4 years of history.
+const NSE_PAST_DAYS = 120;
+
 const DEFAULT_FETCHERS = {
   upstox: () => fetchUpstoxIpos(),
-  nse: () => fetchNseIpos(ROOT, new Date('2022-01-01'), new Date()),
+  nse: () => fetchNseIpos(ROOT, new Date(Date.now() - NSE_PAST_DAYS * 864e5), new Date()),
   groww: () => fetchGrowwIpos(),
   zerodha: () => fetchZerodhaIpos(),
 };
@@ -65,8 +69,12 @@ async function runScrape(opts = {}) {
     if (!fetchers[s]) errors.push({ source: s, error: 'unknown source' });
   }
 
-  const { master } = deduplicateRecords(all);
-  log(`merged ${all.length} raw → ${master.length} unique IPOs`);
+  let { master } = deduplicateRecords(all);
+  // Final guard: never persist listed IPOs (they no longer change).
+  const beforeListed = master.length;
+  master = master.filter((r) => r.status !== 'listed');
+  if (beforeListed !== master.length) log(`dropped ${beforeListed - master.length} listed IPOs`);
+  log(`merged ${all.length} raw → ${master.length} active IPOs`);
 
   if (opts.dryRun) {
     log('dryRun: skipping DB writes');

@@ -12,14 +12,18 @@ function sleep(ms) {
 /**
  * Helper to execute HTTP request with retry logic for 429 rate limit
  */
-async function requestWithRetry(url, options, retries = 3, delay = 1000) {
+async function requestWithRetry(url, options, retries = 5, delay = 1500) {
   try {
     return await axios.get(url, options);
   } catch (error) {
-    if (error.response && error.response.status === 429 && retries > 0) {
-      const retryAfter = error.response.headers['retry-after'];
-      const waitTime = retryAfter ? parseInt(retryAfter, 10) * 1000 : delay;
-      console.warn(`Upstox API rate limited (429). Waiting ${waitTime}ms before retry...`);
+    const status = error.response && error.response.status;
+    const retryable = status === 429 || (status >= 500 && status < 600) || !status; // 429, 5xx, network
+    if (retryable && retries > 0) {
+      const retryAfter = error.response && error.response.headers && error.response.headers['retry-after'];
+      // Respect Retry-After; else exponential backoff with jitter.
+      const base = retryAfter ? parseInt(retryAfter, 10) * 1000 : delay;
+      const waitTime = base + Math.floor(Math.random() * 400);
+      console.warn(`[upstox] ${status || 'network'} — retrying in ${waitTime}ms (${retries} left)`);
       await sleep(waitTime);
       return requestWithRetry(url, options, retries - 1, delay * 2);
     }
@@ -62,7 +66,9 @@ async function fetchUpstoxIpos() {
     throw new Error('UPSTOX_ACCESS_TOKEN environment variable is missing');
   }
 
-  const statuses = ['upcoming', 'open', 'closed', 'listed'];
+  // Listed IPOs no longer change, so we skip them — this also avoids the large
+  // historical "listed" page set that was triggering 429s.
+  const statuses = ['upcoming', 'open', 'closed'];
   const allIpos = [];
 
   for (const status of statuses) {
@@ -80,8 +86,8 @@ async function fetchUpstoxIpos() {
 
       if (response.data && response.data.data) {
         for (const item of response.data.data) {
-          // Sleep for 150ms buffer to respect rate limits
-          await sleep(150);
+          // Spacing buffer to respect rate limits
+          await sleep(250);
           
           try {
             const detailUrl = `https://api.upstox.com/v2/ipos/${item.id}`;

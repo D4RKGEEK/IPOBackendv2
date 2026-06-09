@@ -6,7 +6,7 @@
  * Only open/upcoming IPOs are eligible (listed/closed have no live GMP).
  */
 
-const { fetchGmpList, normalizeName } = require('../utils/gmpCrawler');
+const { fetchGmpList, fetchGmpHistory, normalizeName } = require('../utils/gmpCrawler');
 const { jaroWinkler } = require('../utils/jaroWinkler');
 const { collections } = require('../db/mongo');
 
@@ -60,10 +60,21 @@ async function runGmp(opts = {}) {
       ? entry.gmpPercent
       : (entry.price ? Math.round((entry.gmp / entry.price) * 10000) / 100 : null);
     const gmp = { value: entry.gmp, percentage, source: 'investorgain', updatedAt: now };
-
     await ipos.updateOne({ slug: ipo.slug }, { $set: { gmp, updatedAt: now } });
-    await collections.gmpHistory().insertOne({ slug: ipo.slug, value: gmp.value, percentage, source: 'investorgain', at: now });
-    results.push({ slug: ipo.slug, gmp, source: 'investorgain' });
+
+    // Backfill the GMP history series from the detail endpoint (dedupe by day).
+    let series = entry.id ? await fetchGmpHistory(entry.id) : [];
+    if (!series.length) series = [{ date: now.slice(0, 10), gmp: entry.gmp }];
+    let added = 0;
+    for (const row of series) {
+      const r = await collections.gmpHistory().updateOne(
+        { slug: ipo.slug, date: row.date },
+        { $set: { slug: ipo.slug, date: row.date, value: row.gmp, source: 'investorgain', updatedAt: now } },
+        { upsert: true },
+      );
+      if (r.upsertedCount) added++;
+    }
+    results.push({ slug: ipo.slug, gmp, historyPoints: series.length, newHistoryPoints: added, source: 'investorgain' });
   }
 
   return { processed: results.length, results, skipped };

@@ -4,6 +4,19 @@ const require = createRequire(import.meta.url);
 
 const { matchGmp } = require('../services/gmpService');
 const { deriveHistorical } = require('../services/historicalService');
+const { extractGmpId, igDateToIso } = require('../utils/gmpCrawler');
+
+describe('InvestorGain parsing helpers', () => {
+  it('extracts the IPO id from an InvestorGain href', () => {
+    expect(extractGmpId('/gmp/horizon-reclaim-india-ipo/2199/')).toBe(2199);
+    expect(extractGmpId('/ipo/foo/100')).toBe(100);
+    expect(extractGmpId('')).toBe(null);
+  });
+  it('converts DD-MM-YYYY to ISO', () => {
+    expect(igDateToIso('09-06-2026')).toBe('2026-06-09');
+    expect(igDateToIso('garbage')).toBe(null);
+  });
+});
 
 describe('matchGmp', () => {
   const list = [

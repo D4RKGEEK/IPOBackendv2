@@ -1,10 +1,25 @@
 const axios = require('axios');
 
-const INVESTORGAIN_LIST_URL = 'https://api.investorgain.com/api/v1/gmp/list';
-const INVESTORGAIN_DETAIL_URL = 'https://api.investorgain.com/api/v1/gmp/detail';
+// InvestorGain web JSON endpoints (the public api.* host is dead).
+const GMP_LIST_URL = 'https://webnodejs.investorgain.com/cloud/v2/index/gmp-data';
+const GMP_DETAIL_URL = (id) => `https://webnodejs.investorgain.com/cloud/v2/ipo/ipo-gmp-read/${id}/true?v=17-17`;
+const IG_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36',
+  Accept: 'application/json',
+  Referer: 'https://www.investorgain.com/',
+};
 
-// Fallback scrape URLs if API isn't available
-const SCRAPE_LIST_URL = 'https://www.investorgain.com/report/live-ipo-gmp/331/';
+/** Pull the numeric IPO id out of an InvestorGain href like /gmp/foo-ipo/2199/. */
+function extractGmpId(href) {
+  const m = String(href || '').match(/\/(\d+)\/?$/);
+  return m ? Number(m[1]) : null;
+}
+
+/** "09-06-2026" (DD-MM-YYYY) -> "2026-06-09". */
+function igDateToIso(s) {
+  const m = String(s || '').match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  return m ? `${m[3]}-${m[2]}-${m[1]}` : null;
+}
 
 /**
  * Normalize a company name for matching purposes.
@@ -28,24 +43,17 @@ function normalizeName(name) {
  */
 async function fetchGmpList() {
   try {
-    const response = await axios.get(INVESTORGAIN_LIST_URL, {
-      timeout: 15000,
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; IPOScraper/1.0)',
-        Accept: 'application/json',
-      },
-    });
-
-    const data = response.data;
-    const items = Array.isArray(data) ? data : (data.data || data.result || []);
-
+    const response = await axios.get(GMP_LIST_URL, { timeout: 15000, headers: IG_HEADERS });
+    const items = (response.data && response.data.gmpList) || [];
     return items.map(item => ({
-      companyName: item.company_name || item.name || item.companyName || null,
+      companyName: item.company_short_name || null,
+      id: extractGmpId(item.gmp_href || item.href),
       gmp: parseFloat(item.gmp) || 0,
-      price: parseFloat(item.price || item.issue_price) || null,
-      estimatedListingPrice: parseFloat(item.estimated_listing || item.est_listing) || null,
-      gmpPercent: parseFloat(item.gmp_percent || item.gmp_percentage) || null,
-      lastUpdated: item.updated_at || item.last_updated || new Date().toISOString(),
+      price: parseFloat(item.ipo_price) || null,
+      gmpPercent: parseFloat(item.gmp_perc) || null,
+      category: item.ipo_category || null,   // SME | Mainboard
+      status: item.ipo_status || null,       // U/O/... InvestorGain code
+      lastUpdated: new Date().toISOString(),
     }));
   } catch (err) {
     console.warn(`[gmpCrawler] fetchGmpList failed: ${err.message}`);
@@ -54,36 +62,20 @@ async function fetchGmpList() {
 }
 
 /**
- * Fetch daily GMP history for a specific IPO from InvestorGain.
- * @param {string} companyName - Company name or slug
- * @param {string} [isin]      - ISIN for precise lookup
- * @returns {Promise<Array>}   Array of { date, gmp, gmpPercent }
+ * Fetch the GMP history series for a specific IPO by its InvestorGain id.
+ * @param {number} id  InvestorGain ipo id (from fetchGmpList entry.id)
+ * @returns {Promise<Array>} Array of { date (ISO), gmp } ascending-agnostic
  */
-async function fetchGmpHistory(companyName, isin) {
+async function fetchGmpHistory(id) {
+  if (!id) return [];
   try {
-    const params = {};
-    if (isin) params.isin = isin;
-    if (companyName) params.name = companyName;
-
-    const response = await axios.get(INVESTORGAIN_DETAIL_URL, {
-      params,
-      timeout: 15000,
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; IPOScraper/1.0)',
-        Accept: 'application/json',
-      },
-    });
-
-    const data = response.data;
-    const history = Array.isArray(data) ? data : (data.data || data.history || data.result || []);
-
-    return history.map(item => ({
-      date: item.date || item.updated_at || null,
-      gmp: parseFloat(item.gmp) || 0,
-      gmpPercent: parseFloat(item.gmp_percent || item.gmp_percentage) || null,
-    }));
+    const response = await axios.get(GMP_DETAIL_URL(id), { timeout: 15000, headers: IG_HEADERS });
+    const rows = (response.data && response.data.ipoGmpData) || [];
+    return rows
+      .map(r => ({ date: igDateToIso(r.gmp_date), gmp: parseFloat(r.gmp) || 0 }))
+      .filter(r => r.date);
   } catch (err) {
-    console.warn(`[gmpCrawler] fetchGmpHistory(${companyName}) failed: ${err.message}`);
+    console.warn(`[gmpCrawler] fetchGmpHistory(${id}) failed: ${err.message}`);
     return [];
   }
 }
@@ -145,7 +137,7 @@ async function crawlAndMergeGmp(ipoRecords, options = {}) {
     match.gmp = {
       current: gmpEntry.gmp,
       gmpPercent: gmpEntry.gmpPercent,
-      estimatedListingPrice: gmpEntry.estimatedListingPrice,
+      id: gmpEntry.id,
       lastUpdated: gmpEntry.lastUpdated,
     };
     updated++;
@@ -158,7 +150,7 @@ async function crawlAndMergeGmp(ipoRecords, options = {}) {
 
       await new Promise(r => setTimeout(r, historyDelayMs));
 
-      const history = await fetchGmpHistory(record.companyName, record.isin);
+      const history = await fetchGmpHistory(record.gmp.id);
       if (history.length > 0) {
         record.gmpHistory = history;
       }
@@ -174,4 +166,6 @@ module.exports = {
   matchGmpToIpo,
   crawlAndMergeGmp,
   normalizeName,
+  extractGmpId,
+  igDateToIso,
 };

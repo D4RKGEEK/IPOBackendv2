@@ -36,7 +36,7 @@ async function ensureIndexes(database) {
   await ipos.createIndex({ companyName: 'text', symbol: 'text' });
 
   const gmp = database.collection('gmp_history');
-  await gmp.createIndex({ slug: 1, at: -1 });
+  await gmp.createIndex({ slug: 1, date: -1 }, { unique: true, partialFilterExpression: { date: { $type: 'string' } } });
 
   const jobs = database.collection('jobs');
   await jobs.createIndex({ createdAt: -1 });

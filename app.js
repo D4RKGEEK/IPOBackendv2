@@ -127,11 +127,11 @@ function buildApp() {
   app.get('/ipos/:slug/history', asyncH(async (req, res) => {
     const doc = await findBySlug(req.params.slug);
     if (!doc) return res.status(404).json({ error: 'IPO not found', slug: req.params.slug });
-    const gmp = await collections.gmpHistory().find({ slug: req.params.slug }).sort({ at: -1 }).limit(500).toArray();
+    const gmp = await collections.gmpHistory().find({ slug: req.params.slug }).sort({ date: -1 }).limit(500).toArray();
     res.json({
       slug: req.params.slug,
       statusHistory: doc.statusHistory || [],
-      gmp: gmp.map((g) => ({ value: g.value, percentage: g.percentage, source: g.source, at: g.at })),
+      gmp: gmp.map((g) => ({ date: g.date, value: g.value, percentage: g.percentage, source: g.source })),
     });
   }));
 

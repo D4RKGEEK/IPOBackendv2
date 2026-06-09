@@ -132,5 +132,19 @@
     "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
     "status": "success",
     "downloadedAt": "2026-06-09T11:44:34.790Z"
+  },
+  "https://example.com/test-first-call-1781006180704.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/c877eea212ce_test-first-call-1781006180704.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T11:56:20.709Z"
+  },
+  "https://example.com/test-first-call-1781007217828.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/205406d0a7ae_test-first-call-1781007217828.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T12:13:37.835Z"
   }
 }

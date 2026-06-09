@@ -19,6 +19,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { parseIndianDate, formatDateISO } = require('./normalizers.js');
+const { classifyFromName } = require('./docClassifier.js');
 
 const BASE = 'https://zerodha.com';
 const LIST_URL = `${BASE}/ipo/`;
@@ -43,14 +44,15 @@ async function getHtml(url, retries = 3, delay = 800) {
   }
 }
 
-/** Classify a prospectus document type from its URL/filename. */
+/**
+ * Classify a prospectus document type from its URL/filename, via the shared
+ * robust classifier (handles "Red-Herring-Prospectus", "Draft...", SEBI pages,
+ * and abbreviations). Defaults to 'drhp' when the name says nothing. The cover
+ * page gives the authoritative type later (see docClassifier.extractCoverText).
+ */
 function classifyDocFromUrl(url) {
-  const u = String(url || '').toLowerCase();
-  if (!u) return null;
-  if (u.includes('drhp')) return 'drhp';
-  if (u.includes('final')) return 'final';
-  if (u.includes('rhp')) return 'rhp';
-  return 'drhp'; // default when the name says nothing
+  if (!url) return null;
+  return classifyFromName(url).docType || 'drhp';
 }
 
 /** Parse "₹42 – ₹45" / "₹110 ₹116" into a price band. */

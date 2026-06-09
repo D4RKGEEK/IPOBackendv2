@@ -11,13 +11,15 @@
  * Output per IPO: { symbol, isin, companyName, documents: [{ docType, url, sources[] }] }
  */
 
-/** Classify a document URL / hint into drhp | rhp | final. */
+const { classifyFromName } = require('./docClassifier');
+
+/**
+ * Classify a document into drhp | rhp | final. Prefer an explicit source-provided
+ * hint, otherwise infer from the URL/filename via the shared robust classifier.
+ */
 function classifyDocType(hint, url) {
-  const h = `${hint || ''} ${url || ''}`.toLowerCase();
-  if (/\bfinal\b|prospectus(?!.*draft)/.test(h) && /final/.test(h)) return 'final';
-  if (/drhp|draft/.test(h) || /sebi\.gov\.in\/filings/.test(h)) return 'drhp';
-  if (/\brhp\b|red[-\s]?herring/.test(h)) return 'rhp';
-  return hint && ['drhp', 'rhp', 'final'].includes(hint) ? hint : 'rhp';
+  if (hint && ['drhp', 'rhp', 'final'].includes(hint)) return hint;
+  return classifyFromName(url).docType || 'drhp';
 }
 
 /** Normalize a URL for dedup (strip trailing slashes / query noise lightly). */

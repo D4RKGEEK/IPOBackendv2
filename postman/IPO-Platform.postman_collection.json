@@ -1,0 +1,272 @@
+{
+  "info": {
+    "name": "IPO Platform API",
+    "description": "Unified IPO data aggregation (NSE, BSE, Upstox, Groww, Zerodha) + document extraction.\n\nSet the `baseUrl` collection variable (default http://localhost:3001). `slug` and `jobId` variables are used by the detail/job requests — capture them from list responses.\n\nLong operations (scrape, documents, retry) run async by default and return `{ jobId, status: \"running\", poll }`; pass `\"wait\": true` in the body to run synchronously. Poll progress + logs via GET /jobs/:id.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3001", "type": "string" },
+    { "key": "slug", "value": "hexagon-nutrition-ipo", "type": "string" },
+    { "key": "jobId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Health & Sources",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] },
+            "description": "Liveness check + total IPO count."
+          }
+        },
+        {
+          "name": "Sources (+ health)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/sources", "host": ["{{baseUrl}}"], "path": ["sources"] },
+            "description": "Available sources with per-source IPO counts, lastFetched, and the last scrape job."
+          }
+        }
+      ]
+    },
+    {
+      "name": "IPOs — Read",
+      "item": [
+        {
+          "name": "List IPOs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Capture the first slug for convenience in other requests",
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.length) { pm.collectionVariables.set('slug', j.data[0].slug); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ipos?status=open&sort=biddingStart&order=desc&page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["ipos"],
+              "query": [
+                { "key": "source", "value": "groww", "description": "nse|bse|upstox|groww|zerodha", "disabled": true },
+                { "key": "status", "value": "open", "description": "open|upcoming|closed|listed" },
+                { "key": "document", "value": "rhp", "description": "drhp|rhp — only IPOs with that document", "disabled": true },
+                { "key": "search", "value": "nutrition", "description": "match name / symbol / ISIN", "disabled": true },
+                { "key": "sort", "value": "biddingStart", "description": "biddingStart(default,latest-first)|listingDate|name|createdAt" },
+                { "key": "order", "value": "desc", "description": "asc|desc (default desc)" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "50", "description": "max 200" }
+              ]
+            },
+            "description": "Index of IPOs. Default sort is latest-first by bidding date."
+          }
+        },
+        {
+          "name": "Get IPO (merged)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/ipos/{{slug}}", "host": ["{{baseUrl}}"], "path": ["ipos", "{{slug}}"] },
+            "description": "Full merged details for one IPO (subscription, documents, financials, etc.)."
+          }
+        },
+        {
+          "name": "Get IPO (raw per-source)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ipos/{{slug}}?raw=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["ipos", "{{slug}}"],
+              "query": [{ "key": "raw", "value": "true" }]
+            },
+            "description": "Returns { slug, _raw: { upstox, nse, groww, zerodha } } — the untouched per-source payloads."
+          }
+        },
+        {
+          "name": "IPO history (status + GMP series)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/ipos/{{slug}}/history", "host": ["{{baseUrl}}"], "path": ["ipos", "{{slug}}", "history"] },
+            "description": "statusHistory + GMP time series (most recent first)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scrape & Jobs",
+      "item": [
+        {
+          "name": "Scrape (async)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.jobId) { pm.collectionVariables.set('jobId', j.jobId); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sources\": [\"upstox\", \"nse\", \"groww\", \"zerodha\"],\n  \"dryRun\": false,\n  \"force\": false\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/ipos/scrape", "host": ["{{baseUrl}}"], "path": ["ipos", "scrape"] },
+            "description": "Scrape all sources → dedup → upsert. Async by default: returns { jobId, status:'running', poll }. Poll GET /jobs/:id. Add \"wait\": true to run synchronously. \"dryRun\": true fetches+merges without writing."
+          }
+        },
+        {
+          "name": "Scrape (dryRun, single source)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"sources\": [\"zerodha\"],\n  \"dryRun\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/ipos/scrape", "host": ["{{baseUrl}}"], "path": ["ipos", "scrape"] },
+            "description": "Preview what a source would scrape (perSource counts, wouldUpsert) without writing."
+          }
+        },
+        {
+          "name": "Scrape (sync / wait)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"sources\": [\"groww\"],\n  \"wait\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/ipos/scrape", "host": ["{{baseUrl}}"], "path": ["ipos", "scrape"] },
+            "description": "Block until done and return the full summary + jobId."
+          }
+        },
+        {
+          "name": "List jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/jobs?type=scrape&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"],
+              "query": [
+                { "key": "type", "value": "scrape", "description": "scrape|documents|gmp|historical|retry", "disabled": false },
+                { "key": "status", "value": "completed", "description": "running|completed|failed", "disabled": true },
+                { "key": "limit", "value": "20" }
+              ]
+            },
+            "description": "Recent jobs (no logs in list view)."
+          }
+        },
+        {
+          "name": "Get job (status + logs)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/jobs/{{jobId}}", "host": ["{{baseUrl}}"], "path": ["jobs", "{{jobId}}"] },
+            "description": "Full job: status, milestone logs, result, durationMs, error."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Extract documents (async)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.jobId) { pm.collectionVariables.set('jobId', j.jobId); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"documents\": [\"drhp\", \"rhp\"],\n  \"reUpload\": false\n}" },
+            "url": { "raw": "{{baseUrl}}/ipos/{{slug}}/documents", "host": ["{{baseUrl}}"], "path": ["ipos", "{{slug}}", "documents"] },
+            "description": "Download → R2 + Firecrawl markdown → SHA256 DRHP/RHP page-dedup → cover-type confirm → section detection. Async by default (poll GET /jobs/:id). Add \"wait\": true to block."
+          }
+        },
+        {
+          "name": "Retry failed extraction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/ipos/{{slug}}/retry", "host": ["{{baseUrl}}"], "path": ["ipos", "{{slug}}", "retry"] },
+            "description": "Re-process documents currently in 'error' state (or pass {\"documents\":[\"rhp\"]} to force specific ones)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "GMP & Historical",
+      "item": [
+        {
+          "name": "Scrape GMP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"all\"\n}" },
+            "url": { "raw": "{{baseUrl}}/ipos/gmp", "host": ["{{baseUrl}}"], "path": ["ipos", "gmp"] },
+            "description": "Fetch InvestorGain GMP for open/upcoming IPOs, store latest + backfill gmp_history. Options: { \"status\": \"open|upcoming|all\" } or { \"slugs\": [\"hexagon-nutrition-ipo\"] }."
+          }
+        },
+        {
+          "name": "GMP for specific slugs",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"slugs\": [\"hexagon-nutrition-ipo\", \"susan-electricals-india-ipo\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/ipos/gmp", "host": ["{{baseUrl}}"], "path": ["ipos", "gmp"] }
+          }
+        },
+        {
+          "name": "Historical (listed IPOs)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"listed\",\n  \"limit\": 10\n}" },
+            "url": { "raw": "{{baseUrl}}/ipos/historical", "host": ["{{baseUrl}}"], "path": ["ipos", "historical"] },
+            "description": "Upstox candles for listed IPOs → listing/current price + listing gain. Optional \"since\": \"YYYY-MM-DD\" for incremental."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Delete IPO (+ R2 + gmp history)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/ipos/{{slug}}", "host": ["{{baseUrl}}"], "path": ["ipos", "{{slug}}"] },
+            "description": "Remove the IPO doc, its R2 objects, and its GMP history. Irreversible."
+          }
+        }
+      ]
+    }
+  ]
+}

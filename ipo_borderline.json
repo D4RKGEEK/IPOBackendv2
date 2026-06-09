@@ -5,6 +5,258 @@
     "record1": {
       "isin": null,
       "symbol": null,
+      "companyName": "Puranik Builders Limited",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/sep-2022/1663916527724.pdf#page=1&zoom=page-width,-16,764"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "puranik-builders-limited-ipo",
+          "symbol": null,
+          "name": "Puranik Builders Limited",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/sep-2022/1663916527724.pdf#page=1&zoom=page-width,-16,764",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KfinTechnologies Limited",
+            "email": "puranik.ipo@kfintech.com",
+            "contact_name": "M Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "www.kfintech.com",
+            "registrar": "Karvy"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Puranik Builders Limited",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/sep-2022/1663916527724.pdf#page=1&zoom=page-width,-16,764"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "puranik-builders-limited-ipo",
+          "symbol": null,
+          "name": "Puranik Builders Limited",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/sep-2022/1663916527724.pdf#page=1&zoom=page-width,-16,764",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KfinTechnologies Limited",
+            "email": "puranik.ipo@kfintech.com",
+            "contact_name": "M Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "www.kfintech.com",
+            "registrar": "Karvy"
+          },
+          "total_subscription": null
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Bharat FIH Limited",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/jun-2022/1655876827634.pdf#page=1&zoom=page-width,-16,610"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "bharat-fih-limited-ipo",
+          "symbol": null,
+          "name": "Bharat FIH Limited",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/jun-2022/1655876827634.pdf#page=1&zoom=page-width,-16,610",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KfinTechnologies Limited",
+            "email": "bharatfih.ipo@kfintech.com",
+            "contact_name": "M Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "www.kfintech.com",
+            "registrar": "Karvy"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Bharat FIH Limited",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/jun-2022/1655876827634.pdf#page=1&zoom=page-width,-16,610"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "bharat-fih-limited-ipo",
+          "symbol": null,
+          "name": "Bharat FIH Limited",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/jun-2022/1655876827634.pdf#page=1&zoom=page-width,-16,610",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KfinTechnologies Limited",
+            "email": "bharatfih.ipo@kfintech.com",
+            "contact_name": "M Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "www.kfintech.com",
+            "registrar": "Karvy"
+          },
+          "total_subscription": null
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
       "companyName": "FabIndia",
       "status": "upcoming",
       "biddingStartDate": null,
@@ -2899,132 +3151,6 @@
   },
   {
     "reason": "near_miss_below_threshold",
-    "score": 0.8570961718020541,
-    "record1": {
-      "isin": null,
-      "symbol": null,
-      "companyName": "Karamtara Engineering",
-      "status": "upcoming",
-      "biddingStartDate": null,
-      "priceBand": {
-        "minimum": null,
-        "maximum": null
-      },
-      "documentUrls": {
-        "rhp": null,
-        "drhp": null
-      },
-      "raw_sources": {
-        "upstox": {
-          "id": "karamtara-engineering-limited-ipo",
-          "symbol": null,
-          "name": "Karamtara Engineering IPO",
-          "status": "upcoming",
-          "isin": null,
-          "issue_type": "regular",
-          "issue_size": null,
-          "industry": "Power Generation/Distribution",
-          "minimum_price": null,
-          "maximum_price": null,
-          "bidding_start_date": null,
-          "bidding_end_date": null,
-          "daily_start_time": null,
-          "daily_end_time": null,
-          "face_value": null,
-          "tick_size": null,
-          "lot_size": null,
-          "minimum_quantity": null,
-          "cut_off_price": null,
-          "listing_price": null,
-          "listing_exchange": null,
-          "rhp_url": null,
-          "drhp_url": null,
-          "timeline": {
-            "pre_apply_start_date": null,
-            "application_start_date": null,
-            "application_end_date": null,
-            "allotment_start_date": null,
-            "allotment_date": null,
-            "refund_initiation_date": null,
-            "listing_date": null,
-            "mandate_end_date": null
-          },
-          "registrar_info": {
-            "name": null,
-            "email": null,
-            "contact_name": null,
-            "contact_number": null,
-            "website": null,
-            "registrar": null
-          },
-          "total_subscription": null
-        }
-      }
-    },
-    "record2": {
-      "isin": "INE0LQG01010",
-      "symbol": "APRAMEYA",
-      "companyName": "Aprameya Engineering Limited",
-      "status": "listed",
-      "biddingStartDate": "2024-07-25",
-      "priceBand": {
-        "minimum": 56,
-        "maximum": 58
-      },
-      "documentUrls": {
-        "rhp": "https://nsearchives.nseindia.com/emerge/corporates/content/AprameyaEngineering_RHP.pdf",
-        "drhp": null
-      },
-      "raw_sources": {
-        "upstox": {
-          "id": "aprameya-engineering-ipo",
-          "symbol": "APRAMEYA",
-          "name": "Aprameya Engineering Limited",
-          "status": "listed",
-          "isin": "INE0LQG01010",
-          "issue_type": "sme",
-          "issue_size": 29.23,
-          "industry": null,
-          "minimum_price": 56,
-          "maximum_price": 58,
-          "bidding_start_date": "2024-07-25",
-          "bidding_end_date": "2024-07-29",
-          "daily_start_time": "10:00:00",
-          "daily_end_time": "17:00:00",
-          "face_value": 10,
-          "tick_size": 1,
-          "lot_size": 2000,
-          "minimum_quantity": 2000,
-          "cut_off_price": 58,
-          "listing_price": null,
-          "listing_exchange": null,
-          "rhp_url": "https://nsearchives.nseindia.com/emerge/corporates/content/AprameyaEngineering_RHP.pdf",
-          "drhp_url": null,
-          "timeline": {
-            "pre_apply_start_date": null,
-            "application_start_date": "2024-07-25",
-            "application_end_date": "2024-07-29",
-            "allotment_start_date": "2024-07-27",
-            "allotment_date": "2024-07-30",
-            "refund_initiation_date": "2024-07-31",
-            "listing_date": "2024-08-01",
-            "mandate_end_date": null
-          },
-          "registrar_info": {
-            "name": "LINK INTIME INDIA PRIVATE LIMITED ",
-            "email": "aprameya.ipo@linkintime.co.in",
-            "contact_name": "Ms. Shanti Gopalkrishnan",
-            "contact_number": "+91 22 6263 8200",
-            "website": null,
-            "registrar": "LINK INTIME INDIA PRIVATE LIMITED "
-          },
-          "total_subscription": null
-        }
-      }
-    }
-  },
-  {
-    "reason": "near_miss_below_threshold",
     "score": 0.852046783625731,
     "record1": {
       "isin": "INE0KWJ01014",
@@ -3528,132 +3654,6 @@
     }
   },
   {
-    "reason": "fuzzy_name_match_date_guard_failed",
-    "score": 0.9052287581699346,
-    "record1": {
-      "isin": null,
-      "symbol": null,
-      "companyName": "Liotech Industries",
-      "status": "upcoming",
-      "biddingStartDate": null,
-      "priceBand": {
-        "minimum": 321,
-        "maximum": 321
-      },
-      "documentUrls": {
-        "rhp": null,
-        "drhp": null
-      },
-      "raw_sources": {
-        "upstox": {
-          "id": "liotech-industries-limited-ipo",
-          "symbol": null,
-          "name": "Liotech Industries IPO",
-          "status": "upcoming",
-          "isin": null,
-          "issue_type": "sme",
-          "issue_size": 36,
-          "industry": "Steel/Sponge Iron/Pig Iron",
-          "minimum_price": 321,
-          "maximum_price": 321,
-          "bidding_start_date": null,
-          "bidding_end_date": null,
-          "daily_start_time": "10:00:00",
-          "daily_end_time": "17:00:00",
-          "face_value": 10,
-          "tick_size": 1,
-          "lot_size": 400,
-          "minimum_quantity": 400,
-          "cut_off_price": 321,
-          "listing_price": null,
-          "listing_exchange": null,
-          "rhp_url": null,
-          "drhp_url": null,
-          "timeline": {
-            "pre_apply_start_date": null,
-            "application_start_date": null,
-            "application_end_date": null,
-            "allotment_start_date": null,
-            "allotment_date": null,
-            "refund_initiation_date": null,
-            "listing_date": null,
-            "mandate_end_date": null
-          },
-          "registrar_info": {
-            "name": "KFIN TECHNOLOGIES LIMITED",
-            "email": "liotech.ipo@kfintech.com",
-            "contact_name": "Mr. M. Murli Krishna",
-            "contact_number": "+91 40 6716 2222/18003094001",
-            "website": "https://www.kfintech.com/",
-            "registrar": "K FINTECH"
-          },
-          "total_subscription": null
-        }
-      }
-    },
-    "record2": {
-      "isin": "INE0R4W01015",
-      "symbol": "PIOTEX",
-      "companyName": "Piotex Industries Limited",
-      "status": "listed",
-      "biddingStartDate": "2024-05-10",
-      "priceBand": {
-        "minimum": 94,
-        "maximum": 94
-      },
-      "documentUrls": {
-        "rhp": null,
-        "drhp": null
-      },
-      "raw_sources": {
-        "upstox": {
-          "id": "piotex-industries-ipo",
-          "symbol": "PIOTEX",
-          "name": "Piotex Industries Limited",
-          "status": "listed",
-          "isin": "INE0R4W01015",
-          "issue_type": "sme",
-          "issue_size": 14.47,
-          "industry": null,
-          "minimum_price": 94,
-          "maximum_price": 94,
-          "bidding_start_date": "2024-05-10",
-          "bidding_end_date": "2024-05-14",
-          "daily_start_time": "10:00:00",
-          "daily_end_time": "17:00:00",
-          "face_value": 10,
-          "tick_size": 1,
-          "lot_size": 1200,
-          "minimum_quantity": 1200,
-          "cut_off_price": 94,
-          "listing_price": null,
-          "listing_exchange": null,
-          "rhp_url": null,
-          "drhp_url": null,
-          "timeline": {
-            "pre_apply_start_date": null,
-            "application_start_date": "2024-05-10",
-            "application_end_date": "2024-05-14",
-            "allotment_start_date": "2024-05-12",
-            "allotment_date": "2024-05-15",
-            "refund_initiation_date": "2024-05-16",
-            "listing_date": "2024-05-17",
-            "mandate_end_date": null
-          },
-          "registrar_info": {
-            "name": "Cameo Corporate Services Limited",
-            "email": "ipo@cameoindia.com",
-            "contact_name": "Ms. K Sreepriya",
-            "contact_number": "+91-44-28460390 ",
-            "website": null,
-            "registrar": "Cameo Corporate Services Limited"
-          },
-          "total_subscription": null
-        }
-      }
-    }
-  },
-  {
     "reason": "near_miss_below_threshold",
     "score": 0.8846719457013574,
     "record1": {
@@ -4025,6 +4025,132 @@
             "contact_number": "02228511022",
             "website": null,
             "registrar": "Skyline Financial Services Private Ltd"
+          },
+          "total_subscription": null
+        }
+      }
+    }
+  },
+  {
+    "reason": "near_miss_below_threshold",
+    "score": 0.8641269841269842,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Bharat FIH Limited",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/jun-2022/1655876827634.pdf#page=1&zoom=page-width,-16,610"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "bharat-fih-limited-ipo",
+          "symbol": null,
+          "name": "Bharat FIH Limited",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/jun-2022/1655876827634.pdf#page=1&zoom=page-width,-16,610",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KfinTechnologies Limited",
+            "email": "bharatfih.ipo@kfintech.com",
+            "contact_name": "M Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "www.kfintech.com",
+            "registrar": "Karvy"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "INE343G01021",
+      "symbol": "BHARTIHEXA",
+      "companyName": "Bharti Hexacom Limited",
+      "status": "listed",
+      "biddingStartDate": "2024-04-03",
+      "priceBand": {
+        "minimum": 542,
+        "maximum": 570
+      },
+      "documentUrls": {
+        "rhp": "https://www.sebi.gov.in/filings/public-issues/mar-2024/bharti-hexacom-limited-rhp_82540.html",
+        "drhp": null
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "bharti-hexacom-ipo",
+          "symbol": "BHARTIHEXA",
+          "name": "Bharti Hexacom Limited",
+          "status": "listed",
+          "isin": "INE343G01021",
+          "issue_type": "regular",
+          "issue_size": 4275,
+          "industry": null,
+          "minimum_price": 542,
+          "maximum_price": 570,
+          "bidding_start_date": "2024-04-03",
+          "bidding_end_date": "2024-04-05",
+          "daily_start_time": "10:00:00",
+          "daily_end_time": "17:00:00",
+          "face_value": 10,
+          "tick_size": 1,
+          "lot_size": 26,
+          "minimum_quantity": 26,
+          "cut_off_price": 570,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": "https://www.sebi.gov.in/filings/public-issues/mar-2024/bharti-hexacom-limited-rhp_82540.html",
+          "drhp_url": null,
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": "2024-04-03",
+            "application_end_date": "2024-04-05",
+            "allotment_start_date": "2024-04-05",
+            "allotment_date": "2024-04-08",
+            "refund_initiation_date": "2024-04-10",
+            "listing_date": "2024-04-12",
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Kfin Technologies Limited",
+            "email": "bhl.ipo@kfintech.com",
+            "contact_name": "M. Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "https://kosmic.kfintech.com/ipostatus/",
+            "registrar": "Kfin Technologies Limited"
           },
           "total_subscription": null
         }
@@ -6671,132 +6797,6 @@
             "contact_number": "022 - 6263 8200",
             "website": "http://bigshareonline.com",
             "registrar": "BIGSHARE SERVICES PRIVATE LIMITED"
-          },
-          "total_subscription": null
-        }
-      }
-    }
-  },
-  {
-    "reason": "near_miss_below_threshold",
-    "score": 0.8523478835978836,
-    "record1": {
-      "isin": null,
-      "symbol": null,
-      "companyName": "Liotech Industries",
-      "status": "upcoming",
-      "biddingStartDate": null,
-      "priceBand": {
-        "minimum": 321,
-        "maximum": 321
-      },
-      "documentUrls": {
-        "rhp": null,
-        "drhp": null
-      },
-      "raw_sources": {
-        "upstox": {
-          "id": "liotech-industries-limited-ipo",
-          "symbol": null,
-          "name": "Liotech Industries IPO",
-          "status": "upcoming",
-          "isin": null,
-          "issue_type": "sme",
-          "issue_size": 36,
-          "industry": "Steel/Sponge Iron/Pig Iron",
-          "minimum_price": 321,
-          "maximum_price": 321,
-          "bidding_start_date": null,
-          "bidding_end_date": null,
-          "daily_start_time": "10:00:00",
-          "daily_end_time": "17:00:00",
-          "face_value": 10,
-          "tick_size": 1,
-          "lot_size": 400,
-          "minimum_quantity": 400,
-          "cut_off_price": 321,
-          "listing_price": null,
-          "listing_exchange": null,
-          "rhp_url": null,
-          "drhp_url": null,
-          "timeline": {
-            "pre_apply_start_date": null,
-            "application_start_date": null,
-            "application_end_date": null,
-            "allotment_start_date": null,
-            "allotment_date": null,
-            "refund_initiation_date": null,
-            "listing_date": null,
-            "mandate_end_date": null
-          },
-          "registrar_info": {
-            "name": "KFIN TECHNOLOGIES LIMITED",
-            "email": "liotech.ipo@kfintech.com",
-            "contact_name": "Mr. M. Murli Krishna",
-            "contact_number": "+91 40 6716 2222/18003094001",
-            "website": "https://www.kfintech.com/",
-            "registrar": "K FINTECH"
-          },
-          "total_subscription": null
-        }
-      }
-    },
-    "record2": {
-      "isin": "INE0NZF01019",
-      "symbol": "ALPHAIND",
-      "companyName": "Alphalogic Industries Limited",
-      "status": "listed",
-      "biddingStartDate": "2023-07-03",
-      "priceBand": {
-        "minimum": 96,
-        "maximum": 96
-      },
-      "documentUrls": {
-        "rhp": "https://www.bseindia.com/corporates/download/353396/Draft%20Prospectus_Alphalogic_BSE_12062023_20230614112847.pdf",
-        "drhp": null
-      },
-      "raw_sources": {
-        "upstox": {
-          "id": "alphalogic-industries-limited",
-          "symbol": "ALPHAIND",
-          "name": "Alphalogic Industries Limited",
-          "status": "listed",
-          "isin": "INE0NZF01019",
-          "issue_type": "sme",
-          "issue_size": 12.88,
-          "industry": null,
-          "minimum_price": 96,
-          "maximum_price": 96,
-          "bidding_start_date": "2023-07-03",
-          "bidding_end_date": "2023-07-06",
-          "daily_start_time": "10:00:00",
-          "daily_end_time": "17:00:00",
-          "face_value": 10,
-          "tick_size": 1,
-          "lot_size": 1200,
-          "minimum_quantity": 1200,
-          "cut_off_price": 96,
-          "listing_price": null,
-          "listing_exchange": null,
-          "rhp_url": "https://www.bseindia.com/corporates/download/353396/Draft%20Prospectus_Alphalogic_BSE_12062023_20230614112847.pdf",
-          "drhp_url": null,
-          "timeline": {
-            "pre_apply_start_date": null,
-            "application_start_date": "2023-07-03",
-            "application_end_date": "2023-07-06",
-            "allotment_start_date": "2023-07-05",
-            "allotment_date": "2023-07-11",
-            "refund_initiation_date": "2023-07-12",
-            "listing_date": "2023-07-14",
-            "mandate_end_date": null
-          },
-          "registrar_info": {
-            "name": "CAMEO CORPORATE SERVICES LIMITED",
-            "email": "cameo@cameoindia.com",
-            "contact_name": " Ms. K. Sreepriya",
-            "contact_number": "+91-44-40020700, 28460390",
-            "website": "https://ipo.cameoindia.com/",
-            "registrar": "CAMEO CORPORATE SERVICES LIMITED"
           },
           "total_subscription": null
         }
@@ -10696,8 +10696,8 @@
               "isHybridSymbol": false,
               "segment": "EQUITY",
               "quotepreopenstatus": {
-                "equityTime": "05-Jun-2026 16:00:00",
-                "preOpenTime": "05-Jun-2026 09:07:43",
+                "equityTime": "09-Jun-2026 16:00:00",
+                "preOpenTime": "09-Jun-2026 09:07:37",
                 "QuotePreOpenFlag": false
               }
             },
@@ -10837,7 +10837,7 @@
               "companyName": "NFP Sampoorna Foods Limited",
               "industry": "Other Agricultural Products",
               "activeSeries": [
-                "ST"
+                "SM"
               ],
               "debtSeries": [],
               "isFNOSec": false,
@@ -10854,8 +10854,8 @@
               "isHybridSymbol": false,
               "segment": "SME",
               "quotepreopenstatus": {
-                "equityTime": "05-Jun-2026 16:00:00",
-                "preOpenTime": "05-Jun-2026 09:07:43",
+                "equityTime": "09-Jun-2026 16:00:00",
+                "preOpenTime": "09-Jun-2026 09:07:37",
                 "QuotePreOpenFlag": false
               }
             },
@@ -11217,8 +11217,8 @@
               "isHybridSymbol": false,
               "segment": "EQUITY",
               "quotepreopenstatus": {
-                "equityTime": "05-Jun-2026 16:00:00",
-                "preOpenTime": "05-Jun-2026 09:07:43",
+                "equityTime": "09-Jun-2026 16:00:00",
+                "preOpenTime": "09-Jun-2026 09:07:37",
                 "QuotePreOpenFlag": false
               }
             },
@@ -12146,206 +12146,6 @@
     "score": 0.889655172413793,
     "record1": {
       "isin": null,
-      "symbol": "PFCZCB1",
-      "companyName": "Power Finance Corporation Limited (Zero Coupon NCD)",
-      "status": "closed",
-      "biddingStartDate": "2026-01-16",
-      "priceBand": {
-        "minimum": 100000,
-        "maximum": 100000
-      },
-      "documentUrls": {
-        "rhp": null,
-        "drhp": null
-      },
-      "raw_sources": {
-        "nse": {
-          "company": "Power Finance Corporation Limited (Zero Coupon NCD)",
-          "htmSym": "pfczcb1",
-          "ipoEndDate": "30-JAN-2026",
-          "ipoStartDate": "16-JAN-2026",
-          "issuePrice": "-",
-          "linkRemovalDate": "31-JAN-2026",
-          "listingDate": "-",
-          "priceRange": "Rs.100000",
-          "securityType": "DEBT",
-          "symbol": "PFCZCB1",
-          "details": {
-            "companyName": "PFCZCB1",
-            "metaInfo": {},
-            "bidDetails": [
-              {
-                "category": "Total",
-                "noOfSharesOffered": "0.0",
-                "noOfTime": "0.00",
-                "noOfsharesBid": "0.0",
-                "srNo": null
-              }
-            ],
-            "issueInfo": {
-              "dataList": [
-                {
-                  "title": "Power Finance Corporation Limited (Zero Coupon NCD)",
-                  "value": ""
-                },
-                {
-                  "title": "Symbol",
-                  "value": "PFCZCB1"
-                },
-                {
-                  "title": "Series",
-                  "value": "\"Issue Price of Rs. 51,502.00, Tenor 10 Year 1 Month for Category I and II- Zero Coupon NCD, Issue Price of Rs. 51,263.00, Tenor 10 Year 1 Month for Category III- Zero Coupon NCD, Issue Price of Rs. 50,780.00, Tenor 10 Year 1 Month for Category IV- Zero Coupon NCD\""
-                },
-                {
-                  "title": "Issue Period",
-                  "value": "16-Jan-2026 to 30-Jan-2026"
-                },
-                {
-                  "title": "Cut-off time for UPI Mandate Confirmation",
-                  "value": "\"Upto 5.00 P.M. (T+2 day) T Day being the date of bidding the application. For bids placed on the second last day and last day i.e., 29-Jan-2026 and 30-Jan-2026 respectively, cut off shall be Upto 5.00 P.M. on 30-Jan-2026\""
-                },
-                {
-                  "title": "Issue Size ",
-                  "value": "\"The Company is proposing a Public Issue of Secured Redeemable Non-Convertible Debentures of face value of Rs.1,000 each (except in case of zero coupon NCD, face value shall be Rs.1,00,000 each) (NCDs or Debentures), for an amount up to Rs.500 crore (Base Issue Size) with a green shoe option of Rs.4,500 crore aggregating up to Rs.5,000 crore.\""
-                },
-                {
-                  "title": "Security Type",
-                  "value": "\"Secured Rated, Listed, Redeemable, Non-Convertible Debentures\""
-                },
-                {
-                  "title": "Offer Price / Face Value",
-                  "value": "Rs 100000"
-                },
-                {
-                  "title": "Market Lot",
-                  "value": "1 (One) NCD"
-                },
-                {
-                  "title": "Minimum Application Value",
-                  "value": "\"The minimum application shall be 1 NCD and in multiple of 1 NCD thereafter (i.e. the minimum application amount shall be Rs 51,502 for Category I and II; Rs 51,263.00 for Category III and Rs 50,780 for Category IV Investors)\""
-                },
-                {
-                  "title": "IPO Grading",
-                  "value": "\"The NCDs proposed to be issued under the Issue have been rated : Crisil AAA Stable, Care AAA Stable and ICRA AAA Stable \""
-                },
-                {
-                  "title": "Rating Agency",
-                  "value": "\"Crisil Ratings Limited, CARE Ratings Limited and ICRA Limited\""
-                },
-                {
-                  "title": "IPO Market Timings",
-                  "value": "10.00 a.m. to 5.00 p.m."
-                },
-                {
-                  "title": "Lead Managers",
-                  "value": "\"Nuvama Wealth Management Limited, Trust Investment Advisors Private Limited, Tipsons Consultancy Services Private Limited and A. K. Capital Services Limited\""
-                },
-                {
-                  "title": "Sponsor Bank",
-                  "value": "HDFC Bank Limited"
-                },
-                {
-                  "title": "Name of the Registrar",
-                  "value": "KFIN Technologies Limited"
-                },
-                {
-                  "title": "Address of the Registrar",
-                  "value": "\"301, The Centrium, 3rd Floor, 57, Lal Bahadur Shastri Road, Nav Pada, Kurla (West), Kurla, Mumbai, Maharashtra, India, 400070\""
-                },
-                {
-                  "title": "Contact person name number and Email id",
-                  "value": "\"M. Murali Krishna,+91 40 6716 2222,pfcl.ncdipo@kfintech.com\""
-                },
-                {
-                  "title": "Live Parameters",
-                  "value": "https://nsearchives.nseindia.com/content/ipo/LIVE_PARAMETERS_PFCZCB1.zip"
-                },
-                {
-                  "title": "Prospectus",
-                  "value": "https://nsearchives.nseindia.com/content/ipo/PROSPECTUS_PFCZCB1.zip"
-                },
-                {
-                  "title": "Bidding Centers",
-                  "value": "https://nsearchives.nseindia.com/content/ipo/BIDDING_CENTERS_PFCZCB1.zip"
-                },
-                {
-                  "title": "Sample Application Forms",
-                  "value": "https://nsearchives.nseindia.com/content/ipo/FORMS_PFCZCB1.zip"
-                },
-                {
-                  "title": "ASBA e-form link",
-                  "value": "<a href=https://ipoforms.nseindia.com/issueforms/html/index.jsp target=new>e-Forms</a>"
-                },
-                {
-                  "title": "List of Escrow Banks branches where the Application Form shall be deposited by the Trading Members ",
-                  "value": "<a href=http://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yesandintmId=35 target=new>SCSB List</a>"
-                },
-                {
-                  "title": "List of mobile applications accepting UPI as Payment Option",
-                  "value": "<a href=https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yesandintmId=43 target=new>Mobile APP for UPI</a>"
-                },
-                {
-                  "title": "Video link  for UPI based ASBA process",
-                  "value": "<a href=https://youtu.be/UJ394m2Q3rg target=new>UPI Based ASBA Process</a>"
-                },
-                {
-                  "title": "Video link  for BHIM UPI Registration",
-                  "value": "<a href=https://youtu.be/cIUJOIH0x4c target=new>BHIM UPI Registration</a>"
-                },
-                {
-                  "title": "Disclaimer",
-                  "value": "\"\tSEBI Master Circular ref. no. SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137 dated October 15, 2025, directed that All Syndicate Members / Registered Stock Brokers / DPs / RTAs shall use Unified Payments Interface (UPI) as an additional payment mechanism for bid amounting upto Rs. 5 Lakhs and below for applications in Debt public issues for all issues opening from 01 January, 2021 onwards. Under this Tranche-I Issue the maximum no of bids which category IV can apply under UPI mechanism shall be 5 NCDS.According to the Tranche I Prospectus dated 09 January 2026, the individual applicant whose cumulative bid amount exceeds Rs.10 lacs (combining both ZCBs having face value of Rs. 100000 and NCDS having face value of Rs. 1000) shall be re-categorized to Category III (High Net Worth Individual Investors) at the time of finalization of basis of allotment.Please note: The minimum number of ZCBS under category III to be bid shall be 11.\""
-                }
-              ],
-              "symbol": "PFCZCB1"
-            },
-            "activeCat": {
-              "dataList": [
-                {
-                  "category": "Category",
-                  "noOfShareOffered": "No.of shares offered/reserved",
-                  "noOfSharesBid": "No. of shares bid for",
-                  "noOfTotalMeant": "No. of times of total meant for the category",
-                  "srNo": "Sr.No."
-                },
-                {
-                  "category": "Total",
-                  "noOfShareOffered": "0.0",
-                  "noOfSharesBid": "0.0",
-                  "noOfTotalMeant": "0.00",
-                  "srNo": null
-                }
-              ],
-              "heading": null,
-              "symbol": null,
-              "updateTime": "Updated as on null"
-            },
-            "demandGraph": {
-              "noOfShare": "Cumulative Demand(no. of shares in lakhs)",
-              "totalIssueSize": "0",
-              "note": "Cumulative (NSE) bid quantity at each price point includes the quantity (NSE) bidded at that relevant price point and all valid bids above that price point.",
-              "heading1": "- Graphical display of bids received *",
-              "heading2": "(* indicates bids position and not necessarily the subscription to the issue)",
-              "plotData": {},
-              "graphData": []
-            },
-            "demandDataNSE": [],
-            "demandDataBSE": [],
-            "demandGraphALL": {
-              "noOfShare": "Cumulative Demand(no. of shares in lakhs)",
-              "totalIssueSize": "0",
-              "note": " Cumulative bid quantity at each price point includes the quantity bid at that relevant price point and all valid bids at the next higher price point as specified. The graph is updated every hour.",
-              "heading1": "- Graphical display of bids received *",
-              "heading2": "(* indicates bids position and not necessarily the subscription to the issue)",
-              "plotData": {},
-              "graphData": []
-            }
-          }
-        }
-      }
-    },
-    "record2": {
-      "isin": null,
       "symbol": "PFC2026",
       "companyName": "Power Finance Corporation Limited",
       "status": "closed",
@@ -12584,6 +12384,2835 @@
               "plotData": {},
               "graphData": []
             }
+          }
+        }
+      }
+    },
+    "record2": {
+      "isin": null,
+      "symbol": "PFCZCB1",
+      "companyName": "Power Finance Corporation Limited (Zero Coupon NCD)",
+      "status": "closed",
+      "biddingStartDate": "2026-01-16",
+      "priceBand": {
+        "minimum": 100000,
+        "maximum": 100000
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": null
+      },
+      "raw_sources": {
+        "nse": {
+          "company": "Power Finance Corporation Limited (Zero Coupon NCD)",
+          "htmSym": "pfczcb1",
+          "ipoEndDate": "30-JAN-2026",
+          "ipoStartDate": "16-JAN-2026",
+          "issuePrice": "-",
+          "linkRemovalDate": "31-JAN-2026",
+          "listingDate": "-",
+          "priceRange": "Rs.100000",
+          "securityType": "DEBT",
+          "symbol": "PFCZCB1",
+          "details": {
+            "companyName": "PFCZCB1",
+            "metaInfo": {},
+            "bidDetails": [
+              {
+                "category": "Total",
+                "noOfSharesOffered": "0.0",
+                "noOfTime": "0.00",
+                "noOfsharesBid": "0.0",
+                "srNo": null
+              }
+            ],
+            "issueInfo": {
+              "dataList": [
+                {
+                  "title": "Power Finance Corporation Limited (Zero Coupon NCD)",
+                  "value": ""
+                },
+                {
+                  "title": "Symbol",
+                  "value": "PFCZCB1"
+                },
+                {
+                  "title": "Series",
+                  "value": "\"Issue Price of Rs. 51,502.00, Tenor 10 Year 1 Month for Category I and II- Zero Coupon NCD, Issue Price of Rs. 51,263.00, Tenor 10 Year 1 Month for Category III- Zero Coupon NCD, Issue Price of Rs. 50,780.00, Tenor 10 Year 1 Month for Category IV- Zero Coupon NCD\""
+                },
+                {
+                  "title": "Issue Period",
+                  "value": "16-Jan-2026 to 30-Jan-2026"
+                },
+                {
+                  "title": "Cut-off time for UPI Mandate Confirmation",
+                  "value": "\"Upto 5.00 P.M. (T+2 day) T Day being the date of bidding the application. For bids placed on the second last day and last day i.e., 29-Jan-2026 and 30-Jan-2026 respectively, cut off shall be Upto 5.00 P.M. on 30-Jan-2026\""
+                },
+                {
+                  "title": "Issue Size ",
+                  "value": "\"The Company is proposing a Public Issue of Secured Redeemable Non-Convertible Debentures of face value of Rs.1,000 each (except in case of zero coupon NCD, face value shall be Rs.1,00,000 each) (NCDs or Debentures), for an amount up to Rs.500 crore (Base Issue Size) with a green shoe option of Rs.4,500 crore aggregating up to Rs.5,000 crore.\""
+                },
+                {
+                  "title": "Security Type",
+                  "value": "\"Secured Rated, Listed, Redeemable, Non-Convertible Debentures\""
+                },
+                {
+                  "title": "Offer Price / Face Value",
+                  "value": "Rs 100000"
+                },
+                {
+                  "title": "Market Lot",
+                  "value": "1 (One) NCD"
+                },
+                {
+                  "title": "Minimum Application Value",
+                  "value": "\"The minimum application shall be 1 NCD and in multiple of 1 NCD thereafter (i.e. the minimum application amount shall be Rs 51,502 for Category I and II; Rs 51,263.00 for Category III and Rs 50,780 for Category IV Investors)\""
+                },
+                {
+                  "title": "IPO Grading",
+                  "value": "\"The NCDs proposed to be issued under the Issue have been rated : Crisil AAA Stable, Care AAA Stable and ICRA AAA Stable \""
+                },
+                {
+                  "title": "Rating Agency",
+                  "value": "\"Crisil Ratings Limited, CARE Ratings Limited and ICRA Limited\""
+                },
+                {
+                  "title": "IPO Market Timings",
+                  "value": "10.00 a.m. to 5.00 p.m."
+                },
+                {
+                  "title": "Lead Managers",
+                  "value": "\"Nuvama Wealth Management Limited, Trust Investment Advisors Private Limited, Tipsons Consultancy Services Private Limited and A. K. Capital Services Limited\""
+                },
+                {
+                  "title": "Sponsor Bank",
+                  "value": "HDFC Bank Limited"
+                },
+                {
+                  "title": "Name of the Registrar",
+                  "value": "KFIN Technologies Limited"
+                },
+                {
+                  "title": "Address of the Registrar",
+                  "value": "\"301, The Centrium, 3rd Floor, 57, Lal Bahadur Shastri Road, Nav Pada, Kurla (West), Kurla, Mumbai, Maharashtra, India, 400070\""
+                },
+                {
+                  "title": "Contact person name number and Email id",
+                  "value": "\"M. Murali Krishna,+91 40 6716 2222,pfcl.ncdipo@kfintech.com\""
+                },
+                {
+                  "title": "Live Parameters",
+                  "value": "https://nsearchives.nseindia.com/content/ipo/LIVE_PARAMETERS_PFCZCB1.zip"
+                },
+                {
+                  "title": "Prospectus",
+                  "value": "https://nsearchives.nseindia.com/content/ipo/PROSPECTUS_PFCZCB1.zip"
+                },
+                {
+                  "title": "Bidding Centers",
+                  "value": "https://nsearchives.nseindia.com/content/ipo/BIDDING_CENTERS_PFCZCB1.zip"
+                },
+                {
+                  "title": "Sample Application Forms",
+                  "value": "https://nsearchives.nseindia.com/content/ipo/FORMS_PFCZCB1.zip"
+                },
+                {
+                  "title": "ASBA e-form link",
+                  "value": "<a href=https://ipoforms.nseindia.com/issueforms/html/index.jsp target=new>e-Forms</a>"
+                },
+                {
+                  "title": "List of Escrow Banks branches where the Application Form shall be deposited by the Trading Members ",
+                  "value": "<a href=http://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yesandintmId=35 target=new>SCSB List</a>"
+                },
+                {
+                  "title": "List of mobile applications accepting UPI as Payment Option",
+                  "value": "<a href=https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yesandintmId=43 target=new>Mobile APP for UPI</a>"
+                },
+                {
+                  "title": "Video link  for UPI based ASBA process",
+                  "value": "<a href=https://youtu.be/UJ394m2Q3rg target=new>UPI Based ASBA Process</a>"
+                },
+                {
+                  "title": "Video link  for BHIM UPI Registration",
+                  "value": "<a href=https://youtu.be/cIUJOIH0x4c target=new>BHIM UPI Registration</a>"
+                },
+                {
+                  "title": "Disclaimer",
+                  "value": "\"\tSEBI Master Circular ref. no. SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137 dated October 15, 2025, directed that All Syndicate Members / Registered Stock Brokers / DPs / RTAs shall use Unified Payments Interface (UPI) as an additional payment mechanism for bid amounting upto Rs. 5 Lakhs and below for applications in Debt public issues for all issues opening from 01 January, 2021 onwards. Under this Tranche-I Issue the maximum no of bids which category IV can apply under UPI mechanism shall be 5 NCDS.According to the Tranche I Prospectus dated 09 January 2026, the individual applicant whose cumulative bid amount exceeds Rs.10 lacs (combining both ZCBs having face value of Rs. 100000 and NCDS having face value of Rs. 1000) shall be re-categorized to Category III (High Net Worth Individual Investors) at the time of finalization of basis of allotment.Please note: The minimum number of ZCBS under category III to be bid shall be 11.\""
+                }
+              ],
+              "symbol": "PFCZCB1"
+            },
+            "activeCat": {
+              "dataList": [
+                {
+                  "category": "Category",
+                  "noOfShareOffered": "No.of shares offered/reserved",
+                  "noOfSharesBid": "No. of shares bid for",
+                  "noOfTotalMeant": "No. of times of total meant for the category",
+                  "srNo": "Sr.No."
+                },
+                {
+                  "category": "Total",
+                  "noOfShareOffered": "0.0",
+                  "noOfSharesBid": "0.0",
+                  "noOfTotalMeant": "0.00",
+                  "srNo": null
+                }
+              ],
+              "heading": null,
+              "symbol": null,
+              "updateTime": "Updated as on null"
+            },
+            "demandGraph": {
+              "noOfShare": "Cumulative Demand(no. of shares in lakhs)",
+              "totalIssueSize": "0",
+              "note": "Cumulative (NSE) bid quantity at each price point includes the quantity (NSE) bidded at that relevant price point and all valid bids above that price point.",
+              "heading1": "- Graphical display of bids received *",
+              "heading2": "(* indicates bids position and not necessarily the subscription to the issue)",
+              "plotData": {},
+              "graphData": []
+            },
+            "demandDataNSE": [],
+            "demandDataBSE": [],
+            "demandGraphALL": {
+              "noOfShare": "Cumulative Demand(no. of shares in lakhs)",
+              "totalIssueSize": "0",
+              "note": " Cumulative bid quantity at each price point includes the quantity bid at that relevant price point and all valid bids at the next higher price point as specified. The graph is updated every hour.",
+              "heading1": "- Graphical display of bids received *",
+              "heading2": "(* indicates bids position and not necessarily the subscription to the issue)",
+              "plotData": {},
+              "graphData": []
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Hero FinCorp",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": null
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "hero-fincorp-ipo",
+          "symbol": null,
+          "name": "Hero FinCorp IPO",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": "Finance - NBFC",
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": "10:00:00",
+          "daily_end_time": "17:00:00",
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": null,
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "herofincorp.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 810 811 4949",
+            "website": "https://linkintime.co.in/initial_offer/public-issues.html",
+            "registrar": "LINK"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "TEMPISIN123H",
+      "symbol": "TEMPHERO",
+      "companyName": "Hero Fincorp",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://hfcl-website-cms.s3.ap-south-1.amazonaws.com/DRHP_Hero_Fin_Corp_Limited_fe2e340ba3.pdf"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "hero-fincrop-limited-ipo",
+          "list": {
+            "symbol": "TEMPHERO",
+            "searchId": "hero-fincrop-limited-ipo",
+            "companyName": "Hero Fincorp",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/hero_fincorp_logo.png",
+            "documentUrl": "https://hfcl-website-cms.s3.ap-south-1.amazonaws.com/DRHP_Hero_Fin_Corp_Limited_fe2e340ba3.pdf"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "TEMPHERO",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "1991",
+              "managingDirector": "Mr Abhimanyu Munjal",
+              "aboutCompany": "Hero Fincorp is a non-banking financial company (NBFC) that provides a range of financial services to retail customers and micro, small, and medium enterprises (MSMEs) in India. Its offerings include vehicle loans (two-wheeler, used car, and electric vehicle loans), personal loans, mortgage loans, and MSME financing (secured and unsecured loans for business needs). Hero Fincorp also offers loans to corporate and institutional customers. \nThe company operates under the \"Hero\" brand and leverages the extensive distribution network of its parent company, Hero MotoCorp, which has a wide dealer presence across India. Hero Fincorp utilises a digital platform for customer acquisition and loan management. \nThe company is headquartered in India and has an extensive presence across the country with a combination of in-house teams and distribution partnerships.\nUse of proceeds:\nThe IPO consists of both a fresh issue of shares and an offer for sale (OFS).​ Proceeds from the OFS will go to the respective selling shareholders, whereas the net proceeds from the fresh issue will be utilised for the following purposes:​ \nAugmenting the company’s Tier-I capital to support future lending requirements.\nCovering expenses related to the offer."
+            },
+            "companyName": "Hero Fincorp Limited",
+            "companyShortName": "Hero Fincorp",
+            "isSme": false,
+            "pros": [
+              "Hero Fincorp claims to have strategically expanded its product portfolio beyond two-wheeler loans to include a wide range of secured and unsecured loans, catering to both retail and MSME customers. As of FY24, retail and MSME loans accounted for 65.08 percent and 20.80 percent of its total assets under management (AUM).",
+              "Hero Fincorp claims to benefit from a deep-rooted relationship with Hero MotoCorp Limited, leveraging its brand recognition and extensive dealer network. In FY24, Hero MotoCorp Limited held a 41.19 percent equity stake in Hero Fincorp and provided financing for a significant portion of Hero MotoCorp’s two-wheeler sales.",
+              "The company claims to have developed a comprehensive, omnichannel distribution network that spans 18,603 pin-codes across India, aided by both digital and physical channels. Hero Fincorp also claims to source a substantial portion of its business through partnerships with 3,612 partners, including used car dealers, digital partners, and direct sales agents (DSAs).",
+              "Hero Fincorp claims to follow a ‘customer first approach’ that allows it to design customised products for retail and MSME clients, addressing unique financing needs across metro, urban, and rural regions. The company further states this approach enhances cross-sell potential, as demonstrated by a product per customer (PPC) ratio of 4.25 in FY24, 3.15 in FY23, and 3.52 in FY22.",
+              "The company claims to integrate technology seamlessly into customer onboarding, underwriting, loan servicing, and collections, providing a fully digital experience. It claims to leverage artificial intelligence (AI), machine learning (ML), and real-time analytics to improve customer acquisition, reduce wait times, and streamline operations, boosting both operational efficiency and customer satisfaction.",
+              "The company claims to have consistently improved its asset quality over the years. As of FY24, the gross non-performing assets (GNPA) ratio is 4.02 percent, a reduction from 5.11 percent in FY23 and 7.54 percent in 2022. Similarly, the net non-performing assets (NNPA) ratio has declined to 2.00 percent in 2024, compared to 2.69 percent in 2023 and 4.43 percent in 2022. ",
+              "Leveraging advanced data analytics, Hero Fincorp claims to enhance its risk management by tracking credit trends and predicting default probabilities. It has integrated a technology-driven collections infrastructure, improving efficiency with a 94.42 percent collection rate in FY24, 95.07 percent in FY23, and 83.00 percent in FY22, through mobile app-based repayments and a four-tier collections team.",
+              "The company claims to maintain a well-balanced mix of short-term and long-term assets and liabilities, minimising liquidity and interest rate risks.",
+              "The company has received credit ratings of AA+ with a stable outlook from Credit Rating Information Services of India Limited (CRISIL), Investment Information and Credit Rating Agency of India Limited (ICRA), and Credit Analysis and Research Limited (CARE), and an A1+ rating for commercial papers from CRISIL, CARE, and ICRA as of FY24. ",
+              "The company has witnessed a consistent increase in revenue from operations. It increased from Rs 4,738.65 crore in FY22 to Rs 6,401.59 crore in FY23 and Rs 8,290.90 crore in FY24."
+            ],
+            "cons": [
+              "Hero Fincorp sourced Rs 9,581.62 crore (99.04 percent), Rs 8,726.52 crore (99.69 percent), and Rs 8,074.88 crore (99.93 percent) of its two-wheeler loans from Hero MotoCorp Limited’s dealerships in FY24, FY23, and FY22, respectively. Any decline in demand for Hero MotoCorp’s two-wheelers could adversely affect the company’s ability to generate revenue from these loans, thereby impacting its business, results of operations, and financial condition.",
+              "The company’s retail finance business depends heavily on new-to-credit (NTC) borrowers. They accounted for 8.953.66 crore (26.55 percent) of the company’s total retail AUM in FY24, Rs 8,934.51 crore (34.06 percent) in FY23, and Rs 9,250.4 crore (46.33 percent) in FY22. The lack of credit history makes it difficult to assess these customers’ creditworthiness, which may result in higher default rates. In the event of defaults, recovering these loans, especially unsecured ones, could be challenging, potentially leading to the company’s financial losses.",
+              "Retail finance, including vehicle, personal, mortgage, and MSME loans, accounted for Rs 44,506.08 crore (85.88 percent) of the company’s total AUM in FY24, Rs 34,713.74 crore (83.14 percent) in FY23, and Rs 26,117.92 crore (79.02 percent) in FY22. Furthermore, as of FY24, 72.20 percent of these loans are extended to customers in the “Aspiring India” segment, who are vulnerable to economic downturns. Any adverse economic developments could reduce loan demand or increase default rates, negatively impacting the company’s financial condition.",
+              "The company’s promoters are involved in certain regulatory proceedings. Any adverse outcomes in these cases could be detrimental to the company’s reputation. ",
+              "The company’s operations heavily depend on its information technology (IT) systems, which manage risk, deposit servicing, loan origination, and other critical functions. Capital expenditure incurred towards IT systems constituted Rs 48.43 crore (29.48 percent) of the company’s total expenditure in FY24, Rs 26.47 crore (57.51 percent) in FY23, and Rs 18.43 crore (71.79 percent) in FY22. Any internal or external disruptions, system failures, or inadequate maintenance could significantly affect customer service, operations, and the company’s reputation.",
+              "The company’s net interest income and margins are vulnerable to fluctuations in interest rates due to its fixed and floating-rate loans and borrowings. As of FY24, FY23, and FY22, Rs 37,084.04 crore (72.03 percent), Rs 31,352.22 crore (75.55 percent), and Rs 25,279.18 crore (76.72 percent) of total gross loans were extended at fixed interest rates. If interest rates rise, the company may not be able to fully pass on increased costs to fixed-rate borrowers, which could lead to lower margins, increased defaults, and reduced loan demand.",
+              "As of FY24, FY23, and FY22, unsecured loans accounted for Rs 20,275.58 crore (39.13 percent), Rs 15,521.04 crore (37.18 percent), and Rs 10,497.72 crore (31.76 percent) of the company’s total AUM, respectively. Any failure to recover receivables from these loans could adversely affect the company’s operations, cash flow, and financial condition.",
+              "The company is exposed to risks related to the devaluation or loss of collateral backing secured loans, such as property and vehicles. Secured loans accounted for Rs 30,866.24 crore (59.95 percent) of the company’s total gross loans in FY24, Rs 25,928.95 crore (62.48 percent) in FY23, and Rs 22,240.08 crore (67.49 percent) in FY22.",
+              "The company relies heavily on third-party distributors, including two-wheeler dealers, digital partners, and direct selling agents (DSAs). They accounted for 62.07 percent, 65.69 percent, and 58.02 percent of the company’s disbursements in FY24, FY23, and FY22, respectively. Any breakdown in relationships, service disruptions, or inefficiencies by these third-party service providers could impact the company’s business operations, financial condition, and reputation.",
+              "The company reported negative cash flow from operating activities amounting to Rs 9,238.83 crore in FY24, Rs 6,918.52 crore in FY23, and Rs 5,411.77 crore in FY22. Additionally, negative cash flow from investing activities amounted to Rs 129.79 crore in FY24 and Rs 474.13 crore in FY23. Furthermore, the company experienced a net decrease in cash and cash equivalents amounting to Rs 651.36 crore in FY24, Rs 124.35 crore in FY23, and Rs 232.37 crore in FY22. If cash outflows continue to exceed inflows in the future, the company may face liquidity challenges.",
+              "As of June 30, 2024, the company had outstanding financial indebtedness of Rs 43,917.86 crore. Any failure to service or repay these loans can hurt the company’s operations and financial position."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 36681300000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": null,
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://hfcl-website-cms.s3.ap-south-1.amazonaws.com/DRHP_Hero_Fin_Corp_Limited_fe2e340ba3.pdf",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/hero_fincorp_logo.png",
+            "videoId": "",
+            "videoName": null,
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2022": 4738.65,
+                  "2023": 6401.59,
+                  "2024": 8290.9
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2022": 34399.04,
+                  "2023": 43451.23,
+                  "2024": 53204.66
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2022": -191.9,
+                  "2023": 479.95,
+                  "2024": 637.05
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of Hero Fincorp Limited IPO?",
+                "answer": "The issue size of the Hero Fincorp Limited IPO is 36681300000."
+              },
+              {
+                "question": "What is 'pre-apply' for Hero Fincorp Limited IPO?",
+                "answer": "Pre-apply will allow you to apply for the Hero Fincorp Limited IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for Hero Fincorp Limited IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the Hero Fincorp Limited IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my Hero Fincorp Limited IPO order is placed?",
+                "answer": "We will notify you when your Hero Fincorp Limited IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the Hero Fincorp Limited IPO?",
+                "answer": "Open and close date for Hero Fincorp Limited IPO is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the Hero Fincorp Limited IPO?",
+                "answer": "Hero Fincorp Limited IPO lot size is yet to be announced."
+              },
+              {
+                "question": "What is the allotment date for the Hero Fincorp Limited IPO?",
+                "answer": "Hero Fincorp Limited IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of Hero Fincorp Limited IPO?",
+                "answer": "For Hero Fincorp Limited, the IPO registrar is yet to be announced."
+              },
+              {
+                "question": "Where is the Hero Fincorp Limited IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 10,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "TEMPISIN123H",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": null,
+            "dailyEndTime": null,
+            "lastBidPlaceTime": null,
+            "applicationDetails": "For Hero Fincorp IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "Hero Fincorp",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 0.9379310344827586,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Prestige Hospitality Ventures",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": null
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "prestige-hospitality-ventures-ipo",
+          "symbol": null,
+          "name": "Prestige Hospitality Ventures IPO",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": "Hotel",
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": null,
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KFin Technologies Limited",
+            "email": "Prestige.ipo@kotak.com",
+            "contact_name": "M. Murali Krishna",
+            "contact_number": "+91 40 6716 2222/18003094001",
+            "website": "https://www.kfintech.com/",
+            "registrar": "KFINTECH"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "PREST1234RFD",
+      "symbol": "TEMPPREST",
+      "companyName": "Prestige Hospitality",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": null
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "prestige-hospitality-ventures-ipo",
+          "list": {
+            "symbol": "TEMPPREST",
+            "searchId": "prestige-hospitality-ventures-ipo",
+            "companyName": "Prestige Hospitality",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/logo-prestige.png",
+            "documentUrl": null
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "TEMPPREST",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": null,
+              "managingDirector": null,
+              "aboutCompany": "Prestige Hospitality Ventures Ltd is a hospitality asset owner and developer focused on luxury, upper-upscale, and upper midscale hospitality assets in India. It caters to both business and leisure travelers and operates as part of the larger Prestige Group, which is promoted by Prestige Estates Projects Limited (PEPL)—a well-established real estate company with over 38 years of experience."
+            },
+            "companyName": "Prestige Hospitality Ventures Ltd",
+            "companyShortName": "Prestige Hospitality",
+            "isSme": false,
+            "pros": [
+              "."
+            ],
+            "cons": [
+              "."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 0,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": null,
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/logo-prestige.png",
+            "videoId": "",
+            "videoName": null,
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of Prestige Hospitality Ventures Ltd IPO?",
+                "answer": "The issue size of the Prestige Hospitality Ventures Ltd IPO is yet to be announced."
+              },
+              {
+                "question": "What is 'pre-apply' for Prestige Hospitality Ventures Ltd IPO?",
+                "answer": "Pre-apply will allow you to apply for the Prestige Hospitality Ventures Ltd IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for Prestige Hospitality Ventures Ltd IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the Prestige Hospitality Ventures Ltd IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my Prestige Hospitality Ventures Ltd IPO order is placed?",
+                "answer": "We will notify you when your Prestige Hospitality Ventures Ltd IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the Prestige Hospitality Ventures Ltd IPO?",
+                "answer": "Open and close date for Prestige Hospitality Ventures Ltd IPO is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the Prestige Hospitality Ventures Ltd IPO?",
+                "answer": "Prestige Hospitality Ventures Ltd IPO lot size is yet to be announced."
+              },
+              {
+                "question": "What is the allotment date for the Prestige Hospitality Ventures Ltd IPO?",
+                "answer": "Prestige Hospitality Ventures Ltd IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of Prestige Hospitality Ventures Ltd IPO?",
+                "answer": "For Prestige Hospitality Ventures Ltd, the IPO registrar is yet to be announced."
+              },
+              {
+                "question": "Where is the Prestige Hospitality Ventures Ltd IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 1,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "PREST1234RFD",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": null,
+            "dailyEndTime": null,
+            "lastBidPlaceTime": null,
+            "applicationDetails": "For Prestige Hospitality IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "Prestige Hospitality",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "PhonePe",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": null
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "phonepe-ipo",
+          "symbol": null,
+          "name": "PhonePe",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": "Finance - Others",
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": null,
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": null,
+            "email": null,
+            "contact_name": null,
+            "contact_number": null,
+            "website": null,
+            "registrar": null
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "PHONE1234543",
+      "symbol": "PH123",
+      "companyName": "PhonePe",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/jan-2026/phonepe-limited-udrhp-i_99285.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "phonepe-ipo",
+          "list": {
+            "symbol": "PH123",
+            "searchId": "phonepe-ipo",
+            "companyName": "PhonePe",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/phonepe_logo.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2026/phonepe-limited-udrhp-i_99285.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "PH123",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2015",
+              "managingDirector": "Sameer Nigam",
+              "aboutCompany": "PhonePe Limited is a technology company that builds digital platforms for Payments services, Digital Distribution Services, and Financial Services. Through its flagship PhonePe Platform, it offers Consumer Payments, Merchant Payments, and both Lending and Insurance Distribution services. The company has also expanded into new platforms, including Share.Market, a stock broking and mutual funds distribution platform, and Indus Appstore, a mobile app marketplace. These platforms are built on a proprietary technology stack designed for reliability, scalability, and security.\nThe company's operations are primarily India-focused, with merchants present across 98.61% of the country's pin codes. It has extended its UPI payments service to ten international markets, including Singapore, UAE, and France, enabling Indian users to make payments when they travel abroad. A significant portion of its user base, 65.22%, comes from Tier-2+ cities.\n\n\n\n"
+            },
+            "companyName": "PhonePe",
+            "companyShortName": "PhonePe",
+            "isSme": false,
+            "pros": [
+              "The company is the market leader in India's digital payments ecosystem, holding a 49.15% market share of UPI TPV for customer-initiated transactions as of September 2025. This market leadership has been sustained for 58 consecutive months and has translated into strong financial growth, with Total Payment Value (TPV) on its platform growing from ₹69.55 lakh Crores in FY23 to ₹132.70 lakh Crores in FY25.",
+              "PhonePe has demonstrated rapid revenue growth and strategic diversification, with revenue from operations growing at a CAGR of 56.25% from ₹2,914.29 Crores in FY23 to ₹7,114.86 Crores in FY25. This growth is supported by a successful diversification strategy, which saw the revenue contribution from Merchant Payments increase from 14.75% to 27.99% and from Lending & Insurance services from 0.96% to 7.84% over the same period.",
+              "The company possesses a massive and deeply engaged user base, with 65.76 Crore life-till-date registered users and 4.72 Crore merchants as of September 2025. This scale is reflected in its customer activity metrics, which show a 31.48% CAGR in Daily Active Customers from FY23 to FY25, indicating strong platform stickiness and growing user engagement.",
+              "PhonePe has shown significant improvement in profitability, with its restated loss narrowing from ₹2,796.07 Crores in FY23 to ₹1,727.41 Crores in FY25. More significantly, key operational metrics have turned positive, with the company achieving an Adjusted EBITDA of ₹1,477.19 Crores and generating free cash of ₹190.48 Crores in FY25, indicating a strong path towards sustainable profitability.",
+              "The company operates a proprietary, in-house technology stack and self-managed infrastructure, a key differentiator in the commoditized payments market. It has invested ₹3,373 Crores in this infrastructure since 2016, which enables greater control over reliability, scalability, security, and cost-efficiency while ensuring 100% data residency in India.",
+              "The company has built a highly trusted brand, demonstrated by being India's most downloaded Android finance app with the highest Daily Active Users of 15.6 Crores in H1FY26. This brand trust translates into strong customer retention, with 99.23% of daily customers returning to the platform within 30 days as of September 2025.",
+              "The company is successfully executing its diversification strategy into new high-growth areas like wealth management and app distribution. Its Share.Market platform has already opened 1.26 million demat accounts and manages an AUM of ₹5,838 Crores, while its Indus Appstore has secured partnerships with major OEMs like Xiaomi and Motorola to be pre-installed on their smartphones.",
+              "PhonePe is backed by strong promoters, WM Digital Commerce Holdings Pte. Ltd. and Wal-Mart International Holdings, Inc., part of the Walmart group. WM Digital holds 71.77% of the pre-offer equity, providing significant financial backing, strategic oversight, and robust corporate governance standards."
+            ],
+            "cons": [
+              "The company has a history of significant net losses, recording a loss of ₹1,727.41 Crores in FY25 and ₹1,996.17 Crores in FY24. While losses are narrowing, the company also reported negative cash flows from operating activities of ₹117.27 Crores for the six months ended September 30, 2025, indicating continued cash burn to fund operations and growth.",
+              "The business is heavily dependent on its payment services, which accounted for 86.92% of its revenue from operations in the six months ended September 30, 2025, down from 97.66% in FY23. Any downturn in customer willingness to use these services, regulatory changes, or increased competition could materially impact its financial results.",
+              "A significant regulatory risk arises from the NPCI's proposed 30% volume cap on UPI transactions for any single Third-Party App Provider (TPAP), which has been deferred until December 31, 2026. With a UPI volume market share of 46.85% as of September 2025, enforcement of this cap could severely impact the company's ability to onboard new users and its overall growth trajectory.",
+              "The company's operations are critically dependent on its three sponsor Payment System Provider (PSP) banks: Yes Bank, Axis Bank, and ICICI Bank. Any disruption, failure, change in commercial terms, or operational breakdown with these banks could adversely affect business, as exemplified by the temporary stoppage of its UPI services during the Yes Bank moratorium in March 2020.",
+              "The company faces rising payment processing charges, which as a percentage of total expenses, increased from 11.29% in FY23 to 17.97% in FY25. Any significant future increase in these charges by financial institutions, if unable to be passed on to merchants or consumers, could decrease margins and profitability.",
+              "The company and its directors are involved in material pending litigations, including 10 tax proceedings against the company with an aggregate amount of ₹24.95 Crores. An adverse outcome in these or other legal matters could lead to significant financial liabilities and reputational damage.",
+              "As a large digital platform processing vast amounts of sensitive user data, the company is vulnerable to cybersecurity risks. The recent implementation of India's Digital Personal Data Protection (DPDP) Act introduces significant compliance obligations and potential penalties of up to ₹250 Crores for data breaches, heightening the financial and reputational risk."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 0,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": null,
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2026/phonepe-limited-udrhp-i_99285.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/phonepe_logo.png",
+            "videoId": "zxuukWMDDZ0",
+            "videoName": "https://www.youtube.com/watch?v=zxuukWMDDZ0",
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of PhonePe IPO?",
+                "answer": "The issue size of the PhonePe IPO is yet to be announced."
+              },
+              {
+                "question": "What is 'pre-apply' for PhonePe IPO?",
+                "answer": "Pre-apply will allow you to apply for the PhonePe IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for PhonePe IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the PhonePe IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my PhonePe IPO order is placed?",
+                "answer": "We will notify you when your PhonePe IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the PhonePe IPO?",
+                "answer": "Open and close date for PhonePe IPO is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the PhonePe IPO?",
+                "answer": "PhonePe IPO lot size is yet to be announced."
+              },
+              {
+                "question": "What is the allotment date for the PhonePe IPO?",
+                "answer": "PhonePe IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of PhonePe IPO?",
+                "answer": "For PhonePe, the IPO registrar is yet to be announced."
+              },
+              {
+                "question": "Where is the PhonePe IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 1,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "PHONE1234543",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": null,
+            "dailyEndTime": null,
+            "lastBidPlaceTime": null,
+            "applicationDetails": "For PhonePe IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": {
+              "summary": "Phonepe is leveraging its dominant position in India's digital payments to rapidly scale into high-margin financial services and new platform ventures. However, its growth is threatened by a heavy reliance on the payments business and a looming regulatory cap on its core UPI market share.",
+              "highlights": [
+                "Dominant 49.15% UPI TPV market share leadership",
+                "Revenue grew at 56.25% CAGR to ₹7,114.86 Crores",
+                "Achieved positive Adjusted EBITDA of ₹1,477.19 Crores"
+              ],
+              "lowlights": [
+                "History of significant losses, ₹1,727.41 Crores in FY25",
+                "Faces 30% UPI volume cap with 46.85% market share",
+                "Faces pending tax litigations involving ₹24.95 Crores"
+              ]
+            },
+            "growwShortName": "PhonePe",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Zepto",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": null
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "zepto-ipo",
+          "symbol": null,
+          "name": "Zepto",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": "e-Commerce",
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": null,
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": null,
+            "email": null,
+            "contact_name": null,
+            "contact_number": null,
+            "website": null,
+            "registrar": null
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "ZEPTOISIN123",
+      "symbol": "ZEP123",
+      "companyName": "Zepto",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/jun-2026/zepto-limited-udrhp1_101929.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "zepto-ipo",
+          "list": {
+            "symbol": "ZEP123",
+            "searchId": "zepto-ipo",
+            "companyName": "Zepto",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/zepto_ipo.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jun-2026/zepto-limited-udrhp1_101929.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "ZEP123",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2021",
+              "managingDirector": "Aadit Palicha",
+              "aboutCompany": "Zepto, the Indian quick commerce startup, was founded in July 2021 by Stanford students Aadit Palicha and Kaivalya Vohra. The two dropped out of Stanford to set up India’s fastest-growing e-grocery company, which by August 2024 was valued at over $5 billion. \nThe company, which pioneered the 10-minute home delivery of daily essentials, has a presence in 10 major cities in India. It has a 1,000+ staff strength and delivers 5,000+ products, including fresh fruits and vegetables, daily cooking essentials, dairy, health and hygiene products, etc., to Indian homes – all within 10 minutes.\nIt has been able to achieve this innovative feat with the help of strong tech capabilities and a network of highly optimised delivery centres.\nThe company which Palicha and Vohra originally founded was named KiranaKart, which partnered with local kirana stores to deliver groceries to homes. The model did not gain enough traction. In 2021, the business was reformatted to the 10-minute delivery specialist Zepto.\nIn the run-up to the company’s initial public offering (IPO), it undertook a reverse flip from Singapore to India. This move of changing the domicile of Zepto’s parent to India  \n Zepto has marked a milestone with the completion of its reverse flip from Singapore to India ahead of its proposed IPO. The move of bringing the domicile of Zepto's parent to India assumes aims to increase the shareholding of domestic investors in the quick commerce company."
+            },
+            "companyName": "Zepto",
+            "companyShortName": "Zepto",
+            "isSme": false,
+            "pros": [
+              "Pioneer in Quick Commerce – Introduced the 10-minute grocery delivery model, revolutionizing e-commerce in India.",
+              "Widespread Presence – Operates in 10 major Indian cities with a strong customer base.",
+              "Extensive Product Range – Offers 5,000+ products, including fresh groceries, dairy, and hygiene essentials.",
+              "Optimized Logistics & Tech – Uses advanced technology and a network of optimized delivery centers for efficiency."
+            ],
+            "cons": [
+              "High Operational Costs – Maintaining a 10-minute delivery model requires significant investment in logistics, warehousing, and delivery personnel.",
+              "Competitive Market – Faces stiff competition from established players like Blinkit, Swiggy Instamart, and BigBasket.",
+              "Sustainability Concerns – The long-term profitability of ultra-fast delivery remains uncertain due to slim margins."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 0,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": null,
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jun-2026/zepto-limited-udrhp1_101929.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/zepto_ipo.png",
+            "videoId": "",
+            "videoName": null,
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "00": 0
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of Zepto IPO?",
+                "answer": "The issue size of the Zepto IPO is yet to be announced."
+              },
+              {
+                "question": "What is 'pre-apply' for Zepto IPO?",
+                "answer": "Pre-apply will allow you to apply for the Zepto IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for Zepto IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the Zepto IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my Zepto IPO order is placed?",
+                "answer": "We will notify you when your Zepto IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the Zepto IPO?",
+                "answer": "Open and close date for Zepto IPO is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the Zepto IPO?",
+                "answer": "Zepto IPO lot size is yet to be announced."
+              },
+              {
+                "question": "What is the allotment date for the Zepto IPO?",
+                "answer": "Zepto IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of Zepto IPO?",
+                "answer": "For Zepto, the IPO registrar is yet to be announced."
+              },
+              {
+                "question": "Where is the Zepto IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 1,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "ZEPTOISIN123",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": null,
+            "dailyEndTime": null,
+            "lastBidPlaceTime": null,
+            "applicationDetails": "For Zepto IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "Zepto",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "FabIndia",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/nov-2022/fabindia-limited-corrigendum-to-drhp_64776.html"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "fabindia-ipo",
+          "symbol": null,
+          "name": "FabIndia IPO",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/filings/public-issues/nov-2022/fabindia-limited-corrigendum-to-drhp_64776.html",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "fabindia.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 22 4918 6200",
+            "website": "www.linkintime.co.in",
+            "registrar": "Link"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "INE111111",
+      "symbol": "FABINDIA",
+      "companyName": "FabIndia",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "fabindia-ipo",
+          "list": {
+            "symbol": "FABINDIA",
+            "searchId": "fabindia-ipo",
+            "companyName": "FabIndia",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-135.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "FABINDIA",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "1976",
+              "managingDirector": "Viney Singh",
+              "aboutCompany": "Fabindia is an Indian chain store retailing garments, furnishings, fabrics, and ethnic products handmade by craftspeople across rural India. Fabindia is a legacy brand focusing on handcrafted, indigenous products. The company has established a brand built on artisanal heritage and tradition, inherited across various product categories.\nFabindia links around 50,000 craft-based rural producers to modern urban markets, thereby creating a base for skilled, sustainable rural employment, and preserving India's traditional handicrafts in the process.\n"
+            },
+            "companyName": "FabIndia Ltd.",
+            "companyShortName": "FabIndia",
+            "isSme": false,
+            "pros": [
+              "Leading consumer lifestyle brand focused on authentic craft-based products made using sustainable materials & practices",
+              "Targets people who desire high-quality Indian lifestyle and organic products",
+              "Sustainable  business model which prioritizes the interests of Supplier Community",
+              "Established supplier network and supply chain infrastructure ",
+              "Offers products through multiple channels for seamless customer experience",
+              "Managed by a highly experienced team of professionals led by the founder",
+              "Capital efficient business model (good investment to expense ratio), with a track record of delivering growth and return on capital"
+            ],
+            "cons": [
+              "Growth of online retailers may create pricing pressures, increase competition, and adversely affect business, results of operations and financial condition.",
+              "Significant dependence on a network of Contract Manufacturers (who in turn engage artisans) and farmers for the manufacture of products.",
+              "Significant portion of revenues is dependent on the sale of clothing.",
+              "Sale of certain products affected due to seasonal changes.",
+              "Outstanding litigation proceedings against Company, Directors, Promoters and Subsidiaries.",
+              "Some part of revenue comes from sales at retail franchise stores, failure to maintain such franchise relationships may affect sales, profits.",
+              "Focus on using sustainable materials and environmentally processes may lead to increase in the cost of revenue and hinder growth.",
+              "Dependent on third-party transportation providers for the delivery of raw materials and products.",
+              "Have certain contingent liabilities that have not been provided for in financial statements. If they materialise, they may adversely affect the financial condition.",
+              "Have had net outflows of cash from operating activities in the past and may continue to have net cash outflows in future."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 40000000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-135.png",
+            "videoId": "",
+            "videoName": null,
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 1481,
+                  "2020": 1524,
+                  "2021": 1087
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 2131,
+                  "2020": 2466,
+                  "2021": 2103
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": 84,
+                  "2020": 31,
+                  "2021": -117
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of FabIndia IPO?",
+                "answer": "FabIndia IPO issue size is Rs 4000 crores."
+              },
+              {
+                "question": "What is 'pre-apply' for FabIndia IPO?",
+                "answer": "Pre-apply will alow you to apply for the FabIndia IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for FabIndia IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the FabIndia IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my FabIndia IPO order is placed?",
+                "answer": "We will notify you when your FabIndia IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the for FabIndia IPO?",
+                "answer": "FabIndia IPO dates haven't been announced yet."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the FabIndia IPO?",
+                "answer": "FabIndia lot size and minimum order quantity hasn't been announced yet."
+              },
+              {
+                "question": "What are the allotment dates for the FabIndia IPO?",
+                "answer": "FabIndia IPO allotment will take place in June, 2022. However, exact date hasn't been announced yet."
+              },
+              {
+                "question": "Who is the registrar of FabIndia IPO?",
+                "answer": "FabIndia IPO registrar is Link Intime India Pvt Ltd"
+              },
+              {
+                "question": "Where is the FabIndia IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "INE111111",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For FabIndia IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "FabIndia",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "FabIndia",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/nov-2022/fabindia-limited-corrigendum-to-drhp_64776.html"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "fabindia-ipo",
+          "symbol": null,
+          "name": "FabIndia IPO",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/filings/public-issues/nov-2022/fabindia-limited-corrigendum-to-drhp_64776.html",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "fabindia.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 22 4918 6200",
+            "website": "www.linkintime.co.in",
+            "registrar": "Link"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "INE111111",
+      "symbol": "FABINDIA",
+      "companyName": "FabIndia",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "fabindia-ipo",
+          "list": {
+            "symbol": "FABINDIA",
+            "searchId": "fabindia-ipo",
+            "companyName": "FabIndia",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-135.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "FABINDIA",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "1976",
+              "managingDirector": "Viney Singh",
+              "aboutCompany": "Fabindia is an Indian chain store retailing garments, furnishings, fabrics, and ethnic products handmade by craftspeople across rural India. Fabindia is a legacy brand focusing on handcrafted, indigenous products. The company has established a brand built on artisanal heritage and tradition, inherited across various product categories.\nFabindia links around 50,000 craft-based rural producers to modern urban markets, thereby creating a base for skilled, sustainable rural employment, and preserving India's traditional handicrafts in the process.\n"
+            },
+            "companyName": "FabIndia Ltd.",
+            "companyShortName": "FabIndia",
+            "isSme": false,
+            "pros": [
+              "Leading consumer lifestyle brand focused on authentic craft-based products made using sustainable materials & practices",
+              "Targets people who desire high-quality Indian lifestyle and organic products",
+              "Sustainable  business model which prioritizes the interests of Supplier Community",
+              "Established supplier network and supply chain infrastructure ",
+              "Offers products through multiple channels for seamless customer experience",
+              "Managed by a highly experienced team of professionals led by the founder",
+              "Capital efficient business model (good investment to expense ratio), with a track record of delivering growth and return on capital"
+            ],
+            "cons": [
+              "Growth of online retailers may create pricing pressures, increase competition, and adversely affect business, results of operations and financial condition.",
+              "Significant dependence on a network of Contract Manufacturers (who in turn engage artisans) and farmers for the manufacture of products.",
+              "Significant portion of revenues is dependent on the sale of clothing.",
+              "Sale of certain products affected due to seasonal changes.",
+              "Outstanding litigation proceedings against Company, Directors, Promoters and Subsidiaries.",
+              "Some part of revenue comes from sales at retail franchise stores, failure to maintain such franchise relationships may affect sales, profits.",
+              "Focus on using sustainable materials and environmentally processes may lead to increase in the cost of revenue and hinder growth.",
+              "Dependent on third-party transportation providers for the delivery of raw materials and products.",
+              "Have certain contingent liabilities that have not been provided for in financial statements. If they materialise, they may adversely affect the financial condition.",
+              "Have had net outflows of cash from operating activities in the past and may continue to have net cash outflows in future."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 40000000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-135.png",
+            "videoId": "",
+            "videoName": null,
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 1481,
+                  "2020": 1524,
+                  "2021": 1087
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 2131,
+                  "2020": 2466,
+                  "2021": 2103
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": 84,
+                  "2020": 31,
+                  "2021": -117
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of FabIndia IPO?",
+                "answer": "FabIndia IPO issue size is Rs 4000 crores."
+              },
+              {
+                "question": "What is 'pre-apply' for FabIndia IPO?",
+                "answer": "Pre-apply will alow you to apply for the FabIndia IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for FabIndia IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the FabIndia IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my FabIndia IPO order is placed?",
+                "answer": "We will notify you when your FabIndia IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the for FabIndia IPO?",
+                "answer": "FabIndia IPO dates haven't been announced yet."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the FabIndia IPO?",
+                "answer": "FabIndia lot size and minimum order quantity hasn't been announced yet."
+              },
+              {
+                "question": "What are the allotment dates for the FabIndia IPO?",
+                "answer": "FabIndia IPO allotment will take place in June, 2022. However, exact date hasn't been announced yet."
+              },
+              {
+                "question": "Who is the registrar of FabIndia IPO?",
+                "answer": "FabIndia IPO registrar is Link Intime India Pvt Ltd"
+              },
+              {
+                "question": "Where is the FabIndia IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "INE111111",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For FabIndia IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "FabIndia",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "OYO",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/nov-2022/1669613102669.pdf#page=1&zoom=page-width,-15,842"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "oyo-ipo",
+          "symbol": null,
+          "name": "OYO IPO",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/nov-2022/1669613102669.pdf#page=1&zoom=page-width,-15,842",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "oyo.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 22 4918 6200",
+            "website": "www.linkintime.co.in",
+            "registrar": "Link"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "OYOISIN123",
+      "symbol": "OYO",
+      "companyName": "OYO",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "oyo-ipo",
+          "list": {
+            "symbol": "OYO",
+            "searchId": "oyo-ipo",
+            "companyName": "OYO",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-88.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "OYO",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2012",
+              "managingDirector": "Ritesh Agarwal",
+              "aboutCompany": "OYO is a leading, new-age technology platform empowering the large yet highly fragmented global hospitality ecosystem. It has been focusing on the short-stay accommodation space since 2012. Its unique business model helps its patrons transform fragmented, unbranded, and underutilized hospitality assets into branded, digitally-enabled storefronts with higher revenue generation potential. OYO provides its customers with high-quality storefronts at compelling price points."
+            },
+            "companyName": "Oravel Travels Ltd.",
+            "companyShortName": "OYO",
+            "isSme": false,
+            "pros": [
+              "Largest footprint in terms of hotel storefronts in India and SEA ",
+              "Second largest footprint in Europe in terms of home storefronts among full stack short-stay accommodation players, according to RedSeer.",
+              "Asset-light business model and a lean cost structure - the company does not own the storefronts listed on its platform",
+              "Full-stack technology platform",
+              "Two flagship Patron applications - Co-OYO and OYO OS",
+              "An increase in Patron satisfaction score from 30.1% for the three months ended September 30, 2020 to 72.3% for the three months ended March 31, 2021",
+              "Unit economics, measured based on Contribution Profit, has improved from 5.1% in Fiscal 2020 to 18.4% in Fiscal 2021",
+              "The proportion of hotel and home storefronts with minimum guarantees or fixed payout commitments from the company has decreased from 14.7% in Fiscal 2019 to 0.1% in Fiscal 2021."
+            ],
+            "cons": [
+              "Impact of the Covid-19 pandemic on the travel industry.",
+              "Negative cash flows from operating activities in prior years. ",
+              "Company has incurred net losses in each year since incorporation.",
+              "A substantial amount of debt in the past",
+              "No control over or ability to predict the actions of our patrons, customers and other third parties, such as neighbors or invitees, during a customer’s stay",
+              "Any adverse outcome in legal proceedings involving Zostel may affect the business.",
+              "The company is currently involved in a matter before the Competition Commission of India.",
+              "There is a pending litigation against the company, certain subsidiaries and directors and promoters."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 84300000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-88.png",
+            "videoId": "1k-DVSEngwg",
+            "videoName": "https://www.youtube.com/watch?v=1k-DVSEngwg",
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 6518.46,
+                  "2020": 13413.27,
+                  "2021": 4157.39
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 11742.61,
+                  "2020": 14108.98,
+                  "2021": 8751.05
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": -2294.3,
+                  "2020": -11079.79,
+                  "2021": -4102.28
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of OYO IPO?",
+                "answer": "OYO IPO issue size combines a fresh issue of Rs.7,000 crores and an offer for sale of Rs.1,430 crores."
+              },
+              {
+                "question": "What are the open and close dates of the OYO IPO?",
+                "answer": "OYO IPO date is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the OYO IPO?",
+                "answer": "OYO IPO lot size has not been declared yet."
+              },
+              {
+                "question": "What are the allotment dates for the OYO IPO?",
+                "answer": "OYO IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of OYO IPO?",
+                "answer": "Link Intime India Private Limited"
+              },
+              {
+                "question": "Where is the OYO IPO getting listed?",
+                "answer": "OYO IPO shares are proposed to be listed on the BSE and NSE."
+              },
+              {
+                "question": "What is Oravel Stays Ltd.?",
+                "answer": "OYO Hotels is officially called Oravel Stays."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "OYOISIN123",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For OYO IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "preApplyOpen": false,
+            "growwShortName": "OYO",
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "OYO",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/nov-2022/1669613102669.pdf#page=1&zoom=page-width,-15,842"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "oyo-ipo",
+          "symbol": null,
+          "name": "OYO IPO",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/nov-2022/1669613102669.pdf#page=1&zoom=page-width,-15,842",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "oyo.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 22 4918 6200",
+            "website": "www.linkintime.co.in",
+            "registrar": "Link"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "OYOISIN123",
+      "symbol": "OYO",
+      "companyName": "OYO",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "oyo-ipo",
+          "list": {
+            "symbol": "OYO",
+            "searchId": "oyo-ipo",
+            "companyName": "OYO",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-88.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "OYO",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2012",
+              "managingDirector": "Ritesh Agarwal",
+              "aboutCompany": "OYO is a leading, new-age technology platform empowering the large yet highly fragmented global hospitality ecosystem. It has been focusing on the short-stay accommodation space since 2012. Its unique business model helps its patrons transform fragmented, unbranded, and underutilized hospitality assets into branded, digitally-enabled storefronts with higher revenue generation potential. OYO provides its customers with high-quality storefronts at compelling price points."
+            },
+            "companyName": "Oravel Travels Ltd.",
+            "companyShortName": "OYO",
+            "isSme": false,
+            "pros": [
+              "Largest footprint in terms of hotel storefronts in India and SEA ",
+              "Second largest footprint in Europe in terms of home storefronts among full stack short-stay accommodation players, according to RedSeer.",
+              "Asset-light business model and a lean cost structure - the company does not own the storefronts listed on its platform",
+              "Full-stack technology platform",
+              "Two flagship Patron applications - Co-OYO and OYO OS",
+              "An increase in Patron satisfaction score from 30.1% for the three months ended September 30, 2020 to 72.3% for the three months ended March 31, 2021",
+              "Unit economics, measured based on Contribution Profit, has improved from 5.1% in Fiscal 2020 to 18.4% in Fiscal 2021",
+              "The proportion of hotel and home storefronts with minimum guarantees or fixed payout commitments from the company has decreased from 14.7% in Fiscal 2019 to 0.1% in Fiscal 2021."
+            ],
+            "cons": [
+              "Impact of the Covid-19 pandemic on the travel industry.",
+              "Negative cash flows from operating activities in prior years. ",
+              "Company has incurred net losses in each year since incorporation.",
+              "A substantial amount of debt in the past",
+              "No control over or ability to predict the actions of our patrons, customers and other third parties, such as neighbors or invitees, during a customer’s stay",
+              "Any adverse outcome in legal proceedings involving Zostel may affect the business.",
+              "The company is currently involved in a matter before the Competition Commission of India.",
+              "There is a pending litigation against the company, certain subsidiaries and directors and promoters."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 84300000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-88.png",
+            "videoId": "1k-DVSEngwg",
+            "videoName": "https://www.youtube.com/watch?v=1k-DVSEngwg",
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 6518.46,
+                  "2020": 13413.27,
+                  "2021": 4157.39
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 11742.61,
+                  "2020": 14108.98,
+                  "2021": 8751.05
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": -2294.3,
+                  "2020": -11079.79,
+                  "2021": -4102.28
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of OYO IPO?",
+                "answer": "OYO IPO issue size combines a fresh issue of Rs.7,000 crores and an offer for sale of Rs.1,430 crores."
+              },
+              {
+                "question": "What are the open and close dates of the OYO IPO?",
+                "answer": "OYO IPO date is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the OYO IPO?",
+                "answer": "OYO IPO lot size has not been declared yet."
+              },
+              {
+                "question": "What are the allotment dates for the OYO IPO?",
+                "answer": "OYO IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of OYO IPO?",
+                "answer": "Link Intime India Private Limited"
+              },
+              {
+                "question": "Where is the OYO IPO getting listed?",
+                "answer": "OYO IPO shares are proposed to be listed on the BSE and NSE."
+              },
+              {
+                "question": "What is Oravel Stays Ltd.?",
+                "answer": "OYO Hotels is officially called Oravel Stays."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "OYOISIN123",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For OYO IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "preApplyOpen": false,
+            "growwShortName": "OYO",
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "BoAt IPO",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=/sebi_data/attachdocs/jan-2022/1643353844101.PDF#page=2&zoom=page-width,-15,379"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "boat-ipo",
+          "symbol": null,
+          "name": "BoAt IPO ",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": "09:00:00",
+          "daily_end_time": "17:00:00",
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=/sebi_data/attachdocs/jan-2022/1643353844101.PDF#page=2&zoom=page-width,-15,379",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "imagine.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 22 4918 6200",
+            "website": "https://www.linkintime.co.in",
+            "registrar": "Link"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "BOATISIN123",
+      "symbol": "BOAT",
+      "companyName": "boAt ",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "boat-ipo",
+          "list": {
+            "symbol": "BOAT",
+            "searchId": "boat-ipo",
+            "companyName": "boAt ",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-131.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "BOAT",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2013",
+              "managingDirector": "Vivek Gambhir",
+              "aboutCompany": "Imagine Marketing (boAt) is a digital-first consumer products company and one of the largest Indian digital-first brands in terms of revenue from operations for the financial year 2021. It was founded in 2013 and is led by its flagship brand “boAt” which was launched in 2014. It has products in various segments. It provides audio wearables such as wired headphones and earphones, wireless headphones and earphones (neckbands), bluetooth speakers, home theatre systems among others. It also consists of smartwatches, gaming accessories that include wired and wireless headsets, mouse and keyboards, mobile accessories and personal care appliances."
+            },
+            "companyName": "Imagine Marketing Ltd.",
+            "companyShortName": "boAt ",
+            "isSme": false,
+            "pros": [
+              "One of the largest Indian digital-first brands with leading market positions across multiple fast-growing product categories.",
+              "Company’s flagship brand “boAt” is a consumer brand with strong market positioning and a clear value proposition.",
+              "Digital-first platform capabilities are targeted to enable growth and continue to allow building a presence across multiple consumer categories.",
+              "RedGear brand to cater to the gaming headsets and controllers (keyboard, mouse, mouse pad, joystick) market.",
+              "Some products including Rockerz 255, Airdopes 131 and storm smartwatch have a rating of over 4 (out of 5) with over 400,000 ratings across online marketplaces.",
+              "In January 2022, the company announced a partnership with Dixon Technologies for manufacturing “Made-in-India” wireless audio devices."
+            ],
+            "cons": [
+              "Strength of the company’s flagship “boAt” brand and other brands is crucial to success.",
+              "Failure to successfully identify and respond to changing customer preferences and market developments in a cost-effective and timely manner.",
+              "Operates in a highly competitive industry including large and established competitors.",
+              "Dependence on a number of third-party contract manufacturers and component suppliers for the production of its products.",
+              "Risks associated with overseas procurement, such as geographical concentration and foreign currency exchange risks.",
+              "Disruptions in its relationships with certain online marketplaces and offline distributors.",
+              "Dependence on the audio and wearables category.",
+              "Inability to adequately protect its flagship brand ‘boAt’ and its intellectual property."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 20000000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-131.png",
+            "videoId": "6hQGOjRJUh4",
+            "videoName": "https://www.youtube.com/watch?v=6hQGOjRJUh4",
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 226.11,
+                  "2020": 609.95,
+                  "2021": 1320.37
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 83.93,
+                  "2020": 190.5,
+                  "2021": 678.42
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": 8.03,
+                  "2020": 47.79,
+                  "2021": 86.53
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of Imagine Marketing (boAt) IPO?",
+                "answer": "Imagine Marketing (boAt) IPO issue size is a fresh issue of Rs 900 crores and an offer for sale of Rs 1100 crores"
+              },
+              {
+                "question": "What is 'pre-apply' for Imagine Marketing (boAt) IPO?",
+                "answer": "Pre-apply will alow you to apply for the Imagine Marketing (boAt) IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for Imagine Marketing (boAt) IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the boAt IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my Imagine Marketing (boAt) IPO order is placed?",
+                "answer": "We will notify you when your Imagine Marketing (boAt) IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the Imagine Marketing (boAt) IPO?",
+                "answer": "boAt IPO date is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the Imagine Marketing (boAt) IPO?",
+                "answer": "The minimum order quantity and lot size of Imagine Marketing (boAt) Limited are yet to be announced."
+              },
+              {
+                "question": "What are the allotment dates for the Imagine Marketing (boAt) IPO?",
+                "answer": "boAt IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of Imagine Marketing (boAt) IPO?",
+                "answer": "Imagine Marketing (boAt) IPO registrar is Link Intime India Private Ltd"
+              },
+              {
+                "question": "Where is the Imagine Marketing (boAt) IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "BOATISIN123",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For boAt  IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "boAt ",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "fuzzy_name_match_date_guard_failed",
+    "score": 1,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "BoAt IPO",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=/sebi_data/attachdocs/jan-2022/1643353844101.PDF#page=2&zoom=page-width,-15,379"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "boat-ipo",
+          "symbol": null,
+          "name": "BoAt IPO ",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": "09:00:00",
+          "daily_end_time": "17:00:00",
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=/sebi_data/attachdocs/jan-2022/1643353844101.PDF#page=2&zoom=page-width,-15,379",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "Link Intime India Private Limited",
+            "email": "imagine.ipo@linkintime.co.in",
+            "contact_name": "Shanti Gopalkrishnan",
+            "contact_number": "+91 22 4918 6200",
+            "website": "https://www.linkintime.co.in",
+            "registrar": "Link"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "BOATISIN123",
+      "symbol": "BOAT",
+      "companyName": "boAt ",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "boat-ipo",
+          "list": {
+            "symbol": "BOAT",
+            "searchId": "boat-ipo",
+            "companyName": "boAt ",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-131.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "BOAT",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2013",
+              "managingDirector": "Vivek Gambhir",
+              "aboutCompany": "Imagine Marketing (boAt) is a digital-first consumer products company and one of the largest Indian digital-first brands in terms of revenue from operations for the financial year 2021. It was founded in 2013 and is led by its flagship brand “boAt” which was launched in 2014. It has products in various segments. It provides audio wearables such as wired headphones and earphones, wireless headphones and earphones (neckbands), bluetooth speakers, home theatre systems among others. It also consists of smartwatches, gaming accessories that include wired and wireless headsets, mouse and keyboards, mobile accessories and personal care appliances."
+            },
+            "companyName": "Imagine Marketing Ltd.",
+            "companyShortName": "boAt ",
+            "isSme": false,
+            "pros": [
+              "One of the largest Indian digital-first brands with leading market positions across multiple fast-growing product categories.",
+              "Company’s flagship brand “boAt” is a consumer brand with strong market positioning and a clear value proposition.",
+              "Digital-first platform capabilities are targeted to enable growth and continue to allow building a presence across multiple consumer categories.",
+              "RedGear brand to cater to the gaming headsets and controllers (keyboard, mouse, mouse pad, joystick) market.",
+              "Some products including Rockerz 255, Airdopes 131 and storm smartwatch have a rating of over 4 (out of 5) with over 400,000 ratings across online marketplaces.",
+              "In January 2022, the company announced a partnership with Dixon Technologies for manufacturing “Made-in-India” wireless audio devices."
+            ],
+            "cons": [
+              "Strength of the company’s flagship “boAt” brand and other brands is crucial to success.",
+              "Failure to successfully identify and respond to changing customer preferences and market developments in a cost-effective and timely manner.",
+              "Operates in a highly competitive industry including large and established competitors.",
+              "Dependence on a number of third-party contract manufacturers and component suppliers for the production of its products.",
+              "Risks associated with overseas procurement, such as geographical concentration and foreign currency exchange risks.",
+              "Disruptions in its relationships with certain online marketplaces and offline distributors.",
+              "Dependence on the audio and wearables category.",
+              "Inability to adequately protect its flagship brand ‘boAt’ and its intellectual property."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 20000000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-131.png",
+            "videoId": "6hQGOjRJUh4",
+            "videoName": "https://www.youtube.com/watch?v=6hQGOjRJUh4",
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 226.11,
+                  "2020": 609.95,
+                  "2021": 1320.37
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 83.93,
+                  "2020": 190.5,
+                  "2021": 678.42
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": 8.03,
+                  "2020": 47.79,
+                  "2021": 86.53
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of Imagine Marketing (boAt) IPO?",
+                "answer": "Imagine Marketing (boAt) IPO issue size is a fresh issue of Rs 900 crores and an offer for sale of Rs 1100 crores"
+              },
+              {
+                "question": "What is 'pre-apply' for Imagine Marketing (boAt) IPO?",
+                "answer": "Pre-apply will alow you to apply for the Imagine Marketing (boAt) IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for Imagine Marketing (boAt) IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the boAt IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my Imagine Marketing (boAt) IPO order is placed?",
+                "answer": "We will notify you when your Imagine Marketing (boAt) IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the Imagine Marketing (boAt) IPO?",
+                "answer": "boAt IPO date is yet to be announced."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the Imagine Marketing (boAt) IPO?",
+                "answer": "The minimum order quantity and lot size of Imagine Marketing (boAt) Limited are yet to be announced."
+              },
+              {
+                "question": "What are the allotment dates for the Imagine Marketing (boAt) IPO?",
+                "answer": "boAt IPO allotment date is yet to be announced."
+              },
+              {
+                "question": "Who is the registrar of Imagine Marketing (boAt) IPO?",
+                "answer": "Imagine Marketing (boAt) IPO registrar is Link Intime India Private Ltd"
+              },
+              {
+                "question": "Where is the Imagine Marketing (boAt) IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "BOATISIN123",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For boAt  IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "growwShortName": "boAt ",
+            "preApplyOpen": false,
+            "minBidQuantity": 2147483647
+          }
+        }
+      }
+    }
+  },
+  {
+    "reason": "near_miss_below_threshold",
+    "score": 0.8625,
+    "record1": {
+      "isin": null,
+      "symbol": null,
+      "companyName": "Droom Technology Limited",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/may-2023/1683610115492.pdf#page=1&zoom=page-width,-16,842"
+      },
+      "raw_sources": {
+        "upstox": {
+          "id": "droom-technology-limited-ipo",
+          "symbol": null,
+          "name": "Droom Technology Limited",
+          "status": "upcoming",
+          "isin": null,
+          "issue_type": "regular",
+          "issue_size": null,
+          "industry": null,
+          "minimum_price": null,
+          "maximum_price": null,
+          "bidding_start_date": null,
+          "bidding_end_date": null,
+          "daily_start_time": null,
+          "daily_end_time": null,
+          "face_value": null,
+          "tick_size": null,
+          "lot_size": null,
+          "minimum_quantity": null,
+          "cut_off_price": null,
+          "listing_price": null,
+          "listing_exchange": null,
+          "rhp_url": null,
+          "drhp_url": "https://www.sebi.gov.in/web/?file=https://www.sebi.gov.in/sebi_data/attachdocs/may-2023/1683610115492.pdf#page=1&zoom=page-width,-16,842",
+          "timeline": {
+            "pre_apply_start_date": null,
+            "application_start_date": null,
+            "application_end_date": null,
+            "allotment_start_date": null,
+            "allotment_date": null,
+            "refund_initiation_date": null,
+            "listing_date": null,
+            "mandate_end_date": null
+          },
+          "registrar_info": {
+            "name": "KfinTechnologies Limited",
+            "email": "einward.ris@kfintech.com",
+            "contact_name": "M Murali Krishna",
+            "contact_number": "+91 40 6716 2222",
+            "website": "www.kfintech.com",
+            "registrar": "Karvy"
+          },
+          "total_subscription": null
+        }
+      }
+    },
+    "record2": {
+      "isin": "DROOMISIN123",
+      "symbol": "DROOM",
+      "companyName": "Droom",
+      "status": "upcoming",
+      "biddingStartDate": null,
+      "priceBand": {
+        "minimum": null,
+        "maximum": null
+      },
+      "documentUrls": {
+        "rhp": null,
+        "drhp": "https://www.sebi.gov.in/filings/public-issues/nov-2021/droom-technology-limited_53946.html"
+      },
+      "raw_sources": {
+        "groww": {
+          "searchId": "droom-technology-ipo",
+          "list": {
+            "symbol": "DROOM",
+            "searchId": "droom-technology-ipo",
+            "companyName": "Droom",
+            "isSme": false,
+            "bidStartTimestamp": null,
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-125.png",
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2021/droom-technology-limited_53946.html"
+          },
+          "detail": {
+            "categories": [],
+            "symbol": "DROOM",
+            "bannerText": "Bidding dates to be announced",
+            "aboutCompany": {
+              "yearFounded": "2014",
+              "managingDirector": "Sandeep Aggarwal",
+              "aboutCompany": "Droom is a technology and data science company that facilitates automobile buying and selling online through a combination of its e-commerce platform along with a technology-driven vertically integrated proprietary ecosystem of products and services for the automobile industry. The company’s automobile e-commerce platform, which includes website and mobile apps, offers the facility to buy and sell new and used vehicles. Some of the elements of automobile buying covered on the company’s platforms are searching for a vehicle, creating buying requirements, price discovery, booking, certification to purchase and financing and doorstep delivery."
+            },
+            "companyName": "Droom Ltd.",
+            "companyShortName": "Droom",
+            "isSme": false,
+            "pros": [
+              "End-to-end e-commerce platform for buying and selling used vehicles in India.",
+              "Purely online player which allows the company to escape expensive real estate, and high cost of capital. ",
+              "An asset-light and technology-driven platform.",
+              "As of September 30, 2021, the company had over 278,807 used vehicles listed across 11 categories present across 1,151 cities in India.",
+              "As of September 30, 2021, the company had 14.46 million cumulative downloads of its mobile app.",
+              "The company holds a valid patent in the United States for Orange Book Value (OBV), its used vehicle pricing solution. ",
+              "Other platforms such as its AI-based vehicle inspection service and Droom Credit, an automobile-focused lending platform have been developed entirely in-house. ",
+              "The number of auto dealers on its platform has increased at a CAGR of 11.57% from 16,175 as of March 31, 2019, to 20,133 as of March 31, 2021, and were 20,725 as of September 30, 2021."
+            ],
+            "cons": [
+              "Business heavily reliant on India’s used and new automobile and vehicular services e-commerce industry - any impact on the overall market will likely have an impact on the company’s business.",
+              "Inability to add more auto dealers or a reduction in the number of auto dealers on the platform could have a material adverse effect on the business.",
+              "There are outstanding legal proceedings involving the company, its directors, promoter, and subsidiaries. ",
+              "The company intends to utilise a certain amount from the net proceeds of the IPO towards potential acquisitions and strategic initiatives - if there is any shortfall the company may raise requisite capital through means such as internal accruals and/or seeking debt. ",
+              "Funding requirements are based on internal management estimates and its current business plans have not been appraised by any bank or financial institution.",
+              "Demand for used vehicles is subject to seasonal fluctuations. ",
+              "Limited number of third-party financing partners to fund loans facilitated through its platform",
+              "Negative cash flows from operating activities in the three months ended June 30, 2021, and Fiscals 2021, 2020, and 2019."
+            ],
+            "lotSize": null,
+            "minPrice": null,
+            "maxPrice": null,
+            "startDate": null,
+            "endDate": null,
+            "minBidQty": 2147483647,
+            "issueSize": 30000000000,
+            "listing": {
+              "listingPrice": null,
+              "listedOn": [
+                "BSE",
+                "NSE"
+              ],
+              "bseScripCode": null,
+              "nseScripCode": null
+            },
+            "issuePrice": null,
+            "parentSearchId": null,
+            "subscriptionUpdatedAt": null,
+            "documentUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2021/droom-technology-limited_53946.html",
+            "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-125.png",
+            "videoId": "",
+            "videoName": null,
+            "subscriptionRates": null,
+            "financials": [
+              {
+                "title": "Revenue",
+                "yearly": {
+                  "2019": 146.11,
+                  "2020": 181.37,
+                  "2021": 135.52
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Total Assets",
+                "yearly": {
+                  "2019": 129.03,
+                  "2020": 136.48,
+                  "2021": 114.84
+                },
+                "quarterly": {}
+              },
+              {
+                "title": "Profit",
+                "yearly": {
+                  "2019": -105.37,
+                  "2020": -89.6,
+                  "2021": -68.88
+                },
+                "quarterly": {}
+              }
+            ],
+            "sector": null,
+            "faqs": [
+              {
+                "question": "What is the issue size of Droom IPO?",
+                "answer": "Droom IPO issue size is Rs 3000 crores."
+              },
+              {
+                "question": "What is 'pre-apply' for Droom IPO?",
+                "answer": "Pre-apply will alow you to apply for the Droom IPO 2 days before the subscription period starts."
+              },
+              {
+                "question": "If I pre-apply for Droom IPO, when will my order get placed?",
+                "answer": "Your order will be placed on the exchange as soon as the Droom IPO bidding starts. You will receive a UPI request within 24 hours after the bidding period opens."
+              },
+              {
+                "question": "When will I know if my Droom IPO order is placed?",
+                "answer": "We will notify you when your Droom IPO order is placed with the exchange."
+              },
+              {
+                "question": "What are the open and close dates of the for Droom IPO?",
+                "answer": "Droom IPO dates haven't been announced yet."
+              },
+              {
+                "question": "What is the lot size and minimum order quantity of the Droom IPO?",
+                "answer": "Droom lot size and minimum order quantity hasn't been announced yet."
+              },
+              {
+                "question": "What are the allotment dates for the Droom IPO?",
+                "answer": "Droom IPO allotment date hasn't been announced yet."
+              },
+              {
+                "question": "Who is the registrar of Droom IPO?",
+                "answer": "Droom IPO registrar is Kfin Technologies Private Ltd."
+              },
+              {
+                "question": "Where is the Droom IPO getting listed?",
+                "answer": "The shares are proposed to be listed on the BSE and NSE."
+              }
+            ],
+            "allotmentDate": null,
+            "listingDate": null,
+            "faceValue": 0,
+            "tickSize": 1,
+            "cutOffPrice": null,
+            "isin": "DROOMISIN123",
+            "registrar": null,
+            "t1ModStartDate": null,
+            "t1ModEndDate": null,
+            "t1ModStartTime": null,
+            "t1ModEndTime": null,
+            "issueType": "EQUITY",
+            "status": "UPCOMING",
+            "dailyStartTime": "10:00:00",
+            "dailyEndTime": "17:00:00",
+            "lastBidPlaceTime": "16:30:00",
+            "applicationDetails": "For Droom IPO, eligible investors can apply as ",
+            "peerList": null,
+            "ppContent": null,
+            "rtaLink": null,
+            "isAllotmentAnnounced": false,
+            "additionalInfo": null,
+            "preApplyOpen": false,
+            "growwShortName": "Droom",
+            "minBidQuantity": 2147483647
           }
         }
       }

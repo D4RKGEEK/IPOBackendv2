@@ -1,0 +1,10 @@
+{
+  "symbol": "AMBAAUTO",
+  "sourceFile": "PDFs/AMBAAUTO_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": null,
+  "periods": [],
+  "metrics": {},
+  "_hints": {}
+}

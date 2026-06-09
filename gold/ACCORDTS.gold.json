@@ -1,0 +1,97 @@
+{
+  "symbol": "ACCORDTS",
+  "sourceFile": "PDFs/ACCORDTS_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": "INR in thousands",
+  "periods": [
+    "Period ended December 31, 2025",
+    "Fiscal 2025",
+    "Fiscal 2024",
+    "Fiscal 2023"
+  ],
+  "metrics": {
+    "revenueFromOperations": [
+      452162.75,
+      790225.33,
+      485369.15,
+      407816.87
+    ],
+    "totalIncome": [
+      452946.3,
+      792004.02,
+      485978.64,
+      408115.92
+    ],
+    "ebitda": [
+      46168.22,
+      91013.9,
+      26727.95,
+      15376.94
+    ],
+    "profitAfterTax": [
+      29133.72,
+      60536.03,
+      16066.76,
+      8781.06
+    ],
+    "ronw": [
+      11.91,
+      28.1,
+      26.6,
+      19.81
+    ],
+    "navPerShare": [
+      16.29,
+      14.35,
+      4.74,
+      3.48
+    ],
+    "basicEPS": [
+      1.94,
+      4.35,
+      1.26,
+      0.69
+    ],
+    "dilutedEPS": [
+      1.94,
+      4.35,
+      1.26,
+      0.69
+    ]
+  },
+  "_hints": {
+    "revenueFromOperations": {
+      "_page": 86,
+      "_quote": "Revenue from Operations 4,52,162.75 7,90,225.33 4,85,369.15 4,07,816.87"
+    },
+    "totalIncome": {
+      "_page": 86,
+      "_quote": "Total Income 4,52,946.30 7,92,004.02 4,85,978.64 4,08,115.92"
+    },
+    "ebitda": {
+      "_page": 86,
+      "_quote": "EBITDA 46,168.22 91,013. 90 26,727.95 15,376.94"
+    },
+    "profitAfterTax": {
+      "_page": 86,
+      "_quote": "Restated Profit for the Year 29,133.72 60 , 536.03 16,066.76 8 , 781.06"
+    },
+    "ronw": {
+      "_page": 85,
+      "_quote": "Year ended RoNW(%) ... Financial Year ended on March 31, 2025 28.10% ... Period ended December 31, 2025 * 11.91%*"
+    },
+    "navPerShare": {
+      "_page": 85,
+      "_quote": "NAV per Share (₹) ... As on December 31, 2025 16.29 ... As on March 31, 2025 14.35 ... As on March 31, 2024 4.74 ... As "
+    },
+    "basicEPS": {
+      "_page": 84,
+      "_quote": "Basic & Diluted EPS (in ₹) ... Financial year ending on March 31, 2025 4.35 ... Period ended December 3 1 , 2025* 1.94*"
+    },
+    "dilutedEPS": {
+      "_page": 84,
+      "_quote": "Basic & Diluted EPS (in ₹) ... Financial year ending on March 31, 2025 4.35 ... Period ended December 3 1 , 2025* 1.94*"
+    }
+  }
+}

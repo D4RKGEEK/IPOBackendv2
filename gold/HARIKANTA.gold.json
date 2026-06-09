@@ -1,0 +1,77 @@
+{
+  "symbol": "HARIKANTA",
+  "sourceFile": "PDFs/HARIKANTA_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": "Rs in lakhs",
+  "periods": [
+    "30 Nov 2025",
+    "31 March 2025",
+    "31 March 2024",
+    "31 March 2023"
+  ],
+  "metrics": {
+    "ebitda": [
+      735.23,
+      671.68,
+      127.24,
+      48.65
+    ],
+    "profitAfterTax": [
+      508.58,
+      446.8,
+      81.98,
+      25.25
+    ],
+    "netWorth": [
+      1876.6,
+      1378.64,
+      196.73,
+      114.75
+    ],
+    "ronw": [
+      27.1,
+      32.41,
+      41.67,
+      22
+    ],
+    "basicEPS": [
+      7.07,
+      6.69,
+      1.27,
+      0.4
+    ],
+    "navPerShare": [
+      26.08,
+      19.16,
+      39.74,
+      23.18
+    ]
+  },
+  "_hints": {
+    "ebitda": {
+      "_page": 181,
+      "_quote": "EBITDA 735.23 671.68 127.24 48.65"
+    },
+    "profitAfterTax": {
+      "_page": 181,
+      "_quote": "Profit attributable to owner of the group as Restated 508.58 446.80 81.98 25.25"
+    },
+    "netWorth": {
+      "_page": 181,
+      "_quote": "Net Worth 1,876.60 1,378.64 196.73 114.75"
+    },
+    "ronw": {
+      "_page": 181,
+      "_quote": "Return on Net worth (%) 27.10% 32.41% 41.67% 22.00%"
+    },
+    "basicEPS": {
+      "_page": 181,
+      "_quote": "Basic and Diluted Earnings per Equity Share 7.07 6.69 1.27 0.40"
+    },
+    "navPerShare": {
+      "_page": 182,
+      "_quote": "Net Asset Value/Book Value per Equity share (Based on No of share at the end of year) 26.08 19.16 39.74 23.18"
+    }
+  }
+}

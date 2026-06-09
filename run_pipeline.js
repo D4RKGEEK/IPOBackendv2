@@ -5,9 +5,11 @@ require('dotenv').config();
 const path = require('path');
 const { fetchUpstoxIpos } = require('./utils/upstox.js');
 const { fetchNseIpos } = require('./utils/nse.js');
+const { fetchGrowwIpos } = require('./utils/groww.js');
 const { jaroWinkler } = require('./utils/jaroWinkler.js');
 const { writeAtomicSync } = require('./utils/atomicWrite.js');
 const { normalizeCompanyName, normalizeSymbol, parseIndianDate } = require('./utils/normalizers.js');
+const { applyTimeline } = require('./utils/timelineBuilder.js');
 
 const MASTER_PATH = path.join(__dirname, 'ipo_master.json');
 const BORDERLINE_PATH = path.join(__dirname, 'ipo_borderline.json');
@@ -132,6 +134,15 @@ function mergeRecordPair(rec1, rec2) {
     merged.listingDate = rec1.listingDate || rec2.listingDate;
   }
 
+  // Carry over existing timeline and statusHistory — applyTimeline runs after
+  // final dedup, so here we just preserve whichever record already has them
+  if (rec1.timeline || rec2.timeline) {
+    merged.timeline = rec1.timeline || rec2.timeline;
+  }
+  if (rec1.statusHistory || rec2.statusHistory) {
+    merged.statusHistory = rec1.statusHistory || rec2.statusHistory;
+  }
+
   return merged;
 }
 
@@ -214,7 +225,10 @@ function deduplicateRecords(records) {
     }
   }
 
-  return { master, borderline };
+  // Apply timeline + statusHistory to every deduplicated record
+  const timedMaster = master.map(rec => applyTimeline(rec));
+
+  return { master: timedMaster, borderline };
 }
 
 // ─── CLI argument parsing ─────────────────────────────────────────────────────
@@ -285,13 +299,15 @@ async function runPipeline({ year, fromStr, toStr } = {}) {
     nseTo   = new Date();
   }
 
-  // Fetch from both sources in parallel
+  // Fetch from all sources in parallel
   let upstoxRecords = [];
   let nseRecords = [];
+  let growwRecords = [];
 
-  const [upstoxResult, nseResult] = await Promise.allSettled([
+  const [upstoxResult, nseResult, growwResult] = await Promise.allSettled([
     fetchUpstoxIpos(),
     fetchNseIpos(__dirname, nseFrom, nseTo),
+    fetchGrowwIpos(),
   ]);
 
   if (upstoxResult.status === 'fulfilled') {
@@ -308,7 +324,14 @@ async function runPipeline({ year, fromStr, toStr } = {}) {
     console.error(`[pipeline] NSE fetch failed: ${nseResult.reason.message}`);
   }
 
-  const allRecords = [...upstoxRecords, ...nseRecords];
+  if (growwResult.status === 'fulfilled') {
+    growwRecords = growwResult.value;
+    console.log(`[pipeline] Groww: fetched ${growwRecords.length} records`);
+  } else {
+    console.error(`[pipeline] Groww fetch failed: ${growwResult.reason.message}`);
+  }
+
+  const allRecords = [...upstoxRecords, ...nseRecords, ...growwRecords];
   console.log(`[pipeline] Total raw records: ${allRecords.length}`);
 
   // Deduplicate

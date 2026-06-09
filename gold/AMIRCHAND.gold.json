@@ -1,0 +1,107 @@
+{
+  "symbol": "AMIRCHAND",
+  "sourceFile": "PDFs/AMIRCHAND_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": "₹ in million",
+  "periods": [
+    "Six months ended September 30, 2025",
+    "Financial Year ended March 31, 2025",
+    "Financial Year ended March 31, 2024",
+    "Financial Year ended March 31, 2023"
+  ],
+  "metrics": {
+    "revenueFromOperations": [
+      10212.46,
+      20016.47,
+      15495.24,
+      13158.48
+    ],
+    "totalIncome": [
+      10242.97,
+      20040.28,
+      15514.21,
+      13178.61
+    ],
+    "profitAfterTax": [
+      486.54,
+      608.22,
+      304.05,
+      174.96
+    ],
+    "netWorth": [
+      4408.94,
+      3791.84,
+      3114.78,
+      2808.42
+    ],
+    "totalBorrowings": [
+      7397.38,
+      7840.58,
+      7776.21,
+      6675.3
+    ],
+    "basicEPS": [
+      5.93,
+      7.46,
+      3.75,
+      2.14
+    ],
+    "dilutedEPS": [
+      5.93,
+      7.46,
+      3.75,
+      2.14
+    ],
+    "ronw": [
+      11.87,
+      17.61,
+      10.27,
+      6.43
+    ],
+    "navPerShare": [
+      53.68,
+      46.29,
+      38.09,
+      34.35
+    ]
+  },
+  "_hints": {
+    "revenueFromOperations": {
+      "_page": 26,
+      "_quote": "Revenue from operation 10,212.46 20,016.47 15,495.24 13,158.48"
+    },
+    "totalIncome": {
+      "_page": 26,
+      "_quote": "Total revenue 10,242.97 20,040.28 15,514.21 13,178.61"
+    },
+    "profitAfterTax": {
+      "_page": 26,
+      "_quote": "Profit for the period / year 486.54 608.22 304.05 174.96"
+    },
+    "netWorth": {
+      "_page": 26,
+      "_quote": "Net Worth 4,408.94 3,791.84 3,114.78 2,808.42"
+    },
+    "totalBorrowings": {
+      "_page": 26,
+      "_quote": "Total borrowings 7,397.38 7,840.58 7,776.21 6,675.30"
+    },
+    "basicEPS": {
+      "_page": 26,
+      "_quote": "Earnings per Equity Share of face value of ₹10 each (Basic) 5.93 7.46 3.75 2.14"
+    },
+    "dilutedEPS": {
+      "_page": 26,
+      "_quote": "Earnings per Equity Share of face value of ₹10 each (Diluted) 5.93 7.46 3.75 2.14"
+    },
+    "ronw": {
+      "_page": 26,
+      "_quote": "Return on Net Worth (%) 11.87% 17.61% 10.27 % 6.43%"
+    },
+    "navPerShare": {
+      "_page": 26,
+      "_quote": "Net Asset Value per Equity Share of face value of ₹10 each 53.68 46.29 38.09 34.35"
+    }
+  }
+}

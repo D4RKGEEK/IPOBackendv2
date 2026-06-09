@@ -1,0 +1,87 @@
+{
+  "symbol": "RFIL",
+  "sourceFile": "PDFs/RFIL_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": "Rs. Lakhs",
+  "periods": [
+    "For the Period Ended December 31, 2025",
+    "March 31, 2025",
+    "March 31, 2024",
+    "March 31, 2023"
+  ],
+  "metrics": {
+    "ebitda": [
+      710.52,
+      748.28,
+      378.8,
+      102.83
+    ],
+    "profitAfterTax": [
+      513.91,
+      506.41,
+      229.04,
+      37.46
+    ],
+    "netWorth": [
+      1442.01,
+      930.78,
+      424.38,
+      195.34
+    ],
+    "basicEPS": [
+      6.87,
+      6.77,
+      3.06,
+      0.99
+    ],
+    "dilutedEPS": [
+      6.87,
+      6.77,
+      3.06,
+      0.99
+    ],
+    "ronw": [
+      35.64,
+      54.41,
+      53.97,
+      19.18
+    ],
+    "navPerShare": [
+      19.28,
+      12.44,
+      5.67,
+      5.17
+    ]
+  },
+  "_hints": {
+    "ebitda": {
+      "_page": 236,
+      "_quote": "Restated Earnings Before Interest Tax Depreciation and Amortisation (EBITDA) 710.52 748.28 378.80 102.83"
+    },
+    "profitAfterTax": {
+      "_page": 236,
+      "_quote": "Restated Profit after tax 513.91 506.41 229.04 37.46"
+    },
+    "netWorth": {
+      "_page": 236,
+      "_quote": "Net Worth (A) 1,442.01 930.78 424.38 195.34"
+    },
+    "basicEPS": {
+      "_page": 236,
+      "_quote": "Restated Basic and Diluted Earning Per Share (Rs.) (B/D) (After Bonus & Rights Issue) 6.87 6.77 3.06 0.99"
+    },
+    "dilutedEPS": {
+      "_page": 236,
+      "_quote": "Restated Basic and Diluted Earning Per Share (Rs.) (B/D) (After Bonus & Rights Issue) 6.87 6.77 3.06 0.99"
+    },
+    "ronw": {
+      "_page": 236,
+      "_quote": "Return on Net worth (%) (B/A) 35.64% 54.41% 53.97% 19.18%"
+    },
+    "navPerShare": {
+      "_page": 236,
+      "_quote": "Net asset value per share (A/D) (Face Value of Rs. 10 Each) Based on weighted average number of shares - After consideri"
+    }
+  }
+}

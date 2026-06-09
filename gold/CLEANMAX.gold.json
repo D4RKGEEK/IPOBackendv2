@@ -1,0 +1,117 @@
+{
+  "symbol": "CLEANMAX",
+  "sourceFile": "PDFs/CLEANMAX_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": "₹ in million",
+  "periods": [
+    "Six months ended September 30, 2025",
+    "Six months ended September 30, 2024",
+    "FY2025",
+    "FY2024",
+    "FY2023"
+  ],
+  "metrics": {
+    "revenueFromOperations": [
+      9329.53,
+      6764.66,
+      14957.01,
+      13898.37,
+      9295.82
+    ],
+    "totalIncome": [
+      9693.45,
+      7058.45,
+      16103.42,
+      14253.09,
+      9609.79
+    ],
+    "profitAfterTax": [
+      190.04,
+      65.18,
+      194.29,
+      -376.43,
+      -594.73
+    ],
+    "basicEPS": [
+      1.09,
+      0.36,
+      2.88,
+      -3.94,
+      -9.01
+    ],
+    "dilutedEPS": [
+      1.05,
+      0.35,
+      2.79,
+      -3.94,
+      -9.01
+    ],
+    "netWorth": [
+      25983.38,
+      22983.31,
+      25454.39,
+      18179.62,
+      12099.33
+    ],
+    "ronw": [
+      0.43,
+      0.15,
+      1.09,
+      -1.7,
+      -5.39
+    ],
+    "navPerShare": [
+      256.14,
+      236.29,
+      250.93,
+      206.62,
+      166.8
+    ],
+    "totalBorrowings": [
+      101214.6,
+      65647.98,
+      79736.98,
+      55145.64,
+      38434.15
+    ]
+  },
+  "_hints": {
+    "revenueFromOperations": {
+      "_page": 28,
+      "_quote": "Revenue from operations 9,329.53 6,764.66 14,957.01 13,898.37 9,295.82"
+    },
+    "totalIncome": {
+      "_page": 28,
+      "_quote": "Total income 9,693.45 7,058.45 16,103.42 14,253.09 9,609.79"
+    },
+    "profitAfterTax": {
+      "_page": 28,
+      "_quote": "Restated profit/(loss) for the period/year 190.04 65.18 194.29 (376.43) (594.73)"
+    },
+    "basicEPS": {
+      "_page": 28,
+      "_quote": "- basic 1.09 0.36 2.88 (3.94) (9.01)"
+    },
+    "dilutedEPS": {
+      "_page": 28,
+      "_quote": "- diluted 1.05 0.35 2.79 (3.94) (9.01)"
+    },
+    "netWorth": {
+      "_page": 28,
+      "_quote": "Net Worth (2) 25,983.38 22,983.31 25,454.39 18,179.62 12,099.33"
+    },
+    "ronw": {
+      "_page": 28,
+      "_quote": "Return on Net Worth (%) (3) 0.43 0.15 1.09 (1.70) (5.39)"
+    },
+    "navPerShare": {
+      "_page": 28,
+      "_quote": "Net Asset value per equity share (bonus and split adjusted) (₹) (4) 256.14 236.29 250.93 206.62 166.80"
+    },
+    "totalBorrowings": {
+      "_page": 28,
+      "_quote": "Total borrowings (5) 101,214.60 65,647.98 79,736.98 55,145.64 38,434.15"
+    }
+  }
+}

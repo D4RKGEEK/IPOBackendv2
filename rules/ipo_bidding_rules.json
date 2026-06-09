@@ -1,0 +1,153 @@
+{
+  "mainboard": {
+    "retailLimitINR": 200000,
+    "sHniUpperINR": 1000000,
+    "minApplicationLots": 1,
+    "splitsHniIntoSmallAndBig": true,
+    "priceUsed": "cut-off price = upper end of the price band (retail bids at cut-off; NII/HNI cannot use cut-off but funds are blocked at cap/upper-band price)",
+    "boundaryRule": "Categories are determined by APPLICATION VALUE = lots * lotSize * price, evaluated in whole lots. Caps are INCLUSIVE: value <= Rs 2,00,000 is Retail; Rs 2,00,000 < value <= Rs 10,00,000 is S-HNI; value > Rs 10,00,000 is B-HNI.",
+    "categories": [
+      {
+        "name": "Retail (RII)",
+        "lowerBoundINR": null,
+        "upperBoundINR": 200000,
+        "minLots": 1,
+        "maxLotsFormula": "floor(200000 / perLot)",
+        "reservation": "min 35% of net offer",
+        "note": "Individual/NRI applications with total bid value up to Rs 2,00,000. Min 1 lot. Bids at cut-off allowed."
+      },
+      {
+        "name": "S-HNI / Small NII (sNII)",
+        "lowerBoundINR": 200000,
+        "upperBoundINR": 1000000,
+        "minLotsFormula": "retailMax + 1",
+        "maxLotsFormula": "floor(1000000 / perLot)",
+        "reservation": "1/3 of the 15% NII quota (i.e. 5% of net offer) per SEBI ICDR (Amendment) Regulations 2022, effective for issues opening after 1 Apr 2022",
+        "note": "Application value more than Rs 2,00,000 and up to Rs 10,00,000. Cannot bid at cut-off."
+      },
+      {
+        "name": "B-HNI / Big NII (bNII)",
+        "lowerBoundINR": 1000000,
+        "upperBoundINR": null,
+        "minLotsFormula": "sHniMax + 1",
+        "reservation": "2/3 of the 15% NII quota (i.e. 10% of net offer)",
+        "note": "Application value more than Rs 10,00,000. Cannot bid at cut-off."
+      },
+      {
+        "name": "QIB",
+        "lowerBoundINR": null,
+        "upperBoundINR": null,
+        "reservation": "up to 50% of net offer (mandatory min 75% for non-profitable cos under ICDR)",
+        "note": "Context only; not part of the value-band lot table."
+      },
+      {
+        "name": "Anchor Investor",
+        "lowerBoundINR": 10000000,
+        "upperBoundINR": null,
+        "reservation": "sub-set of QIB, up to 60% of QIB portion; mandatory reservation within the anchor book raised to 40% (33% mutual funds + 7% insurers/pension) effective ~30 Nov 2025",
+        "note": "Min application Rs 10 crore (mainboard). Context only; not part of the retail/HNI lot table."
+      }
+    ],
+    "allotment": "Draw of lots (lottery) for oversubscribed issues within Retail and each NII sub-category, allotting the minimum lot to as many unique applicants as possible."
+  },
+  "sme": {
+    "retailLimitINR": 200000,
+    "sHniUpperINR": 1000000,
+    "minApplicationLots": 2,
+    "splitsHniIntoSmallAndBig": true,
+    "appliesTo": "SME IPOs opening on/after 1 July 2025 (bidding-process changes) and DRHPs filed on/after 8 March 2025 (NII sub-categorisation). Older single-NII SME framework is OUTDATED for new issues.",
+    "priceUsed": "Upper band / cap price. Cut-off price bidding abolished for ALL SME categories effective 1 July 2025; every bidder places a price within the band and funds are blocked at the cap price x shares. Category determination is evaluated against cap-price value.",
+    "minApplicationRule": "Minimum bid = 2 LOTS with application value ABOVE Rs 2,00,000 (lot-based with a Rs 2 lakh floor, not 1 lot and not purely value-based). Source: NSE Circular NSE/IPO/68604 dated 18 June 2025. If 2 * lotValue would be <= Rs 2 lakh, lot/price is sized up so 2 lots exceed Rs 2 lakh.",
+    "boundaryRule": "Boundaries derived in LOTS, translated to rupees at cap price. Let L = lotShares * capPrice.",
+    "categories": [
+      {
+        "name": "Individual Investor (formerly RII / Retail)",
+        "lowerBoundINR": 200000,
+        "upperBoundINR": null,
+        "lots": 2,
+        "valueFormula": "2 * L (must be > Rs 2,00,000)",
+        "reservation": "at least 35% of net issue (book-built)",
+        "note": "Renamed post-1-July-2025. Fixed at exactly 2 lots; no separate Rs 2 lakh ceiling. More than 2 lots moves the investor into NII. Employee category = 2 lots up to max Rs 5 lakh; Shareholder/Policyholder also min 2 lots / above Rs 2 lakh."
+      },
+      {
+        "name": "Small NII / Small HNI (sNII)",
+        "lowerBoundINR": 200000,
+        "upperBoundINR": 1000000,
+        "minLotsFormula": "3 (smallest integer lots > 2)",
+        "maxLotsFormula": "floor(1000000 / L)",
+        "reservation": "1/3 of the 15% NII allocation",
+        "note": "Application more than 2 lots and up to a value not exceeding Rs 10 lakh. Because SME lots are large, floor(1000000/L) can be < 3, meaning NO valid sNII bid exists and everything above Individual collapses straight into bNII."
+      },
+      {
+        "name": "Big NII / Big HNI (bNII)",
+        "lowerBoundINR": 1000000,
+        "upperBoundINR": null,
+        "minLotsFormula": "floor(1000000 / L) + 1",
+        "reservation": "2/3 of the 15% NII allocation",
+        "note": "Application value more than Rs 10 lakh."
+      },
+      {
+        "name": "Qualified Institutional Buyer (QIB)",
+        "lowerBoundINR": null,
+        "upperBoundINR": null,
+        "reservation": "up to 50% of net issue",
+        "note": "Must apply for more than 2 lots. Not value-bounded for individuals."
+      }
+    ],
+    "allotment": "Draw of lots / lottery for the minimum bid lot first, then proportionate for any balance, within Individual and each NII sub-category (replaces old purely proportionate SME NII allotment)."
+  },
+  "formula": "perLot = lotSize * price, where price = cut-off / upper-band (cap) price.\nMainboard:\n  retailMin = 1 lot\n  retailMax = floor(200000 / perLot)        # largest #lots with amount <= Rs 2,00,000\n  sHniMin   = retailMax + 1\n  sHniMax   = floor(1000000 / perLot)        # largest #lots with amount <= Rs 10,00,000\n  bHniMin   = sHniMax + 1\nSME (min application = 2 lots, value > Rs 2,00,000):\n  individualLots = 2\n  sHniMin = 3                                # smallest integer lots > 2\n  sHniMax = floor(1000000 / perLot)          # may be < 3 -> no valid sNII bid\n  bHniMin = floor(1000000 / perLot) + 1\nFor each lot count n: shares = n * lotSize; amount = n * perLot.",
+  "roundingRule": "Always ROUND DOWN (floor / integer division) to whole lots. Applications must be in whole multiples of the lot size, and crossing a cap by even a single lot pushes the bid into the next category. Caps are INCLUSIVE at the boundary: amount <= Rs 2,00,000 stays Retail; amount <= Rs 10,00,000 stays S-HNI; the next-category minimum is always the prior maximum + 1 lot.",
+  "workedExampleAmirchand": {
+    "_inputs": {
+      "lotSize": 70,
+      "price": 212,
+      "perLot": 14840
+    },
+    "retailMin": {
+      "lots": 1,
+      "shares": 70,
+      "amount": 14840
+    },
+    "retailMax": {
+      "lots": 13,
+      "shares": 910,
+      "amount": 192920
+    },
+    "sHniMin": {
+      "lots": 14,
+      "shares": 980,
+      "amount": 207760
+    },
+    "sHniMax": {
+      "lots": 67,
+      "shares": 4690,
+      "amount": 994280
+    },
+    "bHniMin": {
+      "lots": 68,
+      "shares": 4760,
+      "amount": 1009120
+    }
+  },
+  "sources": [
+    "NSE Circular NSE/IPO/68604 dated 18 June 2025 (SME post-July-2025 bidding rules) - https://nsearchives.nseindia.com/content/circulars/IPO68604.pdf",
+    "SEBI (ICDR) Amendment Regulations 2022, notified 14 Jan 2022, effective for issues opening after 1 Apr 2022 (mainboard NII split into sNII 1/3 and bNII 2/3) - https://www.in.kpmg.com/taxflashnews/KPMG-Flash-News-SEBI-ICDR-Amendment-Regulations-2022.pdf",
+    "SEBI (ICDR) Amendment Regulations 2025, March 2025 (SME NII sub-categorisation aligned with mainboard) - https://www.sebi.gov.in/legal/regulations/mar-2025/securities-and-exchange-board-of-india-issue-of-capital-and-disclosure-requirements-amendment-regulations-2025_92539.html",
+    "https://www.amsshardul.com/wp-content/uploads/2025/03/Alert-CM-SEBI-ICDR-Amendment-Regulations-March-2025.pdf",
+    "https://www.chittorgarh.com/book-chapter/ipo-investors/7/",
+    "https://www.chittorgarh.com/faq_pg/what-is-the-limit-for-retail-investors-in-ipo/4056/",
+    "https://lakshmishree.com/blog/non-institutional-investors/",
+    "https://groww.in/blog/nse-and-bse-issue-new-rules-for-sme-ipos",
+    "https://www.ipoji.com/blog/new-sme-ipo-rules-effective-july-1-2025/",
+    "https://support.zerodha.com/category/trading-and-markets/ipo/other-ipo-queries/articles/minimum-lot-size-for-individual-investor-for-sme-ipo",
+    "https://www.ibef.org/news/sebi-expands-ipo-anchor-book-to-40-to-boost-institutional-participation",
+    "https://tradingqna.com/t/ipos-changes-in-hni-allotment-non-institutional-investor-nii-category/130049"
+  ],
+  "openQuestions": [
+    "For SME, the rupee boundaries depend entirely on each issue's lot size and cap price; with large SME lots, sNII can be empty (floor(1000000/perLot) < 3). The exact per-issue table must be computed at runtime from that issue's lotSize and cap price.",
+    "SME minimum-application Rs 2 lakh floor: if 2 lots <= Rs 2 lakh the regulation assumes the issuer sizes the lot/price up; behaviour for any non-conforming historical/edge issue is unspecified.",
+    "Whether a SME ground-truth worked example exists to validate the SME formula the same way AMIRCHAND validates mainboard (only the mainboard example was supplied/confirmed by the verdicts).",
+    "Anchor-book reservation changed to 40% effective ~30 Nov 2025; this affects allocation context only, not the retail/HNI lot table, but downstream consumers relying on anchor figures should note the date."
+  ]
+}

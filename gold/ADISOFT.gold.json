@@ -1,0 +1,97 @@
+{
+  "symbol": "ADISOFT",
+  "sourceFile": "PDFs/ADISOFT_rhp.pdf",
+  "_verified": false,
+  "_instructions": "Open the PDF at each _page, confirm/correct the values, then set _verified: true. Add revenueFromOperations / totalIncome rows if missing.",
+  "currencyUnit": "INR in lakhs",
+  "periods": [
+    "Period ended October 31, 2025",
+    "FY2025",
+    "FY2024",
+    "FY2023"
+  ],
+  "metrics": {
+    "revenueFromOperations": [
+      5486.96,
+      13171.78,
+      10326.85,
+      7554.27
+    ],
+    "ebitda": [
+      590.61,
+      2166.49,
+      1606.47,
+      831.72
+    ],
+    "profitAfterTax": [
+      378.18,
+      1611.08,
+      1175.57,
+      607.93
+    ],
+    "netWorth": [
+      5303.16,
+      4924.98,
+      3313.9,
+      2138.33
+    ],
+    "basicEPS": [
+      3.15,
+      13.41,
+      9.79,
+      5.06
+    ],
+    "dilutedEPS": [
+      3.15,
+      13.41,
+      9.79,
+      5.06
+    ],
+    "ronw": [
+      7.13,
+      32.71,
+      35.47,
+      28.43
+    ],
+    "navPerShare": [
+      44.16,
+      41.01,
+      27.59,
+      17.8
+    ]
+  },
+  "_hints": {
+    "revenueFromOperations": {
+      "_page": 96,
+      "_quote": "Revenue from operations (1) 5486.96 13171.78 10326.85 7554.27"
+    },
+    "ebitda": {
+      "_page": 96,
+      "_quote": "EBITDA (2) 590.61 2166.49 1606.47 831.72"
+    },
+    "profitAfterTax": {
+      "_page": 96,
+      "_quote": "PAT (4) 378.18 1611.08 1175.57 607.93"
+    },
+    "netWorth": {
+      "_page": 96,
+      "_quote": "Net Worth (8) 5303.16 4924.98 3313.90 2138.33"
+    },
+    "basicEPS": {
+      "_page": 94,
+      "_quote": "1 Financial Year ending March 31, 2025 13.41 2 Financial Year ending March 31, 2024 9.79 3 Financial Year ending March 3"
+    },
+    "dilutedEPS": {
+      "_page": 94,
+      "_quote": "Basic & Diluted (₹) ... 13.41 ... 9.79 ... 5.06 ... 3.15"
+    },
+    "ronw": {
+      "_page": 95,
+      "_quote": "1 Period ending March 31, 2025 32.71 2 Period ending March 31, 2024 35.47 3 Period ending March 31, 2023 28.43 ... 4. Fo"
+    },
+    "navPerShare": {
+      "_page": 95,
+      "_quote": "1. As at March 31, 2023 17.80 2. As at March 31, 2024 27.59 3. As at March 31, 2025 41.01 4. For the period ended Octobe"
+    }
+  }
+}

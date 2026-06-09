@@ -6,6 +6,7 @@ const path = require('path');
 const { fetchUpstoxIpos } = require('./utils/upstox.js');
 const { fetchNseIpos } = require('./utils/nse.js');
 const { fetchGrowwIpos } = require('./utils/groww.js');
+const { fetchZerodhaIpos } = require('./utils/zerodha.js');
 const { jaroWinkler } = require('./utils/jaroWinkler.js');
 const { writeAtomicSync } = require('./utils/atomicWrite.js');
 const { normalizeCompanyName, normalizeSymbol, parseIndianDate } = require('./utils/normalizers.js');
@@ -303,11 +304,13 @@ async function runPipeline({ year, fromStr, toStr } = {}) {
   let upstoxRecords = [];
   let nseRecords = [];
   let growwRecords = [];
+  let zerodhaRecords = [];
 
-  const [upstoxResult, nseResult, growwResult] = await Promise.allSettled([
+  const [upstoxResult, nseResult, growwResult, zerodhaResult] = await Promise.allSettled([
     fetchUpstoxIpos(),
     fetchNseIpos(__dirname, nseFrom, nseTo),
     fetchGrowwIpos(),
+    fetchZerodhaIpos(),
   ]);
 
   if (upstoxResult.status === 'fulfilled') {
@@ -331,7 +334,14 @@ async function runPipeline({ year, fromStr, toStr } = {}) {
     console.error(`[pipeline] Groww fetch failed: ${growwResult.reason.message}`);
   }
 
-  const allRecords = [...upstoxRecords, ...nseRecords, ...growwRecords];
+  if (zerodhaResult.status === 'fulfilled') {
+    zerodhaRecords = zerodhaResult.value;
+    console.log(`[pipeline] Zerodha: fetched ${zerodhaRecords.length} records`);
+  } else {
+    console.error(`[pipeline] Zerodha fetch failed: ${zerodhaResult.reason.message}`);
+  }
+
+  const allRecords = [...upstoxRecords, ...nseRecords, ...growwRecords, ...zerodhaRecords];
   console.log(`[pipeline] Total raw records: ${allRecords.length}`);
 
   // Deduplicate

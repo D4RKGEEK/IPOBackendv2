@@ -63,6 +63,10 @@ function extractCandidates(rec) {
     const gUrl = rs.groww.documentUrl || (rs.groww.detail && rs.groww.detail.documentUrl);
     push(null, gUrl, 'groww');
   }
+  // Zerodha raw (prospectus link scraped from detail page, with its inferred type)
+  if (rs.zerodha && rs.zerodha.prospectusUrl) {
+    push(rs.zerodha.docType, rs.zerodha.prospectusUrl, 'zerodha');
+  }
 
   return out;
 }

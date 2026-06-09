@@ -68,6 +68,8 @@ function buildApp() {
       priceBand: doc.priceBand,
       lotSize: doc.lotSize,
       issueSize: doc.issueSize,
+      biddingStart: doc.biddingStart,
+      biddingEnd: doc.biddingEnd,
       listingDate: doc.listingDate,
       gmp: doc.gmp ? doc.gmp.value : null,
       sector: doc.sector,

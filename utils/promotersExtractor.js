@@ -87,8 +87,8 @@ const PATTERNS = [
   // P2: Glossary table — "| Promoter(s) | The promoters of our Company, being <names> |"
   { re: /promoter\(?s?\)?\s*\|\s*the\s+promoters?\s+of\s+(?:our\s+|the\s+)?company,?\s*being\s+([A-Za-z\s,.&()]+?)(?:\.\s*(?:for|see|\|)|\.(?:f|F)or|\.(?:s|S)ee|\.\|)/i, source: 'glossary' },
 
-  // P2b: Glossary table — "| Promoters | <names> |" (shorter form)
-  { re: /promoters?\s+\|\s*([A-Z][A-Za-z\s,.&]+?)\.\s*(?:\|)/i, source: 'glossary' },
+  // P2b: Glossary table — "| Promoters | <names> |" (shorter form). Names must contain a space (at least 2 words) to avoid matching "Sr. No" etc.
+  { re: /promoters?\s*\|\s*([A-Z][A-Za-z\s,.&]{8,}?\s[A-Za-z][A-Za-z\s,.&]+?)\.\s*(?:\|)/i, source: 'glossary' },
 
   // P3: Standalone heading — "OUR PROMOTERS: <names>" followed by pipe or end
   { re: /our\s+promoters?\s*:\s*([A-Z][A-Z\s,.&]{5,}?)(?=\s*(?:\||details|the\s+issue|initial|offer))/i, source: 'heading' },

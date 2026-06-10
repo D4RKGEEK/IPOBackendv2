@@ -203,10 +203,17 @@ function statusBadge(s) {
 function issueBadge(t) {
   return t ? `<span class="badge ${t==='SME'?'badge-SME':'badge-MAINBOARD'}">${t}</span>` : '';
 }
+function gmpValue(v) {
+  if (v == null) return null;
+  if (typeof v === 'number') return v;
+  if (typeof v === 'object' && v !== null) return v.value ?? null;
+  return null;
+}
 function gmpDisplay(v) {
-  if (v == null) return '<span class="text-gray-400 text-xs">—</span>';
-  const up = v > 0;
-  return `<span class="font-semibold ${up?'text-green-600':'text-red-500'}">${up?'+':''}${v}</span>`;
+  const val = gmpValue(v);
+  if (val == null) return '<span class="text-gray-400 text-xs">—</span>';
+  const up = val > 0;
+  return `<span class="font-semibold ${up?'text-green-600':'text-red-500'}">${up?'+':''}${val}</span>`;
 }
 function fmt(d) {
   if (!d) return '—';
@@ -337,7 +344,7 @@ async function renderOverview(app) {
                 <div class="text-xs text-gray-400 mt-0.5">${d.symbol||'—'} · ${fmt(d.biddingStart)} → ${fmt(d.biddingEnd)}</div>
               </div>
               <div class="flex items-center gap-3">
-                ${d.gmp != null ? `<span class="text-sm font-semibold ${d.gmp>0?'text-green-600':'text-red-500'}">${d.gmp>0?'+':''}${d.gmp}</span>` : ''}
+                ${d.gmp != null ? (function(){const v=gmpValue(d.gmp); return v!=null ? `<span class="text-sm font-semibold ${v>0?'text-green-600':'text-red-500'}">${v>0?'+':''}${v}</span>` : '';})() : ''}
                 ${statusBadge(d.status)}
                 ${issueBadge(d.issueType)}
               </div>
@@ -572,7 +579,7 @@ async function renderIpoDetail(app, slug) {
           <div class="flex items-center gap-2 mt-1">
             ${statusBadge(ipo.status)}
             ${issueBadge(ipo.issueType)}
-            ${ipo.gmp != null ? `<span class="text-sm font-semibold ${ipo.gmp>0?'text-green-600':'text-red-500'}">GMP: ${ipo.gmp>0?'+':''}${ipo.gmp}</span>` : ''}
+            ${(function(){const g=gmpValue(ipo.gmp); return g!=null ? `<span class="text-sm font-semibold ${g>0?'text-green-600':'text-red-500'}">GMP: ${g>0?'+':''}${g}</span>` : '';})()}
             <span class="text-xs text-gray-400">${Object.keys(ipo.sources||{}).length} sources</span>
           </div>
         </div>
@@ -749,14 +756,18 @@ function renderIntermediariesTab(ipo) {
       <div class="mb-6">
         <h3 class="text-sm font-semibold text-gray-900 mb-3">Book Running Lead Managers (${im.leadManagers.length})</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          ${im.leadManagers.map(lm => `<div class="bg-gray-50 p-3 rounded-lg text-sm font-medium">${lm}</div>`).join('')}
+          ${im.leadManagers.map(lm => {
+            const name = typeof lm === 'string' ? lm : (lm.name || '');
+            const extra = typeof lm === 'object' ? [lm.email, lm.phone].filter(Boolean).join(' · ') : '';
+            return `<div class="bg-gray-50 p-3 rounded-lg text-sm"><span class="font-medium">${name}</span>${extra ? `<span class="text-xs text-gray-400 block mt-0.5">${extra}</span>` : ''}</div>`;
+          }).join('')}
         </div>
       </div>
     ` : ''}
     ${im.registrar ? `
       <div class="mb-6">
         <h3 class="text-sm font-semibold text-gray-900 mb-3">Registrar</h3>
-        <div class="bg-gray-50 p-3 rounded-lg text-sm">${im.registrar}</div>
+        <div class="bg-gray-50 p-3 rounded-lg text-sm">${typeof im.registrar === 'string' ? im.registrar : (im.registrar.name || '') + (im.registrar.email ? ` · ${im.registrar.email}` : '') + (im.registrar.phone ? ` · ${im.registrar.phone}` : '')}</div>
       </div>
     ` : ''}
     ${im.company ? `
@@ -786,11 +797,16 @@ function renderObjectsTab(ipo) {
       <span class="text-xs text-gray-400 ml-3">Source: ${ob.source||'markdown'} · ${fmtDT(ob.extractedAt)}</span>
     </div>
     <div class="space-y-2">
-      ${ob.objects.map((o, i) => `
-        <div class="bg-gray-50 p-3 rounded-lg text-sm">
-          <span class="font-medium text-gray-700">${i+1}.</span> ${o}
-        </div>
-      `).join('')}
+      ${ob.objects.map((o, i) => {
+        const name = typeof o === 'string' ? o : o.name || '';
+        const amount = typeof o === 'object' && o.amountCr ? `₹${o.amountCr} Cr` : typeof o === 'object' && o.amount ? `${o.amount}` : '';
+        return `
+          <div class="bg-gray-50 p-3 rounded-lg text-sm">
+            <span class="font-medium text-gray-700">${i+1}.</span> ${name}
+            ${amount ? `<span class="text-gray-400 ml-2">(${amount})</span>` : ''}
+          </div>
+        `;
+      }).join('')}
     </div>
   `;
 }
@@ -798,10 +814,11 @@ function renderObjectsTab(ipo) {
 // ─── GMP Tab ─────────────────────────────────────────────────────────────────
 function renderGmpTab(ipo, history) {
   const gmpHistory = history && history.gmp ? history.gmp : [];
+  const latestGmp = gmpValue(ipo.gmp) || (history && history.gmp && history.gmp.length ? history.gmp[0].value : null);
   return `
     <div class="mb-4">
       <div class="flex items-center gap-4">
-        <div class="text-3xl font-bold ${ipo.gmp>0?'text-green-600':ipo.gmp<0?'text-red-500':'text-gray-700'}">${ipo.gmp != null ? `${ipo.gmp>0?'+':''}${ipo.gmp}` : '—'}</div>
+        <div class="text-3xl font-bold ${latestGmp>0?'text-green-600':latestGmp<0?'text-red-500':'text-gray-700'}">${latestGmp != null ? `${latestGmp>0?'+':''}${latestGmp}` : '—'}</div>
         <div class="text-sm text-gray-500">Latest GMP</div>
       </div>
     </div>

@@ -5,6 +5,7 @@
  * Routers are mounted here; server.js wires the Mongo connection and listens.
  */
 
+const path = require('path');
 const express = require('express');
 const { query, findBySlug, deleteBySlug } = require('./db/ipoRepository');
 const { collections } = require('./db/mongo');
@@ -21,6 +22,11 @@ function buildApp() {
   const app = express();
   app.use(express.json({ limit: '2mb' }));
   app.use(requestLogger);
+
+  // Serve the dashboard SPA
+  const publicDir = path.join(__dirname, 'public');
+  app.use('/dashboard', express.static(publicDir));
+  app.get('/', (_req, res) => res.sendFile(path.join(publicDir, 'dashboard.html')));
 
   const asyncH = (fn) => (req, res) => fn(req, res).catch((e) => {
     logger.error({ err: e, method: req.method, path: req.path }, 'Request error');

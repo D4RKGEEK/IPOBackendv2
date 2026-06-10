@@ -4,10 +4,19 @@ const crypto = require('crypto');
 const axios = require('axios');
 const AdmZip = require('adm-zip');
 
-// Use /tmp on Railway (ephemeral filesystem), otherwise local pdf_cache
-const CACHE_DIR = process.env.RAILWAY
-  ? '/tmp/pdf_cache'
-  : path.join(__dirname, '..', 'pdf_cache');
+// Use /tmp on ephemeral filesystems (Railway, etc.), otherwise local pdf_cache
+function resolveCacheDir() {
+  const localDir = path.join(__dirname, '..', 'pdf_cache');
+  // If RAILWAY env is set, or if the local dir isn't writable, use /tmp
+  if (process.env.RAILWAY) return '/tmp/pdf_cache';
+  try {
+    fs.accessSync(path.dirname(localDir), fs.constants.W_OK);
+    return localDir;
+  } catch {
+    return '/tmp/pdf_cache';
+  }
+}
+const CACHE_DIR = resolveCacheDir();
 const CACHE_INDEX = path.join(CACHE_DIR, 'cache_index.json');
 
 // Gate: minimum pages to be considered a real prospectus

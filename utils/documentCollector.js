@@ -63,7 +63,7 @@ function extractCandidates(rec) {
   // Groww raw (docsOnly stores documentUrl; full mode has detail.documentUrl)
   if (rs.groww) {
     const gUrl = rs.groww.documentUrl || (rs.groww.detail && rs.groww.detail.documentUrl);
-    push(null, gUrl, 'groww');
+    push(rs.groww.docType || null, gUrl, 'groww');
   }
   // Zerodha raw (prospectus link scraped from detail page, with its inferred type)
   if (rs.zerodha && rs.zerodha.prospectusUrl) {

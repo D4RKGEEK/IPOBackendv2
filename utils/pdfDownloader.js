@@ -67,6 +67,15 @@ function urlToFilename(url, ext = '.pdf') {
 }
 
 /**
+ * Check if the first N bytes look like PDF magic bytes (%PDF).
+ * @param {Buffer} buf
+ * @returns {boolean}
+ */
+function isPdfBuffer(buf) {
+  return buf.length > 4 && buf[0] === 0x25 && buf[1] === 0x50 && buf[2] === 0x44 && buf[3] === 0x46;
+}
+
+/**
  * Check if a filename contains any of the given keywords (case-insensitive).
  * @param {string} name
  * @param {string[]} keywords
@@ -162,6 +171,21 @@ function gateCheck(buf, filename) {
 }
 
 /**
+ * Extract the file ID from a Google Drive sharing URL and return a direct
+ * download URL. Handles the common patterns:
+ *   https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+ *   https://drive.google.com/open?id=FILE_ID
+ *   https://drive.google.com/uc?id=FILE_ID
+ * @param {string} url
+ * @returns {string|null}  direct download URL or null if not a Drive URL
+ */
+function resolveGoogleDriveUrl(url) {
+  const m = String(url).match(/drive\.google\.com\/.*[?/]d[=/]([a-zA-Z0-9_-]+)/);
+  if (!m) return null;
+  return `https://drive.usercontent.google.com/uc?id=${m[1]}&export=download`;
+}
+
+/**
  * Download a PDF (or ZIP containing a PDF) with full gate checks and caching.
  *
  * Returns:
@@ -195,6 +219,13 @@ async function downloadPdf(url) {
     return { status: entry.status };
   }
 
+  // Resolve Google Drive URLs to direct download links
+  const resolvedUrl = resolveGoogleDriveUrl(url);
+  const actualUrl = resolvedUrl || url;
+  if (resolvedUrl) {
+    console.log(`[pdfDownloader] Resolved Google Drive URL: ${url.slice(0, 80)} → ${resolvedUrl}`);
+  }
+
   const headers = { 'User-Agent': 'Mozilla/5.0 (compatible; IPOScraper/1.0)' };
   if (entry && entry.etag) {
     headers['If-None-Match'] = entry.etag;
@@ -202,7 +233,7 @@ async function downloadPdf(url) {
 
   let response;
   try {
-    response = await axios.get(url, {
+    response = await axios.get(actualUrl, {
       responseType: 'arraybuffer',
       headers,
       maxRedirects: 5,
@@ -236,8 +267,17 @@ async function downloadPdf(url) {
   let buf = Buffer.from(response.data);
   const contentType = (response.headers['content-type'] || '').toLowerCase();
   const isZip = contentType.includes('zip') ||
-    url.toLowerCase().endsWith('.zip') ||
+    actualUrl.toLowerCase().endsWith('.zip') ||
     (buf[0] === 0x50 && buf[1] === 0x4B); // PK magic bytes
+
+  // Catch non-PDF content (HTML, JSON, etc.) at the buffer level — works regardless of source.
+  if (!isZip && !isPdfBuffer(buf)) {
+    if (entry && entry.filePath && fs.existsSync(entry.filePath)) {
+      console.warn(`[pdfDownloader] Non-PDF content from ${actualUrl.slice(0, 80)}, using cache`);
+      return { status: 'already_parsed', filePath: entry.filePath };
+    }
+    return { status: 'download_failed', error: 'Non-PDF content (not a valid PDF buffer)' };
+  }
 
   let filename = url.split('/').pop().split('?')[0] || 'document';
   // Fix: add .pdf extension if missing (some sources like BSE SME don't include it)

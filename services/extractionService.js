@@ -15,6 +15,7 @@ const { computeApplicationTable } = require('../utils/lotSizeCalculator');
 const { extractIssueDetails, computeAmounts } = require('../utils/issueDetailsExtractor');
 const { extractIntermediaries } = require('../utils/intermediariesExtractor');
 const { extractObjects } = require('../utils/objectsExtractor');
+const { extractPromoters } = require('../utils/promotersExtractor');
 
 // KPI row matchers — abbreviation- AND phrase-aware (prospectus tables use both).
 const KPI_METRICS = [
@@ -154,7 +155,7 @@ async function runExtraction(slug, opts = {}) {
   if (lotDetails) log(`computed lot table (${lotDetails.applications.length} tiers)`);
 
   const docType = pickDoc(ipo);
-  let financials = null; let kpis = null; let issueDetails = null; let intermediaries = null; let objects = null;
+  let financials = null; let kpis = null; let issueDetails = null; let intermediaries = null; let objects = null; let promoters = null;
   if (docType) {
     const sym = ipo.symbol || ipo.slug;
     log(`reading ${docType} markdown from R2`);
@@ -202,6 +203,9 @@ async function runExtraction(slug, opts = {}) {
 
     const obj = extractObjects(md);
     if (obj) { objects = { ...obj, docSource: docType, extractedAt: new Date().toISOString() }; log(`objects: ${obj.objects.length} (${obj.source}), total ${obj.totalCr ?? '?'} Cr`); }
+
+    const promo = extractPromoters(md);
+    if (promo) { promoters = { ...promo, docSource: docType, extractedAt: new Date().toISOString() }; log(`promoters: ${promo.promoters.length} names, confidence ${promo.confidence}`); }
   } else {
     log('no extracted document markdown available — lot details only');
   }
@@ -214,6 +218,7 @@ async function runExtraction(slug, opts = {}) {
   if (issueDetails) set.issueDetails = issueDetails;
   if (intermediaries) set.intermediaries = intermediaries;
   if (objects) set.objects = objects;
+  if (promoters) set.promoters = promoters;
   await collections.ipos().updateOne({ slug }, { $set: set });
 
   return {
@@ -224,6 +229,7 @@ async function runExtraction(slug, opts = {}) {
     issueDetails: issueDetails ? { confidence: issueDetails.confidence, saleType: issueDetails.saleType } : null,
     intermediaries: intermediaries ? { leadManagers: intermediaries.leadManagers.length, registrar: !!intermediaries.registrar } : null,
     objects: objects ? { count: objects.objects.length, totalCr: objects.totalCr, source: objects.source } : null,
+    promoters: promoters ? { count: promoters.promoters.length, names: promoters.promoters, confidence: promoters.confidence } : null,
   };
 }
 

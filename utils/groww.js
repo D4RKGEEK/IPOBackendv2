@@ -105,7 +105,7 @@ function mapGrowwRecord(listItem, detail, bucket) {
       drhp: isDraft ? docUrl : null,
     },
     raw_sources: {
-      groww: { searchId: li.searchId || d.parentSearchId || null, list: li, detail: detail || null },
+      groww: { searchId: li.searchId || d.parentSearchId || null, list: li, detail: detail || null, documentUrl: docUrl, docType: isDraft ? 'drhp' : 'rhp' },
     },
   };
   if (d.listingDate) rec.listingDate = d.listingDate;

@@ -33,11 +33,33 @@ const SECTION_SIGNALS = [
 
 const sha256 = (s) => crypto.createHash('sha256').update(String(s).replace(/\s+/g, ' ').trim()).digest('hex');
 
-/** Detect which known sections appear in the document text. */
-function detectSections(fullText) {
-  const found = [];
-  for (const [name, re] of SECTION_SIGNALS) if (re.test(fullText)) found.push(name);
-  return found;
+/**
+ * Detect section page ranges from per-page text.
+ * Each entry: { start, end } — 1-based page numbers, inclusive.
+ * The end page is inferred from the next section's start; the last section
+ * defaults to the document's total page count.
+ * @param {string[]} pages  per-page text array (pages[i] = page i+1)
+ * @returns {object}  e.g. { financials: { start:45, end:72 }, kpis: { start:78, end:85 } }
+ */
+function detectSections(pages) {
+  const found = {}; // name -> start page (1-based)
+  for (let i = 0; i < pages.length; i++) {
+    const text = pages[i];
+    for (const [name, re] of SECTION_SIGNALS) {
+      if (found[name] != null) continue;
+      if (re.test(text)) found[name] = i + 1; // 1-based page
+    }
+  }
+  // Derive end pages: next section's start - 1, or total pages
+  const total = pages.length;
+  const result = {};
+  const names = Object.keys(found).sort((a, b) => found[a] - found[b]);
+  for (let i = 0; i < names.length; i++) {
+    const start = found[names[i]];
+    const end = i < names.length - 1 ? found[names[i + 1]] - 1 : total;
+    result[names[i]] = { start, end };
+  }
+  return result;
 }
 
 /** Overlap between two arrays of page hashes. */
@@ -113,12 +135,12 @@ async function processOne(ipo, docType, opts = {}) {
   }
   log(`${docType}: markdown ${pipe.cached ? 'cached' : 'generated'} → ${pipe.mdUrl}`);
 
-  // 5. Sections (from page text; markdown also fine)
-  const sections = detectSections(pages.join(' ').slice(0, 200000));
+  // 5. Section page ranges (from per-page text)
+  const sectionPages = detectSections(pages);
 
   const stored = {
     url, r2Url: pipe.pdfUrl, markdownUrl: pipe.mdUrl,
-    pageCount: pages.length, pageHashes, sections,
+    pageCount: pages.length, pageHashes, sections: Object.keys(sectionPages), sectionPages,
     source: docMeta.source || null, confirmedType,
     status: 'extracted', uploadedAt: new Date().toISOString(),
     ...(overlapInfo || {}),
@@ -127,7 +149,7 @@ async function processOne(ipo, docType, opts = {}) {
 
   return {
     status: 'extracted', pagesExtracted: pages.length, newPages: overlapInfo ? overlapInfo.uniquePages : pages.length,
-    r2Url: pipe.pdfUrl, markdownUrl: pipe.mdUrl, sections, confirmedType,
+    r2Url: pipe.pdfUrl, markdownUrl: pipe.mdUrl, sections: Object.keys(sectionPages), sectionPages, confirmedType,
     ...(overlapInfo || {}),
   };
 }

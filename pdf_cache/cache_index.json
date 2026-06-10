@@ -671,5 +671,26 @@
     "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
     "status": "success",
     "downloadedAt": "2026-06-10T20:01:16.727Z"
+  },
+  "https://example.com/test-first-call-1781124273825.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/4bcf4104f11a_test-first-call-1781124273825.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T20:44:33.826Z"
+  },
+  "https://example.com/test-first-call-1781124282750.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/06d1665fa7c1_test-first-call-1781124282750.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T20:44:42.750Z"
+  },
+  "https://example.com/test-first-call-1781124293278.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/466c8f2ac7bb_test-first-call-1781124293278.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T20:44:53.279Z"
   }
 }

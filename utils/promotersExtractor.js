@@ -69,7 +69,7 @@ function parseNames(raw) {
  *   TYPE, NAME OF, SHALL BE, AND STATUTORY, BEING SOLD, BEING MADE,
  *   UP TO, OUT OF, THE COMPANY, OFFER SIZE
  */
-const TERM = '(?:details|initial|the\\s+(?:issue|offer|company)|general|acting|for\\s+(?:cash|the)|will\\s+not|offer\\s+(?:for|size|to)|issue\\s+of|aggregating|hereinafter|and\\s+the\\s+net|type|name\\s+of|shall\\s+be|and\\s+statutory|being\\s+(?:sold|made)|up\\s+to|out\\s+of|[|]\\s)';
+const TERM = '(?:details|initial|the\\s+(?:issue|offer|company)|general|acting|for\\s+(?:cash|the|further)|will\\s+not|offer\\s+(?:for|size|to)|issue\\s+of|aggregating|hereinafter|and\\s+the\\s+net|type|name\\s+of|shall\\s+be|and\\s+statutory|being\\s+(?:sold|made)|up\\s+to|out\\s+of|[|]\\s)';
 
 const PATTERNS = [
   // P1: "PROMOTERS OF OUR COMPANY: <names>" — standard cover page with colon (also handles "PROMOTER S" typo)

@@ -4,7 +4,10 @@ const crypto = require('crypto');
 const axios = require('axios');
 const AdmZip = require('adm-zip');
 
-const CACHE_DIR = path.join(__dirname, '..', 'pdf_cache');
+// Use /tmp on Railway (ephemeral filesystem), otherwise local pdf_cache
+const CACHE_DIR = process.env.RAILWAY
+  ? '/tmp/pdf_cache'
+  : path.join(__dirname, '..', 'pdf_cache');
 const CACHE_INDEX = path.join(CACHE_DIR, 'cache_index.json');
 
 // Gate: minimum pages to be considered a real prospectus
@@ -237,6 +240,10 @@ async function downloadPdf(url) {
     (buf[0] === 0x50 && buf[1] === 0x4B); // PK magic bytes
 
   let filename = url.split('/').pop().split('?')[0] || 'document';
+  // Fix: add .pdf extension if missing (some sources like BSE SME don't include it)
+  if (!filename.toLowerCase().endsWith('.pdf')) {
+    filename = filename + '.pdf';
+  }
   let pdfBuf = buf;
 
   if (isZip) {

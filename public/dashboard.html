@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: { 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' }
+      }
+    }
+  }
+}
+</script>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8fafc}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04)}
+.card-header{padding:16px 20px 0;font-weight:600;font-size:15px;color:#1e293b}
+.card-body{padding:16px 20px 20px}
+.stat-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.stat-value{font-size:28px;font-weight:700;color:#1e293b}
+.stat-label{font-size:13px;color:#64748b;margin-top:4px}
+.btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary{background:#2563eb;color:#fff}
+.btn-primary:hover:not(:disabled){background:#1d4ed8}
+.btn-secondary{background:#f1f5f9;color:#475569}
+.btn-secondary:hover:not(:disabled){background:#e2e8f0}
+.btn-success{background:#059669;color:#fff}
+.btn-success:hover:not(:disabled){background:#047857}
+.btn-danger{background:#dc2626;color:#fff}
+.btn-danger:hover:not(:disabled){background:#b91c1c}
+.btn-warning{background:#d97706;color:#fff}
+.btn-warning:hover:not(:disabled){background:#b45309}
+.btn-outline{background:transparent;border:1px solid #e2e8f0;color:#475569}
+.btn-outline:hover:not(:disabled){background:#f8fafc}
+.btn-sm{padding:5px 12px;font-size:12px}
+.badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em}
+.badge-upcoming{background:#dbeafe;color:#1d4ed8}
+.badge-open{background:#dcfce7;color:#059669}
+.badge-closed{background:#fef3c7;color:#b45309}
+.badge-listed{background:#e2e8f0;color:#475569}
+.badge-both{background:#f3e8ff;color:#7c3aed}
+.badge-error{background:#fef2f2;color:#dc2626}
+.badge-ok{background:#dcfce7;color:#059669}
+.badge-SME{background:#fef3c7;color:#d97706;font-size:10px}
+.badge-MAINBOARD{background:#dbeafe;color:#2563eb;font-size:10px}
+.tab{display:inline-flex;align-items:center;padding:10px 16px;font-size:13px;font-weight:500;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.tab:hover{color:#334155;border-color:#cbd5e1}
+.tab.active{color:#2563eb;border-color:#2563eb}
+.input{border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;font-size:13px;width:100%;outline:none;transition:border-color .15s;box-sizing:border-box}
+.input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.select{-webkit-appearance:none;appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 10px center;padding-right:32px}
+.search-wrap{position:relative}
+.search-wrap .input{padding-left:36px}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:#94a3b8}
+.job-log{background:#1e293b;color:#e2e8f0;border-radius:8px;padding:12px 16px;font-family:'SF Mono',monospace;font-size:12px;line-height:1.6;max-height:400px;overflow-y:auto;white-space:pre-wrap}
+.job-log .time{color:#64748b}
+.job-log .info{color:#93c5fd}
+.job-log .warn{color:#fbbf24}
+.job-log .error{color:#f87171}
+.loading{display:flex;align-items:center;justify-content:center;padding:60px 20px;color:#94a3b8;font-size:14px}
+.spinner{width:20px;height:20px;border:2px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;animation:spin .6s linear infinite;margin-right:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pulse{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.toast{position:fixed;bottom:24px;right:24px;z-index:100;padding:12px 20px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;max-width:400px;box-shadow:0 4px 16px rgba(0,0,0,.15);transform:translateY(0);transition:all .3s;cursor:pointer}
+.toast-success{background:#059669}
+.toast-error{background:#dc2626}
+.toast-info{background:#2563eb}
+.toast-hide{transform:translateY(20px);opacity:0}
+.empty-state{text-align:center;padding:40px 20px;color:#94a3b8}
+.empty-state svg{width:48px;height:48px;margin:0 auto 12px;color:#cbd5e1}
+.empty-state p{font-size:14px}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+@media(max-width:768px){.mobile-hide{display:none}}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-14">
+      <div class="flex items-center gap-8">
+        <span class="text-lg font-bold text-gray-900 cursor-pointer" onclick="navigate('')">📈 IPO Hub</span>
+        <div class="hidden sm:flex items-center gap-1">
+          <button class="nav-btn px-3 py-1.5 text-sm font-medium rounded-lg" data-route="" onclick="navigate('')">Overview</button>
+          <button class="nav-btn px-3 py-1.5 text-sm font-medium rounded-lg" data-route="ipos" onclick="navigate('ipos')">IPOs</button>
+          <button class="nav-btn px-3 py-1.5 text-sm font-medium rounded-lg" data-route="jobs" onclick="navigate('jobs')">Jobs</button>
+          <button class="nav-btn px-3 py-1.5 text-sm font-medium rounded-lg" data-route="sources" onclick="navigate('sources')">Sources</button>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="navStatus" class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2 h-2 rounded-full bg-gray-300 pulse" id="navDot"></span><span id="navDb">...</span></span>
+        <button onclick="navigate('ipos')" class="btn btn-primary btn-sm">+ New IPO</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile sub-nav -->
+<div class="sm:hidden flex border-b border-gray-200 bg-white overflow-x-auto">
+  <button class="tab mobile-tab flex-1 justify-center text-xs" data-route="" onclick="navigate('')">Overview</button>
+  <button class="tab mobile-tab flex-1 justify-center text-xs" data-route="ipos" onclick="navigate('ipos')">IPOs</button>
+  <button class="tab mobile-tab flex-1 justify-center text-xs" data-route="jobs" onclick="navigate('jobs')">Jobs</button>
+  <button class="tab mobile-tab flex-1 justify-center text-xs" data-route="sources" onclick="navigate('sources')">Sources</button>
+</div>
+
+<!-- Main content -->
+<div id="app" class="max-w-7xl mx-auto px-4 py-6">
+  <div class="loading" id="globalLoading"><div class="spinner"></div>Loading...</div>
+</div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────────────────────
+const API = '';
+let state = { ipos: [], pagination: {}, sources: [], jobs: [], health: null };
+let iposCache = null;
+let pollTimers = [];
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+function toast(msg, type='info', duration=4000) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  el.onclick = () => el.classList.add('toast-hide');
+  document.body.appendChild(el);
+  setTimeout(() => el.classList.add('toast-hide'), duration);
+  setTimeout(() => el.remove(), duration + 300);
+}
+
+// ─── API ──────────────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const opts = { method, headers: {} };
+  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+  const res = await fetch(API + path, opts);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
+const get = (p) => api('GET', p);
+const post = (p, b) => api('POST', p, b);
+const del = (p) => api('DELETE', p);
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+function navigate(route, params) {
+  const hash = route ? '#' + route + (params ? '?' + params : '') : '#';
+  window.location.hash = hash;
+}
+function currentRoute() {
+  const h = window.location.hash.slice(1);
+  const parts = h.split('?');
+  return { route: parts[0] || '', params: parts[1] || '' };
+}
+function navActive() {
+  const { route } = currentRoute();
+  document.querySelectorAll('.nav-btn, .mobile-tab').forEach(el => {
+    el.classList.toggle('text-gray-900', el.dataset.route === route);
+    el.classList.toggle('bg-gray-100', el.dataset.route === route);
+    el.classList.toggle('text-gray-500', el.dataset.route !== route);
+    el.classList.toggle('active', el.dataset.route === route);
+  });
+}
+
+// ─── Router ───────────────────────────────────────────────────────────────────
+async function router() {
+  navActive();
+  const { route, params } = currentRoute();
+  const app = document.getElementById('app');
+  try {
+    if (route === 'ipos') {
+      const searchParams = new URLSearchParams(params);
+      if (searchParams.get('slug')) await renderIpoDetail(app, searchParams.get('slug'));
+      else await renderIpoList(app, params);
+    } else if (route === 'jobs') {
+      await renderJobs(app);
+    } else if (route === 'sources') {
+      await renderSources(app);
+    } else {
+      await renderOverview(app);
+    }
+  } catch(e) {
+    app.innerHTML = `<div class="card p-8 text-center"><p class="text-red-500 font-medium">${e.message}</p><button class="btn btn-secondary mt-4" onclick="router()">Retry</button></div>`;
+  }
+}
+
+window.addEventListener('hashchange', router);
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function statusBadge(s) {
+  const m = { upcoming:'badge-upcoming', open:'badge-open', closed:'badge-closed', listed:'badge-listed' };
+  return `<span class="badge ${m[s]||'badge-listed'}">${s||'unknown'}</span>`;
+}
+function issueBadge(t) {
+  return t ? `<span class="badge ${t==='SME'?'badge-SME':'badge-MAINBOARD'}">${t}</span>` : '';
+}
+function gmpDisplay(v) {
+  if (v == null) return '<span class="text-gray-400 text-xs">—</span>';
+  const up = v > 0;
+  return `<span class="font-semibold ${up?'text-green-600':'text-red-500'}">${up?'+':''}${v}</span>`;
+}
+function fmt(d) {
+  if (!d) return '—';
+  const date = new Date(d);
+  return date.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+}
+function fmtDT(d) {
+  if (!d) return '—';
+  const date = new Date(d);
+  return date.toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+function trunc(s, n=40) { return (s||'').length > n ? (s||'').slice(0,n)+'…' : s||'—'; }
+function ellipsis(s, n=50) { return (s||'').length > n ? (s||'').slice(0,n)+'…' : s||''; }
+function plural(n, s) { return n === 1 ? `${n} ${s}` : `${n} ${s}s`; }
+
+function pollJob(jobId, onDone) {
+  const iv = setInterval(async () => {
+    try {
+      const j = await get(`/jobs/${jobId}`);
+      if (j.status === 'completed' || j.status === 'failed') {
+        clearInterval(iv);
+        onDone(j);
+        // Refresh page after short delay if user is on same page
+        setTimeout(() => { 
+          const {route} = currentRoute();
+          if (route === 'ipos' || route === 'jobs') router(); 
+        }, 1000);
+      }
+    } catch(e) { clearInterval(iv); onDone({status:'failed', error:e.message}); }
+  }, 1500);
+  pollTimers.push(() => clearInterval(iv));
+}
+
+// ─── Overview Page ────────────────────────────────────────────────────────────
+async function renderOverview(app) {
+  app.innerHTML = '<div class="loading"><div class="spinner"></div>Loading overview…</div>';
+  const [health, srcData, ipoData] = await Promise.all([
+    get('/health').catch(() => ({ok:false, ipos:0})),
+    get('/sources').catch(() => ({sources:[]})),
+    get('/ipos?limit=6&sort=latest').catch(() => ({data:[], pagination:{total:0}}))
+  ]);
+
+  // Count by status
+  let statusCounts = {};
+  if (iposCache) {
+    statusCounts = iposCache.reduce((a, d) => { a[d.status||'unknown'] = (a[d.status||'unknown']||0)+1; return a; }, {});
+  }
+
+  const total = ipoData.pagination.total || health.ipos || 0;
+  const srcHealthy = srcData.sources.filter(s => s.healthy).length;
+  const lastScrape = srcData.lastScrape;
+
+  app.innerHTML = `
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+      <p class="text-sm text-gray-500 mt-1">IPO pipeline status and quick actions</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total IPOs</div></div>
+      <div class="stat-card"><div class="stat-value">${srcHealthy}</div><div class="stat-label">Sources Active</div></div>
+      <div class="stat-card"><div class="stat-value text-green-600">${statusCounts.open||0}</div><div class="stat-label">Open</div></div>
+      <div class="stat-card"><div class="stat-value text-blue-600">${statusCounts.upcoming||0}</div><div class="stat-label">Upcoming</div></div>
+    </div>
+
+    <!-- Quick Actions + Status -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <!-- Actions -->
+      <div class="card lg:col-span-2">
+        <div class="card-header">Quick Actions</div>
+        <div class="card-body">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button class="btn btn-primary" onclick="runQuickScrape()">🔄 Scrape All</button>
+            <button class="btn btn-success" onclick="runQuickGmp()">💰 Get GMP</button>
+            <button class="btn btn-warning" onclick="runQuickHistorical()">📊 Historical</button>
+            <button onclick="navigate('jobs')" class="btn btn-outline">📋 View Jobs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Scrape -->
+      <div class="card">
+        <div class="card-header">Last Scrape</div>
+        <div class="card-body">
+          ${lastScrape ? `
+            <div class="text-sm"><span class="text-gray-500">Status:</span> <span class="font-medium ${lastScrape.status==='completed'?'text-green-600':'text-amber-600'}">${lastScrape.status}</span></div>
+            <div class="text-sm mt-1"><span class="text-gray-500">At:</span> <span class="font-medium">${fmtDT(lastScrape.at)}</span></div>
+          ` : '<div class="text-sm text-gray-400">No scrape run yet</div>'}
+        </div>
+      </div>
+    </div>
+
+    <!-- Sources -->
+    <div class="card mb-6">
+      <div class="card-header flex items-center justify-between">
+        <span>Source Health</span>
+        <button class="btn btn-secondary btn-sm" onclick="router()">↻ Refresh</button>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          ${srcData.sources.map(s => `
+            <div class="p-3 bg-gray-50 rounded-lg text-center">
+              <div class="flex items-center justify-center gap-1.5 mb-1">
+                <span class="w-2 h-2 rounded-full ${s.healthy?'bg-green-500':'bg-red-400'}"></span>
+                <span class="font-medium text-sm capitalize">${s.source}</span>
+              </div>
+              <div class="text-xs text-gray-500">${s.ipos} IPOs</div>
+              <div class="text-xs text-gray-400">${s.lastFetched ? fmtDT(s.lastFetched) : 'never'}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent IPOs -->
+    <div class="card">
+      <div class="card-header flex items-center justify-between">
+        <span>Recent IPOs</span>
+        <button class="btn btn-secondary btn-sm" onclick="navigate('ipos')">View All →</button>
+      </div>
+      <div class="card-body p-0">
+        <div class="divide-y divide-gray-100">
+          ${ipoData.data.map(d => `
+            <div class="flex items-center justify-between px-6 py-3.5 hover:bg-gray-50 cursor-pointer" onclick="navigate('ipos','slug=${d.slug}')">
+              <div>
+                <div class="font-medium text-sm text-gray-900">${d.companyName||d.slug}</div>
+                <div class="text-xs text-gray-400 mt-0.5">${d.symbol||'—'} · ${fmt(d.biddingStart)} → ${fmt(d.biddingEnd)}</div>
+              </div>
+              <div class="flex items-center gap-3">
+                ${d.gmp != null ? `<span class="text-sm font-semibold ${d.gmp>0?'text-green-600':'text-red-500'}">${d.gmp>0?'+':''}${d.gmp}</span>` : ''}
+                ${statusBadge(d.status)}
+                ${issueBadge(d.issueType)}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ─── IPO List Page ────────────────────────────────────────────────────────────
+async function renderIpoList(app, paramsStr) {
+  let page = 1, search = '', status = '', sort = 'latest';
+  const sp = new URLSearchParams(paramsStr);
+  if (sp.get('page')) page = parseInt(sp.get('page'));
+  if (sp.get('search')) search = sp.get('search');
+  if (sp.get('status')) status = sp.get('status');
+  if (sp.get('sort')) sort = sp.get('sort');
+
+  let url = `/ipos?limit=50&page=${page}&sort=${sort}`;
+  if (search) url += `&search=${encodeURIComponent(search)}`;
+  if (status) url += `&status=${status}`;
+
+  app.innerHTML = '<div class="loading"><div class="spinner"></div>Loading IPOs…</div>';
+  const data = await get(url);
+  if (!iposCache) iposCache = data.data;
+
+  app.innerHTML = `
+    <div class="mb-5">
+      <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-gray-900">IPOs <span class="text-sm font-normal text-gray-400">${data.pagination.total} total</span></h1>
+        <div class="flex gap-2">
+          <button class="btn btn-primary btn-sm" onclick="runQuickScrape()">🔄 Scrape</button>
+          <button class="btn btn-success btn-sm" onclick="runQuickGmp()">💰 GMP</button>
+          <button class="btn btn-warning btn-sm" onclick="runQuickHistorical()">📊 History</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+        <div class="search-wrap md:col-span-2">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input class="input" placeholder="Search by company, symbol, ISIN…" value="${search}" oninput="debouncedSearch(this.value)">
+        </div>
+        <select class="input select" onchange="navigate('ipos','status='+this.value+(search?'&search='+search:''))">
+          <option value="">All Status</option>
+          <option ${status==='upcoming'?'selected':''} value="upcoming">📅 Upcoming</option>
+          <option ${status==='open'?'selected':''} value="open">🟢 Open</option>
+          <option ${status==='closed'?'selected':''} value="closed">🔒 Closed</option>
+          <option ${status==='listed'?'selected':''} value="listed">📊 Listed</option>
+        </select>
+        <select class="input select" onchange="navigate('ipos','sort='+this.value+(search?'&search='+search:'')+(status?'&status='+status:''))">
+          <option ${sort==='latest'?'selected':''} value="latest">Latest First</option>
+          <option ${sort==='name'?'selected':''} value="name">Name A–Z</option>
+          <option ${sort==='listingDate'?'selected':''} value="listingDate">Listing Date</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+              <th class="text-left px-5 py-3 font-medium">Company</th>
+              <th class="text-left px-3 py-3 font-medium">Symbol</th>
+              <th class="text-center px-3 py-3 font-medium">Status</th>
+              <th class="text-center px-3 py-3 font-medium mobile-hide">Type</th>
+              <th class="text-center px-3 py-3 font-medium">GMP</th>
+              <th class="text-left px-3 py-3 font-medium mobile-hide">Dates</th>
+              <th class="text-center px-3 py-3 font-medium mobile-hide">Docs</th>
+              <th class="text-center px-2 py-3 font-medium"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            ${data.data.length === 0 ? '<tr><td colspan="8" class="text-center py-10 text-gray-400">No IPOs found</td></tr>' :
+            data.data.map(d => {
+              const docTypes = Object.keys(d.documents||{});
+              const docStatuses = docTypes.map(t => (d.documents[t]||{}).status);
+              const hasExtracted = docStatuses.includes('extracted');
+              const hasError = docStatuses.includes('error');
+              const hasProcessing = docStatuses.includes('processing');
+              const docBadge = docTypes.length === 0 ? '<span class="text-gray-300">—</span>' :
+                hasProcessing ? '<span class="text-amber-500 text-xs">⏳</span>' :
+                hasError ? '<span class="text-red-400 text-xs">⚠</span>' :
+                hasExtracted ? '<span class="text-green-500 text-xs">✓</span>' :
+                '<span class="text-gray-400 text-xs">●</span>';
+              return `
+                <tr class="hover:bg-gray-50 cursor-pointer" onclick="navigate('ipos','slug=${d.slug}')">
+                  <td class="px-5 py-3.5">
+                    <div class="font-medium text-gray-900">${trunc(d.companyName||d.slug, 35)}</div>
+                    <div class="text-xs text-gray-400 mt-0.5">${d.sector||''}</div>
+                  </td>
+                  <td class="px-3 py-3.5 text-gray-600">${d.symbol||'—'}</td>
+                  <td class="px-3 py-3.5 text-center">${statusBadge(d.status)}</td>
+                  <td class="px-3 py-3.5 text-center mobile-hide">${issueBadge(d.issueType)}</td>
+                  <td class="px-3 py-3.5 text-center font-medium">${gmpDisplay(d.gmp)}</td>
+                  <td class="px-3 py-3.5 text-xs text-gray-500 mobile-hide">
+                    ${d.biddingStart ? fmt(d.biddingStart) : '—'}
+                    ${d.listingDate ? `<br><span class="text-gray-400">List: ${fmt(d.listingDate)}</span>` : ''}
+                  </td>
+                  <td class="px-3 py-3.5 text-center text-sm mobile-hide">${docBadge} ${docTypes.length || ''}</td>
+                  <td class="px-2 py-3.5 text-right">
+                    <span class="text-gray-300 text-xs">→</span>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+      ${data.pagination.total > 50 ? `
+        <div class="flex items-center justify-between px-5 py-3 border-t border-gray-100 bg-gray-50">
+          <span class="text-xs text-gray-500">Page ${page} of ${Math.ceil(data.pagination.total/50)}</span>
+          <div class="flex gap-2">
+            ${page > 1 ? `<button class="btn btn-secondary btn-sm" onclick="navigate('ipos','page=${page-1}${search?'&search='+search:''}${status?'&status='+status:''}')">← Prev</button>` : ''}
+            ${data.pagination.hasMore ? `<button class="btn btn-secondary btn-sm" onclick="navigate('ipos','page=${page+1}${search?'&search='+search:''}${status?'&status='+status:''}')">Next →</button>` : ''}
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+let searchTimeout;
+function debouncedSearch(v) {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    const { params } = currentRoute();
+    const sp = new URLSearchParams(params);
+    if (v) sp.set('search', v); else sp.delete('search');
+    sp.delete('page');
+    navigate('ipos', sp.toString());
+  }, 400);
+}
+
+// ─── IPO Detail Page ──────────────────────────────────────────────────────────
+async function renderIpoDetail(app, slug) {
+  app.innerHTML = '<div class="loading"><div class="spinner"></div>Loading IPO details…</div>';
+  const [ipo, historyData] = await Promise.all([
+    get(`/ipos/${slug}`),
+    get(`/ipos/${slug}/history`).catch(() => null)
+  ]);
+
+  let activeTab = 'overview';
+  const tabs = ['overview','documents','financials','kpis','issue','intermediaries','objects','gmp','history','actions'];
+
+  function renderTabContent(tab) {
+    const h = document.getElementById('tab-content');
+    if (!h) return;
+
+    if (tab === 'overview') {
+      h.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div class="space-y-3">
+              ${[
+                ['Company Name', ipo.companyName||'—'],
+                ['Display Name', ipo.displayName||'—'],
+                ['Symbol', ipo.symbol||'—'],
+                ['ISIN', ipo.isin||'—'],
+                ['Sector', ipo.sector||'—'],
+                ['Industry', ipo.industry||'—'],
+              ].map(([l,v]) => `<div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">${l}</span><span class="font-medium text-gray-900">${v}</span></div>`).join('')}
+            </div>
+          </div>
+          <div>
+            <div class="space-y-3">
+              ${[
+                ['Status', statusBadge(ipo.status)],
+                ['Issue Type', issueBadge(ipo.issueType)],
+                ['Face Value', ipo.faceValue ? `₹${ipo.faceValue}` : '—'],
+                ['Price Band', ipo.priceBand ? `₹${ipo.priceBand.min} – ₹${ipo.priceBand.max}` : '—'],
+                ['Issue Price', ipo.issuePrice ? `₹${ipo.issuePrice}` : '—'],
+                ['Lot Size', ipo.lotSize||'—'],
+                ['Issue Size', ipo.issueSize ? `₹${typeof ipo.issueSize==='number'?ipo.issueSize.toFixed(1)+' Cr':ipo.issueSize}` : '—'],
+                ['Min Amount', ipo.minimumAmount ? `₹${(ipo.minimumAmount/100000).toFixed(1)}L` : '—'],
+              ].map(([l,v]) => `<div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">${l}</span><span class="font-medium">${v}</span></div>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">Timeline</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            ${[
+              ['Bidding Start', ipo.biddingStart],
+              ['Bidding End', ipo.biddingEnd],
+              ['Allotment', ipo.allotmentDate],
+              ['Listing', ipo.listingDate],
+            ].map(([l,v]) => `<div class="bg-gray-50 p-3 rounded-lg text-center"><div class="text-xs text-gray-500">${l}</div><div class="text-sm font-medium mt-1">${fmt(v)}</div></div>`).join('')}
+          </div>
+        </div>
+        ${ipo.subscription ? `
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <h3 class="text-sm font-semibold text-gray-900 mb-3">Subscription</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              ${Object.entries(ipo.subscription).map(([k,v]) => `<div class="bg-gray-50 p-3 rounded-lg text-center"><div class="text-xs text-gray-500 capitalize">${k}</div><div class="text-sm font-medium mt-1">${v}x</div></div>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+        ${ipo.registrar ? `<div class="mt-4 pt-4 border-t border-gray-100 text-sm"><span class="text-gray-500">Registrar:</span> <span class="font-medium">${ipo.registrar}</span></div>` : ''}
+      `;
+    } else if (tab === 'documents') {
+      h.innerHTML = renderDocumentsTab(ipo);
+    } else if (tab === 'financials') {
+      h.innerHTML = renderFinancialsTab(ipo);
+    } else if (tab === 'kpis') {
+      h.innerHTML = renderKpisTab(ipo);
+    } else if (tab === 'issue') {
+      h.innerHTML = renderIssueDetailsTab(ipo);
+    } else if (tab === 'intermediaries') {
+      h.innerHTML = renderIntermediariesTab(ipo);
+    } else if (tab === 'objects') {
+      h.innerHTML = renderObjectsTab(ipo);
+    } else if (tab === 'gmp') {
+      h.innerHTML = renderGmpTab(ipo, historyData);
+    } else if (tab === 'history') {
+      h.innerHTML = renderStatusHistory(ipo, historyData);
+    } else if (tab === 'actions') {
+      h.innerHTML = renderActionsTab(ipo);
+    }
+  }
+
+  app.innerHTML = `
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <button class="text-gray-400 hover:text-gray-600 text-sm" onclick="navigate('ipos')">← IPOs</button>
+        <span class="text-gray-300">/</span>
+      </div>
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">${ipo.companyName||slug} <span class="text-base font-normal text-gray-400">${ipo.symbol||''}</span></h1>
+          <div class="flex items-center gap-2 mt-1">
+            ${statusBadge(ipo.status)}
+            ${issueBadge(ipo.issueType)}
+            ${ipo.gmp != null ? `<span class="text-sm font-semibold ${ipo.gmp>0?'text-green-600':'text-red-500'}">GMP: ${ipo.gmp>0?'+':''}${ipo.gmp}</span>` : ''}
+            <span class="text-xs text-gray-400">${Object.keys(ipo.sources||{}).length} sources</span>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="router()">↻ Refresh</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex overflow-x-auto border-b border-gray-200 mb-5 gap-0">
+        ${tabs.map(t => `<button class="tab ${t==='overview'?'active':''}" onclick="switchTab('${t}')">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}
+      </div>
+
+      <!-- Tab content -->
+      <div id="tab-content"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+  `;
+
+  window.switchTab = (tab) => {
+    activeTab = tab;
+    document.querySelectorAll('.tab').forEach(el => el.classList.toggle('active', el.textContent.toLowerCase() === tab));
+    renderTabContent(tab);
+  };
+
+  renderTabContent('overview');
+}
+
+// ─── Documents Tab ───────────────────────────────────────────────────────────
+function renderDocumentsTab(ipo) {
+  const docs = ipo.documents || {};
+  const types = ['drhp', 'rhp', 'final'];
+  if (!Object.keys(docs).length) return '<div class="empty-state"><p>No documents yet. Process documents from the Actions tab.</p></div>';
+
+  return `
+    <div class="space-y-4">
+      ${types.filter(t => docs[t]).map(t => {
+        const d = docs[t];
+        const statusColors = { downloaded:'text-blue-600', processing:'text-amber-600', extracted:'text-green-600', error:'text-red-500' };
+        return `
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold text-sm uppercase text-gray-700">${t}</h3>
+              <span class="badge ${d.status==='extracted'?'badge-ok':d.status==='error'?'badge-error':'badge-upcoming'}">${d.status||'unknown'}</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+              ${d.url ? `<div><span class="text-gray-500">URL:</span> <a href="${d.url}" target="_blank" class="text-xs">${ellipsis(d.url,60)}</a></div>` : ''}
+              ${d.source ? `<div><span class="text-gray-500">Source:</span> <span class="capitalize">${d.source}</span></div>` : ''}
+              ${d.pdfUrl ? `<div><span class="text-gray-500">PDF (R2):</span> <a href="${d.pdfUrl}" target="_blank" class="text-xs">View</a></div>` : ''}
+              ${d.markdownUrl ? `<div><span class="text-gray-500">Markdown:</span> <a href="${d.markdownUrl}" target="_blank" class="text-xs">View</a></div>` : ''}
+              ${d.pageCount ? `<div><span class="text-gray-500">Pages:</span> ${d.pageCount}</div>` : ''}
+              ${d.error ? `<div><span class="text-gray-500">Error:</span> <span class="text-red-500">${d.error}</span></div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+// ─── Financials Tab ──────────────────────────────────────────────────────────
+function renderFinancialsTab(ipo) {
+  const fin = ipo.financials;
+  if (!fin || !fin.metrics || !Object.keys(fin.metrics).length) return '<div class="empty-state"><p>No financial data extracted. Run extraction from the Actions tab.</p></div>';
+
+  const metricLabels = {
+    revenueFromOperations:'Revenue', totalIncome:'Total Income', ebitda:'EBITDA',
+    profitAfterTax:'PAT', netWorth:'Net Worth', totalBorrowings:'Borrowings',
+    basicEPS:'Basic EPS', ronw:'RoNW', netAssetValue:'NAV per Share'
+  };
+
+  return `
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+            <th class="text-left px-4 py-3 font-medium">Metric</th>
+            ${fin.periods.map(p => `<th class="text-right px-4 py-3 font-medium">${p}</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          ${Object.entries(fin.metrics).map(([key, vals]) => `
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">${metricLabels[key]||key}</td>
+              ${vals.map(v => `<td class="px-4 py-3 text-right ${v!=null?'text-gray-900':'text-gray-300'}">${v!=null ? (v>=10000 ? '₹'+(v/10000000).toFixed(2)+'Cr' : v>=1000 ? '₹'+(v/100000).toFixed(2)+'L' : v.toFixed(2)) : '—'}</td>`).join('')}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-3 text-xs text-gray-400">Source: ${fin.source||'markdown'} · Extracted: ${fmtDT(fin.extractedAt)}</div>
+  `;
+}
+
+// ─── KPIs Tab ────────────────────────────────────────────────────────────────
+function renderKpisTab(ipo) {
+  const kpis = ipo.kpis;
+  if (!kpis || !kpis.kpis || !Object.keys(kpis.kpis).length) return '<div class="empty-state"><p>No KPI data extracted. Run extraction from the Actions tab.</p></div>';
+
+  const kpiLabels = {
+    roce:'ROCE', ronw:'RoNW', roe:'RoE', debtEquity:'Debt/Equity',
+    ebitdaMargin:'EBITDA Margin', patMargin:'PAT Margin', grossMargin:'Gross Margin',
+    priceToBook:'Price/Book', currentRatio:'Current Ratio', nav:'NAV per Share', eps:'EPS'
+  };
+
+  return `
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+            <th class="text-left px-4 py-3 font-medium">Ratio</th>
+            ${(kpis.periods||[]).map(p => `<th class="text-right px-4 py-3 font-medium">${p}</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          ${Object.entries(kpis.kpis).map(([key, vals]) => `
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">${kpiLabels[key]||key}</td>
+              ${vals.map(v => `<td class="px-4 py-3 text-right ${v!=null?'text-gray-900':'text-gray-300'}">${v!=null ? (key.includes('Margin')||key==='roce'||key==='ronw'||key==='roe' ? (v*100).toFixed(1)+'%' : v.toFixed(2)) : '—'}</td>`).join('')}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-3 text-xs text-gray-400">Source: ${kpis.source||'markdown'} · Extracted: ${fmtDT(kpis.extractedAt)}</div>
+  `;
+}
+
+// ─── Issue Details Tab ───────────────────────────────────────────────────────
+function renderIssueDetailsTab(ipo) {
+  const id = ipo.issueDetails;
+  if (!id) return '<div class="empty-state"><p>No issue details extracted. Run extraction from the Actions tab.</p></div>';
+
+  const confidence = id.confidence === 'high' ? 'badge-ok' : id.confidence === 'medium' ? 'badge-upcoming' : 'badge-error';
+
+  return `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="space-y-3">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Offer Structure</h3>
+        ${[
+          ['Total Issue (shares)', id.totalIssueShares?.toLocaleString()||'—'],
+          ['Fresh Issue', id.freshIssueShares?.toLocaleString()||'—'],
+          ['OFS', id.ofsShares?.toLocaleString()||'—'],
+          ['Market Maker', id.marketMakerShares?.toLocaleString()||'—'],
+          ['Employee Reservation', id.employeeReservationShares?.toLocaleString()||'—'],
+          ['Net Offer', id.netOfferShares?.toLocaleString()||'—'],
+          ['Pre-Issue Shares', id.preIssueShares?.toLocaleString()||'—'],
+          ['Post-Issue Shares', id.postIssueShares?.toLocaleString()||'—'],
+        ].map(([l,v]) => `<div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">${l}</span><span class="font-medium">${v}</span></div>`).join('')}
+      </div>
+      <div class="space-y-3">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Details</h3>
+        <div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">Sale Type</span><span class="font-medium">${id.saleType||'—'}</span></div>
+        <div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">Issue Type</span><span class="font-medium">${id.issueType||'—'}</span></div>
+        <div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">Listing At</span><span class="font-medium">${id.listingAt||'—'}</span></div>
+        <div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">Market Maker</span><span class="font-medium">${id.marketMakerName||'—'}</span></div>
+        <div class="flex justify-between py-1.5 text-sm"><span class="text-gray-500">Confidence</span><span class="badge ${confidence}">${id.confidence||'—'}</span></div>
+        ${id.amounts ? `
+          <div class="pt-3 border-t border-gray-100">
+            <h3 class="text-sm font-semibold text-gray-900 mb-2">₹ Amounts</h3>
+            ${Object.entries(id.amounts).map(([k,v]) => `<div class="flex justify-between py-1 text-sm"><span class="text-gray-500">${k}</span><span class="font-medium">${v != null ? '₹'+(v/10000000).toFixed(2)+' Cr' : '—'}</span></div>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    </div>
+    <div class="mt-3 text-xs text-gray-400">Arithmetic: ${id.arithmetic ? JSON.stringify(id.arithmetic) : '—'}</div>
+  `;
+}
+
+// ─── Intermediaries Tab ──────────────────────────────────────────────────────
+function renderIntermediariesTab(ipo) {
+  const im = ipo.intermediaries;
+  if (!im) return '<div class="empty-state"><p>No intermediaries extracted. Run extraction from the Actions tab.</p></div>';
+
+  return `
+    ${im.leadManagers && im.leadManagers.length ? `
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Book Running Lead Managers (${im.leadManagers.length})</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          ${im.leadManagers.map(lm => `<div class="bg-gray-50 p-3 rounded-lg text-sm font-medium">${lm}</div>`).join('')}
+        </div>
+      </div>
+    ` : ''}
+    ${im.registrar ? `
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Registrar</h3>
+        <div class="bg-gray-50 p-3 rounded-lg text-sm">${im.registrar}</div>
+      </div>
+    ` : ''}
+    ${im.company ? `
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Company Contact</h3>
+        <div class="bg-gray-50 p-3 rounded-lg text-sm">
+          ${im.company.office ? `<div class="mb-1"><span class="text-gray-500">Office:</span> ${im.company.office}</div>` : ''}
+          ${im.company.email ? `<div class="mb-1"><span class="text-gray-500">Email:</span> ${im.company.email}</div>` : ''}
+          ${im.company.phone ? `<div class="mb-1"><span class="text-gray-500">Phone:</span> ${im.company.phone}</div>` : ''}
+          ${im.company.website ? `<div><span class="text-gray-500">Website:</span> ${im.company.website}</div>` : ''}
+        </div>
+      </div>
+    ` : ''}
+    <div class="mt-3 text-xs text-gray-400">Source: ${im.source||'markdown'} · Extracted: ${fmtDT(im.extractedAt)}</div>
+  `;
+}
+
+// ─── Objects Tab ─────────────────────────────────────────────────────────────
+function renderObjectsTab(ipo) {
+  const ob = ipo.objects;
+  if (!ob || !ob.objects || !ob.objects.length) return '<div class="empty-state"><p>No objects of issue extracted. Run extraction from the Actions tab.</p></div>';
+
+  return `
+    <div class="mb-3">
+      <span class="text-sm text-gray-500">${ob.objects.length} objects</span>
+      ${ob.totalCr ? `<span class="text-sm font-semibold ml-3">Total: ₹${ob.totalCr} Cr</span>` : ''}
+      <span class="text-xs text-gray-400 ml-3">Source: ${ob.source||'markdown'} · ${fmtDT(ob.extractedAt)}</span>
+    </div>
+    <div class="space-y-2">
+      ${ob.objects.map((o, i) => `
+        <div class="bg-gray-50 p-3 rounded-lg text-sm">
+          <span class="font-medium text-gray-700">${i+1}.</span> ${o}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ─── GMP Tab ─────────────────────────────────────────────────────────────────
+function renderGmpTab(ipo, history) {
+  const gmpHistory = history && history.gmp ? history.gmp : [];
+  return `
+    <div class="mb-4">
+      <div class="flex items-center gap-4">
+        <div class="text-3xl font-bold ${ipo.gmp>0?'text-green-600':ipo.gmp<0?'text-red-500':'text-gray-700'}">${ipo.gmp != null ? `${ipo.gmp>0?'+':''}${ipo.gmp}` : '—'}</div>
+        <div class="text-sm text-gray-500">Latest GMP</div>
+      </div>
+    </div>
+    ${gmpHistory.length ? `
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+              <th class="text-left px-4 py-3 font-medium">Date</th>
+              <th class="text-right px-4 py-3 font-medium">GMP</th>
+              <th class="text-right px-4 py-3 font-medium">% Change</th>
+              <th class="text-left px-4 py-3 font-medium">Source</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            ${gmpHistory.map(g => `
+              <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2.5 text-sm">${fmt(g.date)}</td>
+                <td class="px-4 py-2.5 text-right font-medium ${g.value>0?'text-green-600':'text-red-500'}">${g.value>0?'+':''}${g.value}</td>
+                <td class="px-4 py-2.5 text-right">${g.percentage != null ? g.percentage.toFixed(1)+'%' : '—'}</td>
+                <td class="px-4 py-2.5 text-sm text-gray-500">${g.source||'—'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    ` : '<div class="text-sm text-gray-400">No GMP history yet</div>'}
+    ${ipo.statusHistory && ipo.statusHistory.length ? `
+      <div class="mt-6 pt-4 border-t border-gray-100">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Status Timeline</h3>
+        <div class="space-y-2">
+          ${ipo.statusHistory.map(sh => `
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-gray-400 text-xs">${fmtDT(sh.at)}</span>
+              <span class="badge ${sh.status==='open'?'badge-open':sh.status==='upcoming'?'badge-upcoming':sh.status==='closed'?'badge-closed':'badge-listed'}">${sh.status}</span>
+              ${sh.source ? `<span class="text-xs text-gray-400">via ${sh.source}</span>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+  `;
+}
+
+// ─── Status History Tab ──────────────────────────────────────────────────────
+function renderStatusHistory(ipo, history) {
+  return `
+    ${history && history.gmp && history.gmp.length ? `
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">GMP History (${history.gmp.length} entries)</h3>
+        <div class="max-h-64 overflow-y-auto space-y-1.5">
+          ${history.gmp.map(g => `
+            <div class="flex items-center justify-between py-1.5 px-3 bg-gray-50 rounded text-sm">
+              <span class="text-gray-500">${fmt(g.date)}</span>
+              <span class="font-medium ${g.value>0?'text-green-600':'text-red-500'}">${g.value>0?'+':''}${g.value}</span>
+              <span class="text-gray-400 text-xs">${g.percentage != null ? g.percentage.toFixed(1)+'%' : ''}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+    ${ipo.statusHistory && ipo.statusHistory.length ? `
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Status Transitions (${ipo.statusHistory.length})</h3>
+        <div class="space-y-2">
+          ${ipo.statusHistory.map(sh => `
+            <div class="flex items-center gap-3 py-2 px-3 bg-gray-50 rounded text-sm">
+              <span class="text-gray-400 text-xs w-32">${fmtDT(sh.at)}</span>
+              ${statusBadge(sh.status)}
+              <span class="text-xs text-gray-400">via ${sh.source||'—'}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : '<div class="text-sm text-gray-400">No status history</div>'}
+  `;
+}
+
+// ─── Actions Tab ──────────────────────────────────────────────────────────────
+function renderActionsTab(ipo) {
+  const isListed = ipo.status === 'listed';
+  return `
+    <div class="space-y-4">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="font-semibold text-sm text-gray-900 mb-2">🔄 Scrape</h3>
+          <p class="text-xs text-gray-500 mb-3">Re-fetch this IPO from all sources</p>
+          <div class="flex gap-2">
+            <button class="btn btn-primary btn-sm" onclick="actionScrape()">Scrape All</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="font-semibold text-sm text-gray-900 mb-2">📄 Documents</h3>
+          <p class="text-xs text-gray-500 mb-3">Download, archive, and convert prospectus PDFs to markdown</p>
+          <div class="flex gap-2 flex-wrap">
+            <button class="btn btn-primary btn-sm" onclick="actionDocs('${ipo.slug}', ['drhp','rhp'])">Both (DRHP+RHP)</button>
+            <button class="btn btn-secondary btn-sm" onclick="actionDocs('${ipo.slug}', ['drhp'])">DRHP Only</button>
+            <button class="btn btn-secondary btn-sm" onclick="actionDocs('${ipo.slug}', ['rhp'])">RHP Only</button>
+            <button class="btn btn-outline btn-sm" onclick="actionDocs('${ipo.slug}', ['drhp','rhp'], true)">Re-upload</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="font-semibold text-sm text-gray-900 mb-2">🧠 Extraction</h3>
+          <p class="text-xs text-gray-500 mb-3">Parse cached markdown → financials, KPIs, issue details, intermediaries, objects</p>
+          <button class="btn btn-success btn-sm" onclick="actionExtract('${ipo.slug}')">Run Extraction</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="font-semibold text-sm text-gray-900 mb-2">💰 GMP</h3>
+          <p class="text-xs text-gray-500 mb-3">Fetch grey market premium from InvestorGain</p>
+          <button class="btn btn-warning btn-sm" onclick="actionGmp('${ipo.slug}')">Fetch GMP</button>
+        </div>
+      </div>
+
+      ${isListed ? `
+        <div class="card">
+          <div class="card-body">
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">📊 Historical Prices</h3>
+            <p class="text-xs text-gray-500 mb-3">Fetch post-listing daily price data</p>
+            <button class="btn btn-warning btn-sm" onclick="actionHistorical()">Fetch Historical</button>
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="font-semibold text-sm text-gray-900 mb-2">🔄 Retry Failed</h3>
+          <p class="text-xs text-gray-500 mb-3">Retry errored document processing</p>
+          <button class="btn btn-secondary btn-sm" onclick="actionRetry('${ipo.slug}')">Retry Failed</button>
+        </div>
+      </div>
+
+      <div class="card border border-red-200">
+        <div class="card-body">
+          <h3 class="font-semibold text-sm text-red-600 mb-2">⚠️ Danger Zone</h3>
+          <p class="text-xs text-gray-500 mb-3">Delete this IPO and all its data permanently</p>
+          <button class="btn btn-danger btn-sm" onclick="actionDelete('${ipo.slug}','${(ipo.companyName||ipo.slug).replace(/'/g,"\\'")}')">Delete IPO</button>
+        </div>
+      </div>
+
+      <!-- Job Status Area -->
+      <div id="action-result" class="hidden">
+        <div class="card">
+          <div class="card-body">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="spinner"></div>
+              <span class="font-medium text-sm" id="action-status">Running…</span>
+            </div>
+            <div class="job-log" id="action-logs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ─── Action Functions ─────────────────────────────────────────────────────────
+function showActionResult() {
+  const el = document.getElementById('action-result');
+  if (el) el.classList.remove('hidden');
+}
+function appendLog(msg, type='info') {
+  const el = document.getElementById('action-logs');
+  if (!el) return;
+  const t = new Date().toLocaleTimeString();
+  el.innerHTML += `<span class="${type}">[${t}] ${msg}</span>\n`;
+  el.scrollTop = el.scrollHeight;
+}
+
+async function actionScrape() {
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Running scrape…';
+  appendLog('Starting scrape for all sources…');
+  try {
+    const res = await post('/ipos/scrape', { wait: true });
+    appendLog(`Scrape completed! New: ${res.added||0}, Updated: ${res.updated||0}, Unchanged: ${res.unchanged||0}`);
+    document.getElementById('action-status').textContent = '✅ Scrape completed';
+    toast(`Scrape: ${res.added||0} new, ${res.updated||0} updated`, 'success');
+    setTimeout(() => router(), 2000);
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`Scrape failed: ${e.message}`, 'error');
+  }
+}
+
+async function actionDocs(slug, types, reUpload) {
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Processing documents…';
+  appendLog(`Starting document processing: ${types.join(', ')}${reUpload?' (re-upload)':''}…`);
+  try {
+    const res = await post(`/ipos/${slug}/documents`, { documents: types, reUpload: !!reUpload, wait: true });
+    appendLog(`Documents processed successfully`);
+    document.getElementById('action-status').textContent = '✅ Documents done';
+    toast('Documents processed', 'success');
+    setTimeout(() => router(), 2000);
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`Documents failed: ${e.message}`, 'error');
+  }
+}
+
+async function actionExtract(slug) {
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Running extraction…';
+  appendLog('Starting extraction from cached markdown…');
+  try {
+    const res = await post(`/ipos/${slug}/extract`);
+    if (res.financials) appendLog(`Financials: ${res.financials.metrics.length} metrics over ${res.financials.periods.length} periods`);
+    if (res.kpis) appendLog(`KPIs: ${res.kpis.length} ratios`);
+    if (res.lotDetails) appendLog(`Lot details: ${res.lotDetails.tiers} tiers`);
+    if (res.issueDetails) appendLog(`Issue details: confidence ${res.issueDetails.confidence}`);
+    if (res.intermediaries) appendLog(`Intermediaries: ${res.intermediaries.leadManagers} LMs, registrar ${res.intermediaries.registrar?'✓':'✗'}`);
+    if (res.objects) appendLog(`Objects: ${res.objects.count}, total ₹${res.objects.totalCr||'?'} Cr`);
+    if (!res.financials && !res.kpis) appendLog('No financial/KPI data found', 'warn');
+    document.getElementById('action-status').textContent = '✅ Extraction completed';
+    toast('Extraction done', 'success');
+    setTimeout(() => router(), 2000);
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`Extraction failed: ${e.message}`, 'error');
+  }
+}
+
+async function actionGmp(slug) {
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Fetching GMP…';
+  appendLog('Fetching grey market premium…');
+  try {
+    const res = await post('/ipos/gmp', { slugs: [slug] });
+    appendLog(`GMP fetched: ${res.matched||0} matched, ${res.updated||0} updated`);
+    document.getElementById('action-status').textContent = '✅ GMP done';
+    toast('GMP fetched', 'success');
+    setTimeout(() => router(), 2000);
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`GMP failed: ${e.message}`, 'error');
+  }
+}
+
+async function actionHistorical() {
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Fetching historical…';
+  appendLog('Fetching post-listing price data…');
+  try {
+    const res = await post('/ipos/historical');
+    appendLog(`Historical data: ${res.updated||0} IPOs updated`);
+    document.getElementById('action-status').textContent = '✅ Historical done';
+    toast('Historical data fetched', 'success');
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`Historical failed: ${e.message}`, 'error');
+  }
+}
+
+async function actionRetry(slug) {
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Retrying…';
+  appendLog('Retrying failed document processing…');
+  try {
+    const res = await post(`/ipos/${slug}/retry`);
+    if (res.retried && res.retried.length) appendLog(`Retrying: ${res.retried.join(', ')}`);
+    else appendLog('Nothing to retry', 'warn');
+    document.getElementById('action-status').textContent = '✅ Retry done';
+    toast('Retry completed', 'success');
+    setTimeout(() => router(), 2000);
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`Retry failed: ${e.message}`, 'error');
+  }
+}
+
+async function actionDelete(slug, name) {
+  if (!confirm(`Delete "${name}" permanently? This cannot be undone.`)) return;
+  showActionResult();
+  document.getElementById('action-status').textContent = 'Deleting…';
+  appendLog(`Deleting IPO: ${slug}…`);
+  try {
+    const res = await del(`/ipos/${slug}`);
+    appendLog(`Deleted! R2 objects removed: ${res.r2ObjectsDeleted||0}`);
+    document.getElementById('action-status').textContent = '✅ Deleted';
+    toast('IPO deleted', 'success');
+    setTimeout(() => navigate('ipos'), 1500);
+  } catch(e) {
+    appendLog(`ERROR: ${e.message}`, 'error');
+    document.getElementById('action-status').textContent = '❌ Failed';
+    toast(`Delete failed: ${e.message}`, 'error');
+  }
+}
+
+// ─── Quick Actions ───────────────────────────────────────────────────────────
+async function runQuickScrape() {
+  toast('Starting scrape…', 'info');
+  try {
+    const res = await post('/ipos/scrape', { wait: false });
+    toast(`Scrape running: Job #${res.jobId?.slice(-6)||'?'}`, 'info');
+    if (res.jobId) {
+      pollJob(res.jobId, (j) => {
+        if (j.status === 'completed') toast('Scrape completed!', 'success');
+        else toast(`Scrape failed: ${j.error}`, 'error');
+        setTimeout(() => router(), 1500);
+      });
+    }
+  } catch(e) {
+    toast(`Scrape failed: ${e.message}`, 'error');
+  }
+}
+
+async function runQuickGmp() {
+  toast('Fetching GMP…', 'info');
+  try {
+    const res = await post('/ipos/gmp');
+    toast(`GMP: ${res.matched||0} matched`, 'success');
+  } catch(e) {
+    toast(`GMP failed: ${e.message}`, 'error');
+  }
+}
+
+async function runQuickHistorical() {
+  toast('Fetching historical data…', 'info');
+  try {
+    const res = await post('/ipos/historical');
+    toast(`Historical: ${res.updated||0} IPOs updated`, 'success');
+  } catch(e) {
+    toast(`Historical failed: ${e.message}`, 'error');
+  }
+}
+
+// ─── Jobs Page ────────────────────────────────────────────────────────────────
+async function renderJobs(app) {
+  app.innerHTML = '<div class="loading"><div class="spinner"></div>Loading jobs…</div>';
+  const data = await get('/jobs');
+  const jobs = data.jobs || [];
+
+  app.innerHTML = `
+    <div class="mb-5">
+      <h1 class="text-2xl font-bold text-gray-900">Jobs <span class="text-sm font-normal text-gray-400">${jobs.length} total</span></h1>
+      <p class="text-sm text-gray-500 mt-1">Background operations and pipeline runs</p>
+    </div>
+    <div class="card overflow-hidden">
+      ${jobs.length === 0 ? '<div class="p-8 text-center text-gray-400 text-sm">No jobs yet</div>' : `
+      <div class="divide-y divide-gray-100">
+        ${jobs.map(j => `
+          <div class="p-4 hover:bg-gray-50 cursor-pointer" onclick="toggleJobDetail('${j._id}')">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="font-medium text-sm capitalize">${j.type||'job'}</span>
+                <span class="badge ${j.status==='completed'?'badge-ok':j.status==='failed'?'badge-error':j.status==='running'?'badge-upcoming':'badge-listed'}">${j.status||'unknown'}</span>
+                ${j.duration ? `<span class="text-xs text-gray-400">${(j.duration/1000).toFixed(1)}s</span>` : ''}
+              </div>
+              <div class="text-xs text-gray-400">${fmtDT(j.createdAt)}</div>
+            </div>
+            ${j.params ? `<div class="text-xs text-gray-400 mt-1">${JSON.stringify(j.params).slice(0,80)}</div>` : ''}
+            <div id="job-detail-${j._id}" class="hidden mt-3">
+              ${j.logs && j.logs.length ? `
+                <div class="job-log">
+                  ${j.logs.map(l => {
+                    const cls = l.includes('error')||l.includes('Error')||l.includes('fail')?'error' : l.includes('warn')?'warn' : 'info';
+                    return `<span class="${cls}">${l}</span>\n`;
+                  }).join('')}
+                </div>
+              ` : '<div class="text-xs text-gray-400">No logs</div>'}
+              ${j.result ? `
+                <div class="mt-2 bg-gray-50 p-3 rounded-lg">
+                  <pre class="text-xs text-gray-700 overflow-x-auto">${JSON.stringify(j.result, null, 2).slice(0,500)}</pre>
+                </div>
+              ` : ''}
+              ${j.error ? `<div class="mt-2 text-xs text-red-500">Error: ${j.error}</div>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      `}
+    </div>
+    <div class="mt-4 flex gap-2">
+      <button class="btn btn-secondary btn-sm" onclick="router()">↻ Refresh</button>
+    </div>
+  `;
+}
+
+function toggleJobDetail(jobId) {
+  const el = document.getElementById('job-detail-' + jobId);
+  if (el) el.classList.toggle('hidden');
+}
+
+// ─── Sources Page ─────────────────────────────────────────────────────────────
+async function renderSources(app) {
+  app.innerHTML = '<div class="loading"><div class="spinner"></div>Loading sources…</div>';
+  const data = await get('/sources');
+  const srcs = data.sources || [];
+
+  app.innerHTML = `
+    <div class="mb-5">
+      <h1 class="text-2xl font-bold text-gray-900">Sources</h1>
+      <p class="text-sm text-gray-500 mt-1">Data source health and coverage</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      ${srcs.map(s => `
+        <div class="card">
+          <div class="card-body">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full ${s.healthy?'bg-green-500':'bg-red-400'}"></span>
+                <h3 class="font-semibold text-base capitalize">${s.source}</h3>
+              </div>
+              <span class="text-2xl font-bold text-gray-800">${s.ipos}</span>
+            </div>
+            <div class="text-xs text-gray-500">
+              ${s.healthy ? '<span class="text-green-600">● Healthy</span>' : '<span class="text-red-400">● Unhealthy</span>'}
+              ${s.lastFetched ? `· Last fetched ${fmtDT(s.lastFetched)}` : '· Never fetched'}
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    ${data.lastScrape ? `
+      <div class="card">
+        <div class="card-header">Last Pipeline Run</div>
+        <div class="card-body text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-500">Status:</span>
+            <span class="badge ${data.lastScrape.status==='completed'?'badge-ok':data.lastScrape.status==='failed'?'badge-error':'badge-upcoming'}">${data.lastScrape.status}</span>
+            <span class="text-gray-400 text-xs">${fmtDT(data.lastScrape.at)}</span>
+            <button class="btn btn-secondary btn-xs ml-auto text-xs px-2 py-1" onclick="navigate('jobs')">View Job →</button>
+          </div>
+        </div>
+      </div>
+    ` : ''}
+    <div class="mt-4 flex gap-2">
+      <button class="btn btn-secondary btn-sm" onclick="router()">↻ Refresh</button>
+    </div>
+  `;
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  // Fetch health for nav
+  try {
+    const h = await get('/health');
+    document.getElementById('navDb').textContent = `${h.ipos} IPOs`;
+    document.getElementById('navDot').className = 'w-2 h-2 rounded-full bg-green-500';
+  } catch(e) {
+    document.getElementById('navDb').textContent = 'Offline';
+    document.getElementById('navDot').className = 'w-2 h-2 rounded-full bg-red-400';
+  }
+  router();
+});
+</script>
+</body>
+</html>

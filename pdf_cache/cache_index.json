@@ -426,5 +426,243 @@
     "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
     "status": "success",
     "downloadedAt": "2026-06-10T11:08:16.189Z"
+  },
+  "https://www.lesgroup.in/images/investor/RHP_Leapfrog_BSE_08042026-2026-04-09-12-31.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/ad73a3796325_RHP_Leapfrog_BSE_08042026-2026-04-09-12-31.pdf",
+    "etag": null,
+    "sha256": "641572ab065267c6a2da413a107ee01dc696602ef46182120a1df9eecd59c8e7",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:43:57.227Z"
+  },
+  "https://www.phonepe.com/apollo/investor-relations/phonepe-limited-draft-red-herring-prospectus.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/e637665e7bd4_phonepe-limited-draft-red-herring-prospectus.pdf",
+    "etag": null,
+    "sha256": "57d28c97a16315105038e68a6b0a3d7fccd649eb5565157cb2b62445f6e63154",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:43:58.228Z"
+  },
+  "https://www.milkymist.com/_files/ugd/60b717_3b3f02cc9a8a4819bbc363285cd9c62b.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/96f3702b2e2e_60b717_3b3f02cc9a8a4819bbc363285cd9c62b.pdf",
+    "etag": "\"89bd6a8f2835c1b940a460c2c76c35ef\"",
+    "sha256": "2cac0c0e1bf5fb6b8184f35eca79af4d0e37843f6713c408caac8ed1644dbb0b",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:44:46.025Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/RHP.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/36daee32a97d_RHP.pdf",
+    "etag": "W/\"f7449a9377aa456f335eeefb98895f0d\"",
+    "sha256": "b61eb5f0d7627119c2ffd94d8308bcb937188ca946fd6518802b163ae425fe76",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:51:30.754Z"
+  },
+  "https://www.sampoornanuts.com/_files/ugd/6fcc6d_c8c3f3a226754a24939a595f8242c6f4.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/4aeef05b4039_6fcc6d_c8c3f3a226754a24939a595f8242c6f4.pdf",
+    "etag": "\"f8c9694675e01237d756782e69465ba1\"",
+    "sha256": "669ee6afff4e25b2f72fe9f0754d0a62fb855972c61556345fb7d0a97e1d7228",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:51:59.253Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/RHP_NFPSAMPOOR.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/d42248cf658f_RHP_NFPSAMPOOR.pdf",
+    "etag": "W/\"f8c9694675e01237d756782e69465ba1\"",
+    "sha256": "669ee6afff4e25b2f72fe9f0754d0a62fb855972c61556345fb7d0a97e1d7228",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:52:16.576Z"
+  },
+  "https://growhousewealth.com/pdf/public-issues/RHP_05052026.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/cc5aedde0026_RHP_05052026.pdf",
+    "etag": null,
+    "sha256": "0342b7ef912874059c855d4f21c784adb2cec00ea6fae51e09dc0ec74d930f7e",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:52:29.764Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/red-herring-prospectus-simca.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/f0fed5acf1e8_red-herring-prospectus-simca.pdf",
+    "etag": "\"68074e3493e7747ddadb59e1c83ac921\"",
+    "sha256": "f014e1de0852b9dbc6b141134cbdc7373ceb5fa62384d872b4df91100e2e5026",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:52:52.120Z"
+  },
+  "https://www.axiscapital.co.in/contents/5716-1777312447.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/3789e75adc53_5716-1777312447.pdf",
+    "etag": "\"1076dd7-65074cd11f3c6\"",
+    "sha256": "af9354746227334fe68710bf0e6d1ff4e549df7641ed585c462028cafed7279c",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:53:12.836Z"
+  },
+  "https://investor.value360india.com/value360pdf/RHP.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/537ec29dda82_RHP.pdf",
+    "etag": "\"756597-69eb3ed9-5572cae80c5c4396;;;\"",
+    "sha256": "f0cb407737278ef24fa6fb0afd719d4f6767cc0b3aceea65f676fea23caa85a8",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:53:41.388Z"
+  },
+  "https://www.nuvama.com/wp-content/uploads/2026/04/Project-NorthStar-RHP-Filing-version.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/d7feca29b228_Project-NorthStar-RHP-Filing-version.pdf",
+    "etag": "\"69edeab1-cef9af\"",
+    "sha256": "7d4d882f11e5b19906b5940486e49a53610cedd759181c78c4f146e98c8a2958",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:54:01.359Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/GID_Amba Auto.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/25bd412e55ac_GID_Amba_Auto.pdf",
+    "etag": "W/\"b7cdaee9d9123ea91cbc73f3f7942f76\"",
+    "sha256": "091d6264d37bd8ebee17cb58b6e86208553efb46a07eb4e0626dc6367df28623",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:54:33.362Z"
+  },
+  "https://drive.google.com/file/d/1McEcv0ySNxCuPlTMKe8pAYfheh_rSxdX/view?usp=sharing": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/620cb93991c9_view_usp_sharing.pdf",
+    "etag": null,
+    "sha256": "b9db1cd647a4d86ae155ce9205256dde7f16c4d6f609ed9b023030640d96d3e0",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:54:39.830Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/ADISOFT-RHP.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/582a17e7900e_ADISOFT-RHP.pdf",
+    "etag": "W/\"4cca17bcfa45e99e45e8a0363046801a\"",
+    "sha256": "9bc6f5d6d604606aa8183b950c5218ba6a9d952bbbacaf0053428dc660668649",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:54:40.219Z"
+  },
+  "https://www.citiustransnet.in/wp-content/uploads/2026/04/Project-Fortis-Offer-Document-filing-version.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/7af2e6a7a87c_Project-Fortis-Offer-Document-filing-version.pdf",
+    "etag": "\"8bea18d-64ef719f4059c\"",
+    "sha256": "bcc1430426e7c0f3f09dd6c9530557606f7803ea293c0b47a4b89d52630b20db",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:55:06.484Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/rhp_optl.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/b501d2e6a129_rhp_optl.pdf",
+    "etag": "W/\"085b6cb43209d6b21ceaf277aec20d96\"",
+    "sha256": "a4e59bc7644ce65a8c0a6dc2dae05cb5e8b6c69e4c16c7da85fda6f04f9b12b4",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:59:04.840Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/VIVID_RHP.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/53a5cdff6889_VIVID_RHP.pdf",
+    "etag": "W/\"ea8cbb89827aad318c4b99d5a4c1c8cb\"",
+    "sha256": "9d1e7f50af6b51b6f8fc15dafe313fe1c73c4133c1dc07d6afdb7f591f0981c7",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:02:03.601Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/RHP_Amir Chand Jagdish Kumar (Exports) Limited.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/b7803bea5939_RHP_Amir_Chand_Jagdish_Kumar__Exports__Limited.pdf",
+    "etag": "W/\"4d99f0b6dbd4a422dca136a3db62426e\"",
+    "sha256": "fd4049309a0fdd9de7926c5f17c8447a1440acc547e5910a6d3114f89cdd5177",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:02:50.230Z"
+  },
+  "https://apsisaerocom.com/wp-content/uploads/2025/10/ApsisAerocomLimitedDRHP.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/3354bfed0e06_ApsisAerocomLimitedDRHP.pdf",
+    "etag": "\"b1ccab-64076b8b6f7fd\"",
+    "sha256": "bdec2916b0e0c0838ef7c6757226541fb4760c1b492cfcf24c407fb8aac273ef",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:03:59.264Z"
+  },
+  "https://oneviewadvisors.com/upload/prospectus/rhp_Apsis.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/bbd215038bbd_rhp_Apsis.pdf",
+    "etag": "\"edc87f8d69acdc1:0\"",
+    "sha256": "a34aa7cb81a8d9c1fd3eb280c25a42de48dc0b51327d3a86720f566abd3047a1",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:04:38.753Z"
+  },
+  "https://srinibaspradhan.com/assets/pdf/SPCL_Redherringprospectus.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/881de6028505_SPCL_Redherringprospectus.pdf",
+    "etag": "\"dd0067-64bcde70c6db6\"",
+    "sha256": "10fe10cef96325442ceb1b5e2a57c561055cbb3ca22506c5ed1b8de408a58549",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:05:34.231Z"
+  },
+  "https://www.sedemac.com/static/media/SEDEMACMECHATRONICSLIMITEDRHP.86f5227defffbdeb10ea.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/58d24aaf7a99_SEDEMACMECHATRONICSLIMITEDRHP.86f5227defffbdeb10ea.pdf",
+    "etag": "\"0b6400aef4dc1:0\"",
+    "sha256": "4ec25df6a5052b39aea0be71a24d518c5aec62ef7f642e578476ac41d5a3e256",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:06:06.339Z"
+  },
+  "https://acetechecommerce.com/wp-content/uploads/2026/02/Acetech_RHP-2.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/f4aab10eb920_Acetech_RHP-2.pdf",
+    "etag": "\"cdec19-699d327e-ed5a84aa810cb69;;;\"",
+    "sha256": "5d248f7880763ccef12644a01e2ba7b4260497fef1b50c5b10dbb21ae4410baf",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:06:40.472Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/omnitech_engineering_limited_red_herring_prospectus_1fcf868f96.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/d18d817759a6_omnitech_engineering_limited_red_herring_prospectus_1fcf868f.pdf",
+    "etag": "W/\"deff910c1f5ab247e6e3a7cccb4d54f6\"",
+    "sha256": "f9c89cacfeaf82871d578be87eda19f23ee5b6289923f49657a91e4487de37ed",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:08:34.544Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/RHP - PNGS REVA DIAMOND JEWELLERY LIMITED.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/64373c5ec4b5_RHP_-_PNGS_REVA_DIAMOND_JEWELLERY_LIMITED.pdf",
+    "etag": "W/\"d2a829ede3e955fecfd1717c5eb41ce9\"",
+    "sha256": "6ecf4276d9eeca5584d0f1998b4cfacedbfdd3386cf2137dc80befcb676af2f1",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:09:04.432Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/69935e4a8e75c72bf84c5e4a_Project Anantha - Red Herring Prospectus (filing version).pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/8652f505ae71_69935e4a8e75c72bf84c5e4a_Project_Anantha_-_Red_Herring_Prosp.pdf",
+    "etag": "\"d43e1d2c2ad3b81aa7a2df9825d90652\"",
+    "sha256": "ec8a6ccd8bb18ff18f01216c9978dc2f1dee6dad631b7deaec2c00024f024dd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:09:26.904Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/rhp_mobilise-app-lab-limited.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/667d024daa13_rhp_mobilise-app-lab-limited.pdf",
+    "etag": "W/\"a86b25ea0d5eac329d89bfe8ef3771c8\"",
+    "sha256": "94fa854252213c103fa27d9d966a936b5f86eca2e65ebdfea24ace0ce5b3f83e",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:12:40.410Z"
+  },
+  "https://www.sarthi.in/wp-content/uploads/2026/02/Gaudium_RHP.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/1885bbbeb0ab_Gaudium_RHP.pdf",
+    "etag": null,
+    "sha256": "1fbdcd10a5a729221d2ee4ef2874a91f4bd14ef358a7b5ad1d93dd6af7755d30",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:13:00.909Z"
+  },
+  "https://www.sebi.gov.in/filings/public-issues/aug-2025/fractal-analytics-limited_96271.html": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/cd7b7de49b5d_fractal-analytics-limited_96271.html.pdf",
+    "etag": null,
+    "sha256": "f700ea3f508dc62eed44bcc263c83e94fab8c8f65f469dcb536641e766050330",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:15:09.146Z"
+  },
+  "https://www.axiscapital.co.in/contents/Fractal%20Analytics%20Limited-RHP-1770098586.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/1edfc2c324a7_Fractal_20Analytics_20Limited-RHP-1770098586.pdf",
+    "etag": "\"130e2e5-649e531767ddf\"",
+    "sha256": "51f3a59938a8a62f7774ec520decb6056713a470619c45bf4111a60a9565d994",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:15:13.099Z"
+  },
+  "https://seil.net.in/wp-content/uploads/2026/06/SUSAN-ELECTRICALS-RHP-FINAL.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/7311df2c6c67_SUSAN-ELECTRICALS-RHP-FINAL.pdf",
+    "etag": "\"6a26747b-6eb31b\"",
+    "sha256": "0bd5cedd6cc8a105adcce7c7d791b63c2e6e0780cee2cd0becb0f1caeaed9f84",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:18:34.732Z"
+  },
+  "https://hfcl-website-cms.s3.ap-south-1.amazonaws.com/DRHP_Hero_Fin_Corp_Limited_fe2e340ba3.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/2887ab7a2701_DRHP_Hero_Fin_Corp_Limited_fe2e340ba3.pdf",
+    "etag": "\"39b58bac9fdc6cd0bf391c9458ac9c08-2\"",
+    "sha256": "3ec117c13c054174196fc7c4cd6990fcb47485e4c0520a8bd91aefddd4922a15",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:22:18.421Z"
+  },
+  "https://www.sebi.gov.in/sebi_data/attachdocs/dec-2021/1640066533522.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/da3989beb543_1640066533522.pdf",
+    "etag": null,
+    "sha256": "369aced77300a71ed4f55c1e9a71e743cea7ab560d33cf6bf13d5607cd769528",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:24:20.148Z"
+  },
+  "https://www.sebi.gov.in/web/?file=/sebi_data/attachdocs/nov-2021/1637659122113.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/53f5ef8ad76d_1637659122113.pdf",
+    "etag": null,
+    "sha256": "3ec956e3908d53aefec8079fcd9eb8f7b7d7b8384bab440982ff1b4d11690836",
+    "status": "success",
+    "downloadedAt": "2026-06-10T12:25:28.781Z"
   }
 }

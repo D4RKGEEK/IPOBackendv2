@@ -160,6 +160,15 @@ async function processDocuments(slug, opts = {}) {
     }
     current = await findBySlug(slug); // refresh so RHP sees DRHP's stored pageHashes
   }
+  // Auto-parse the freshly-cached markdown into structured fields (no extra Firecrawl/LLM).
+  if (Object.values(result).some((r) => r.status === 'extracted')) {
+    try {
+      const { runExtraction } = require('./extractionService');
+      result._extraction = await runExtraction(slug, { log: opts.log });
+    } catch (e) {
+      result._extraction = { error: e.message };
+    }
+  }
   return result;
 }
 

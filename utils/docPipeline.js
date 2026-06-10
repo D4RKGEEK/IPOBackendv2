@@ -22,6 +22,7 @@
 const fs = require('fs');
 const r2 = require('./r2');
 const { scrapeToMarkdown } = require('./firecrawl');
+const { convertPdfToMarkdown } = require('./pdfToMarkdownLocal');
 
 const VALID_DOC_TYPES = ['drhp', 'rhp', 'final'];
 
@@ -76,17 +77,27 @@ async function processDocument(input) {
   }
 
   const { pdfKey, pdfUrl, archived } = await ensurePdf(input);
-  const { markdown, metadata, timeoutUsed } = await scrapeToMarkdown(pdfUrl, input.firecrawl || {});
+
+  // PDF → markdown. Default provider is Nutrient's local CLI (free, fast, good
+  // tables); Firecrawl is the fallback (and used when only a remote URL exists).
+  const provider = (input.markdownProvider || process.env.MARKDOWN_PROVIDER || 'nutrient').toLowerCase();
+  let markdown; let via;
+  if (provider === 'nutrient' && input.localPath) {
+    ({ markdown } = await convertPdfToMarkdown(input.localPath, input.nutrient || {}));
+    via = 'nutrient';
+  } else {
+    ({ markdown } = await scrapeToMarkdown(pdfUrl, input.firecrawl || {}));
+    via = 'firecrawl';
+  }
   if (!markdown || markdown.length < 200) {
-    throw new Error(`Firecrawl returned little/no markdown for ${symbol}/${docType} (len ${markdown ? markdown.length : 0})`);
+    throw new Error(`${via} returned little/no markdown for ${symbol}/${docType} (len ${markdown ? markdown.length : 0})`);
   }
   const saved = await r2.putText(mdKey, markdown);
 
   return {
-    symbol, docType, cached: false, archived,
+    symbol, docType, cached: false, archived, provider: via,
     pdfKey, pdfUrl, mdKey, mdUrl: saved.url,
-    markdownLength: markdown.length, timeoutUsed,
-    pageCount: metadata && (metadata.numPages || metadata.pageCount) || null,
+    markdownLength: markdown.length,
   };
 }
 

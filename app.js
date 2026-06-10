@@ -13,6 +13,7 @@ const { runScrape, ALL_SOURCES } = require('./services/scrapeService');
 const { processDocuments } = require('./services/documentService');
 const { runGmp } = require('./services/gmpService');
 const { runHistorical } = require('./services/historicalService');
+const { runExtraction } = require('./services/extractionService');
 const { createJob, appendLog, completeJob, failJob, getJob, listJobs } = require('./db/jobRepository');
 
 function buildApp() {
@@ -140,6 +141,12 @@ function buildApp() {
     await runTracked(res,
       { type: 'documents', params: { slug: req.params.slug, documents, reUpload }, longOp: true, wait },
       (log) => processDocuments(req.params.slug, { documents, reUpload, log }));
+  }));
+
+  // POST /ipos/:slug/extract — parse cached markdown → financials/KPIs + lot (no Firecrawl/LLM)
+  app.post('/ipos/:slug/extract', asyncH(async (req, res) => {
+    if (!(await findBySlug(req.params.slug))) return res.status(404).json({ error: 'IPO not found', slug: req.params.slug });
+    await runTracked(res, { type: 'extract', params: { slug: req.params.slug } }, (log) => runExtraction(req.params.slug, { log }));
   }));
 
   // GET /ipos/:slug/history — GMP / status time series

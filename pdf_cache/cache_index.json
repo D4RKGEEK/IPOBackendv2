@@ -251,5 +251,145 @@
     "sha256": "1828d16a78ae3abdd69c1cfe62f031564d39e5cf12613fe0d128f4f68c7853fb",
     "status": "success",
     "downloadedAt": "2026-06-09T17:26:18.491Z"
+  },
+  "https://example.com/test-first-call-1781027141758.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/b98e3cb26148_test-first-call-1781027141758.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T17:45:41.761Z"
+  },
+  "https://affinityglobalcap.in/wp-content/uploads/2026/06/RHP_Utkal.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/c93884f2e61a_RHP_Utkal.pdf",
+    "etag": "\"1b2336c-ace441-65369e854b366\"",
+    "sha256": "f05649971e7a792c54621c917260c436ff6eb921f233f9cdcf5397b0648fa268",
+    "status": "success",
+    "downloadedAt": "2026-06-09T19:56:05.010Z"
+  },
+  "https://example.com/test-first-call-1781039134429.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/489bf68e9ddf_test-first-call-1781039134429.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:05:34.449Z"
+  },
+  "https://www.bsesme.com/download/338840/SME_IPO%20InPrinciple/SUSAN_20260228205254.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/8ba4e3bb5cf9_SUSAN_20260228205254.pdf",
+    "etag": "\"9484641cc6a8dc1:0\"",
+    "sha256": "48541a300fe0e3cff898b6331ffbf36871fa419f6491d7c1f73b4cc311c5370b",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:13:22.215Z"
+  },
+  "https://drive.google.com/file/d/1Mt_9WmLpIBV9gZQnvNY11MejqEhQgRjK/view?usp=sharing": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/67f93e278aa4_view_usp_sharing.pdf",
+    "etag": null,
+    "sha256": "5fbf813c14e3f70d4e1e9563e77b05e2f651851ad7b14e9f600c50285025b1b4",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:15:03.111Z"
+  },
+  "https://drive.google.com/file/d/1zHe_lZ7DjI_AQxKCrzy7mX_BM5njJo8O/view?usp=sharing": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/5fea57af215c_view_usp_sharing.pdf",
+    "etag": null,
+    "sha256": "c949fb3e4ae117901eb2f8f3e48e53ca6e04605cb67535a5e8d2c8353381630d",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:15:08.891Z"
+  },
+  "https://hexagonnutrition.com/wp-content/uploads/2026/05/RHP-documents.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/89bb45a0ea3f_RHP-documents.pdf",
+    "etag": "\"6a148c93-160b0dd\"",
+    "sha256": "b9ce4ecf9d2a1cf80545a6fec8dc171c0b338573f4f629ddb57a88464025d2d3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:15:10.575Z"
+  },
+  "https://drive.google.com/file/d/13-DM-hTuw56QOlb0itKfGhQ3UEt3hb4B/view": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/cd8f8c1210a5_view.pdf",
+    "etag": null,
+    "sha256": "17fe88d2f1771f1a0cca682fe13704f5d2333b3dcd9e4a09f816e3dddc9af6a6",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:15:36.741Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/uhm-vacation-rhp.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/41ee9f49df0a_uhm-vacation-rhp.pdf",
+    "etag": "W/\"ab7593a82cef9883c1e62d433a8d55d1\"",
+    "sha256": "d949829ef2bbcf76a5df6726fd01b6861714ccc09d428966576ae41bb3b490ae",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:15:37.148Z"
+  },
+  "https://vahhchemicals.com/wp-content/uploads/2026/05/27-05-2026-Vahh-Prospectus.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/274d2b833581_27-05-2026-Vahh-Prospectus.pdf",
+    "etag": null,
+    "sha256": "e815d5d2ddbf900ae800e8a175ea7431ce686af6313f0df49e2d3505a6f91816",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:16:07.795Z"
+  },
+  "https://www.bsesme.com/download/329359/SME_IPO%20InPrinciple/VahhDRHP03122025_20251203235722.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/dd2f395640cd_VahhDRHP03122025_20251203235722.pdf",
+    "etag": "\"b2fe59778264dc1:0\"",
+    "sha256": "97e2f86ed2bbc446f5160efc3feb4ac281e3ed1632ac310fb4ca316fbfb97073",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:16:46.456Z"
+  },
+  "https://drive.google.com/file/d/1tQgBMJSFnQf7Rk_x2pm937IgZQBhpBlK/view?usp=sharing": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/5faaf83d1e87_view_usp_sharing.pdf",
+    "etag": null,
+    "sha256": "4f7735097a5bd44b3a5be63dbc16490047d3b4d7eef33f8d5d67c4a2af58f769",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:17:53.416Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/cmr-green-technologies-rhp.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/66bed07805f1_cmr-green-technologies-rhp.pdf",
+    "etag": "W/\"85760bac1787687b86df3570155c9a32\"",
+    "sha256": "ac3dba3ec8e55c4c970ab0aeecdb2cb8d465f102478c006461a2e2e05c5d740f",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:17:54.005Z"
+  },
+  "https://assets.upstox.com/ipo/documents/rhp/rhp_bio_medicallaboratories.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/70dc2d8fe805_rhp_bio_medicallaboratories.pdf",
+    "etag": "W/\"a09cdc66db8ed8bc6871f45e2e80f40b\"",
+    "sha256": "85fe26f587449bf25d1fc14b6d537f081dee1b48c2549484db6699fcbfb5362e",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:18:28.814Z"
+  },
+  "https://example.com/test-first-call-1781040986026.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/de5149bcf6ed_test-first-call-1781040986026.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:36:26.028Z"
+  },
+  "https://example.com/test-first-call-1781041342087.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/c7c2db3d2593_test-first-call-1781041342087.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:42:22.094Z"
+  },
+  "https://example.com/test-first-call-1781041531549.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/d50f19b2596c_test-first-call-1781041531549.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-09T21:45:31.556Z"
+  },
+  "https://example.com/test-first-call-1781085121229.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/76ee6e71bafc_test-first-call-1781085121229.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T09:52:01.230Z"
+  },
+  "https://example.com/test-first-call-1781085476177.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/773fe6f90a85_test-first-call-1781085476177.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T09:57:56.180Z"
+  },
+  "https://example.com/test-first-call-1781085754473.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/23faa6054e11_test-first-call-1781085754473.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T10:02:34.474Z"
   }
 }

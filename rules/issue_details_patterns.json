@@ -1,0 +1,202 @@
+{
+  "patternSpec": {
+    "_notes": "Each field maps to an array of case-INSENSITIVE label patterns to match against the FIRST cell (label cell) of a markdown table row, plus cover-paragraph prose fallbacks. Apply 'Issue|Offer' tolerance everywhere. PDF text wrapping splits labels across lines, so collapse whitespace (replace /\\s+/ with single space) on both the markdown line and the pattern before matching. The captured VALUE is the share count in a sibling cell; parse with Indian-comma-aware parseNum (see recommendation). Match priority: summary-table row > cover-page TYPE table cell > Glossary defined-term row > cover prose paragraph.",
+    "totalIssueShares": [
+      "^\\s*total\\s+(issue|offer)\\s+size\\b",
+      "^\\s*(issue|offer)\\s*/\\s*(issue|offer)\\s*size",
+      "^\\s*(the\\s+)?(issue|offer)\\s*size\\s*$",
+      "^\\s*present\\s+(issue|offer)\\s+of\\s+equity\\s+shares",
+      "TOTAL\\s+(ISSUE|OFFER)\\s+SIZE",
+      "INITIAL\\s+PUBLIC\\s+OFFER\\s+OF\\s+UP\\s*TO\\s+([\\d,]+)\\s+EQUITY\\s+SHARES",
+      "aggregating\\s+(up\\s+)?to\\s+(₹|rs\\.?)\\s*[\\d,\\.]+\\s*(lakhs?|lacs?|million|crores?)\\s*\\(?(the\\s+)?[\"“]?(issue|offer)"
+    ],
+    "freshIssueShares": [
+      "^\\s*\\(?i?\\)?\\s*fresh\\s+(issue|offer)(\\s*size)?(\\(\\d+\\))?\\s*$",
+      "FRESH\\s+(ISSUE|OFFER)\\s+SIZE(\\s+OF\\s+THE\\s+OFFER)?",
+      "fresh\\s+(issue|offer)\\s+of\\s+(up\\s*to\\s+)?([\\d,]+)\\s+equity\\s+shares",
+      "^\\s*(issue|offer)\\s+of\\s+equity\\s+shares\\s+by\\s+our\\s+company\\s*$",
+      "ENTIRE\\s+(ISSUE|OFFER)\\s+CONSTITUTES\\s+FRESH\\s+(ISSUE|OFFER)"
+    ],
+    "ofsShares": [
+      "^\\s*\\(?ii?\\)?\\s*offer\\s+for\\s+sale(\\(\\d+\\)(\\(\\d+\\))?)?\\s*$",
+      "^\\s*ofs(\\s+size)?(\\s*\\(by\\s+no\\.?\\s+of\\s+shares\\))?\\s*$",
+      "OFFER\\s+FOR\\s+SALE",
+      "DETAILS\\s+OF\\s+(THE\\s+)?OFFER\\s+FOR\\s+SALE",
+      "offer\\s+for\\s+sale\\s+of\\s+(up\\s*to\\s+)?([\\d,]+)\\s+equity\\s+shares",
+      "(NOT\\s+APPLICABLE|nil)\\b.*(offer\\s+for\\s+sale|entire\\s+(issue|offer)\\s+constitutes\\s+fresh)"
+    ],
+    "marketMakerShares": [
+      "^\\s*\\(?i?\\)?\\s*(issue|offer)\\s+reserved\\s+for\\s+the\\s+market\\s+makers?\\s*$",
+      "^\\s*reservation\\s+for\\s+(the\\s+)?market\\s+makers?(\\s+portion)?\\s*$",
+      "^\\s*market\\s+maker\\s+reservation\\s+portion\\s*$",
+      "^\\s*(a\\.|i\\.)?\\s*market\\s+maker\\s+reservation\\s+portion",
+      "reserved\\s+for\\s+subscription\\s+by\\s+(the\\s+)?market\\s+makers?",
+      "([\\d,]+)\\s+EQUITY\\s+SHARES\\s+AGGREGATING\\s+TO.*RESERVED\\s+FOR\\s+SUBSCRIPTION\\s+BY\\s+MARKET\\s+MAKER",
+      "MARKET\\s+MAKER\\s+RESERVATION\\s+PORTION"
+    ],
+    "marketMakerName": [
+      "^\\s*(designated\\s+)?market\\s+maker(\\s*/\\s*market\\s+maker)?\\s*$",
+      "([A-Z][A-Za-z&\\. ]+(Private\\s+)?Limited)\\s+will\\s+act\\s+as\\s+the\\s+market\\s+maker",
+      "market\\s+maker.*in\\s+this\\s+case\\s+being\\s+([A-Z][A-Za-z&\\. ]+Limited)",
+      "(?:sole\\s+)?market\\s+maker.*\\bis\\b\\s+([A-Z][A-Za-z&\\. ]+Limited)"
+    ],
+    "netOfferShares": [
+      "^\\s*\\(?ii?\\)?\\s*net\\s+(issue|offer)\\s+to\\s+(the\\s+)?public\\*?(\\(\\d+\\))?\\s*$",
+      "^\\s*[b-e]\\.?\\s*net\\s+(issue|offer)(\\s+to\\s+(the\\s+)?public)?\\s*$",
+      "^\\s*net\\s+(issue|offer)\\s*$",
+      "(THE\\s+)?(ISSUE|OFFER)\\s+LESS\\s+(THE\\s+)?MARKET\\s+MAKER\\s+RESERVATION\\s+PORTION.*?(I\\.?E\\.?|net\\s+(issue|offer)\\s+of)\\s+(up\\s*to\\s+)?([\\d,]+)\\s+EQUITY\\s+SHARES",
+      "net\\s+(issue|offer).*(issue|offer)\\s+less\\s+the\\s+(market\\s+maker\\s+reservation|employee\\s+reservation)\\s+portion"
+    ],
+    "preIssueShares": [
+      "^\\s*equity\\s+shares\\s+outstanding\\s+prior\\s+to\\s+the\\s+(issue|offer)",
+      "pre[\\s-]*(issue|offer)\\s+equity\\s+share(s)?(\\s+capital)?",
+      "ISSUED,?\\s+SUBSCRIBED\\s+(AND|&)\\s+PAID[\\s-]*UP\\s+(EQUITY\\s+)?(SHARE\\s+)?CAPITAL\\s+BEFORE\\s+THE\\s+(ISSUE|OFFER)",
+      "equity\\s+shares\\s+outstanding\\s+prior\\s+to\\s+the\\s+(issue|offer)\\s*\\(as\\s+on\\s+the\\s+date"
+    ],
+    "postIssueShares": [
+      "^\\s*equity\\s+shares\\s+outstanding\\s+after\\s+the\\s+(issue|offer)",
+      "post[\\s-]*(issue|offer)\\s+equity\\s+share(s)?(\\s+capital)?",
+      "(PAID[\\s-]*UP\\s+EQUITY\\s+CAPITAL|ISSUED,?\\s+SUBSCRIBED\\s+(AND|&)\\s+PAID[\\s-]*UP\\s+(EQUITY\\s+)?(SHARE\\s+)?CAPITAL)\\s+AFTER\\s+THE\\s+(ISSUE|OFFER)"
+    ],
+    "saleType": [
+      "^\\s*type\\s*$",
+      "ENTIRE\\s+(ISSUE|OFFER)\\s+CONSTITUTES\\s+FRESH\\s+(ISSUE|OFFER)\\s+OF\\s+EQUITY\\s+SHARES",
+      "(the\\s+)?(issue|offer)\\s+comprises(\\s+of)?\\s*:?\\s*(a\\s+)?fresh\\s+(issue|offer)",
+      "of\\s+which\\s*:?\\s*(fresh\\s+(issue|offer)|offer\\s+for\\s+sale)",
+      "OFS\\s+SIZE\\s+nil"
+    ],
+    "issueType": [
+      "100%\\s+book\\s+built\\s+(issue|offer)",
+      "book\\s+building\\s+process",
+      "(issue|offer)\\s+is\\s+being\\s+made\\s+through\\s+the\\s+book\\s+building\\s+process",
+      "book\\s+building\\s+process.*(rule\\s+19\\(2\\)\\(b\\)|regulation\\s+(229|22\\(2\\)|25\\(1\\)))",
+      "fixed\\s+price\\s+(issue|offer)",
+      "100%\\s+fixed\\s+price",
+      "determined\\s+through\\s+a\\s+fixed\\s+price\\s+process"
+    ],
+    "listingAt": [
+      "SME\\s+platform\\s+of\\s+BSE(\\s+Limited)?\\s*\\(?[\"“]?BSE\\s+SME",
+      "\\bBSE\\s+SME\\b",
+      "SME\\s+platform\\s+of\\s+(National\\s+Stock\\s+Exchange|NSE)(\\s+of\\s+india\\s+limited)?\\s*\\(?[\"“]?NSE\\s+EMERGE",
+      "\\bNSE\\s+EMERGE\\b",
+      "emerge\\s+platform\\s+of\\s+NSE",
+      "^\\s*designated\\s+stock\\s+exchange\\s*$",
+      "proposed\\s+to\\s+be\\s+listed\\s+on\\s+the\\s+(SME\\s+platform|stock\\s+exchanges)"
+    ],
+    "faceValue": [
+      "face\\s+value\\s+(of\\s+(the\\s+)?equity\\s+shares?\\s+)?is\\s+(₹|rs\\.?)\\s*([\\d\\.]+)",
+      "^\\s*face\\s+value\\s+per\\s+equity\\s+share",
+      "FACE\\s+VALUE\\s+(₹|rs\\.?)?\\s*([\\d]+)\\s*(/-)?\\s*EACH",
+      "of\\s+face\\s+value\\s+(of\\s+)?(₹|rs\\.?)\\s*([\\d]+)"
+    ],
+    "priceBandMin": [
+      "price\\s+band.*(minimum|floor)\\s+price.*?(₹|rs\\.?)\\s*([\\d,\\.]+|[●⚫\\*●])",
+      "floor\\s+price.*?(₹|rs\\.?)\\s*([\\d,\\.]+)",
+      "minimum\\s+price\\s+of\\s+(₹|rs\\.?)\\s*([\\d,\\.]+)\\s+per\\s+equity\\s+share\\s*\\(floor\\s+price\\)"
+    ],
+    "priceBandMax": [
+      "price\\s+band.*(maximum|cap)\\s+price.*?(₹|rs\\.?)\\s*([\\d,\\.]+|[●⚫\\*●])",
+      "cap\\s+price.*?(₹|rs\\.?)\\s*([\\d,\\.]+)",
+      "maximum\\s+price\\s+of\\s+(₹|rs\\.?)\\s*([\\d,\\.]+)\\s+per\\s+equity\\s+share\\s*\\(cap\\s+price\\)"
+    ],
+    "lotSize": [
+      "^\\s*lot\\s+size\\s*$",
+      "(market|trading)\\s+lot.*?([\\d,]+)\\s+equity\\s+shares?",
+      "minimum\\s+(trading\\s+)?lot\\s+size\\s+is\\s+([\\d,]+)\\s+equity\\s+shares",
+      "minimum\\s+allotment\\s+of\\s+([\\d,]+|[●⚫\\*●])\\s+equity\\s+shares"
+    ]
+  },
+  "verified": {
+    "_legend": "₹ amounts are NOT in the RHP (disclosed as ₹[●]/[bullet] in Lakhs); they are COMPUTED = shares × priceBandMax(cap). Only computable when cap is a fixed number. SME amounts conventionally in Lakhs (₹value/1e5). All share counts are pre-parsed from Indian-comma source strings (52,69,200 → 5269200).",
+    "HORIZON": {
+      "totalIssueShares": 5269200,
+      "freshIssueShares": 5269200,
+      "ofsShares": 0,
+      "marketMakerShares": 264000,
+      "marketMakerName": "Giriraj Stock Broking Private Limited",
+      "netOfferShares": 5005200,
+      "preIssueShares": 14246200,
+      "postIssueShares": 19515400,
+      "saleType": "Fresh capital only",
+      "issueType": "Bookbuilding",
+      "listingAt": "BSE SME",
+      "faceValue": 10,
+      "priceBandMin": null,
+      "priceBandMax": null,
+      "lotSize": null,
+      "_arithmetic": {
+        "freshEqualsMmPlusNet": true,
+        "postEqualsPrePlusFresh": true,
+        "totalEqualsFreshPlusOfs": true,
+        "marketMakerPctOfTotal": 5.01
+      },
+      "_rupeeAmounts": {
+        "computable": false,
+        "reason": "RHP price band is [●]/[bullet] (Floor and Cap both undecided); cap price unavailable so no ₹ figure can be computed. Recompute once a price-fixed RHP/prospectus addendum is available.",
+        "totalAmountLakhs": null,
+        "freshAmountLakhs": null,
+        "netAmountLakhs": null,
+        "marketMakerAmountLakhs": null
+      },
+      "_anomalies": [
+        "marketMakerName source shows OCR variant 'Girtraj Stock Broking Private Limited' alongside correct 'Giriraj Stock Broking Private Limited' — fuzzy/canonical-name reconciliation required",
+        "faceValue source mixes '₹ 10' (spaced) and '₹10' (unspaced) — tolerate optional space",
+        "lotSize, priceBandMin, priceBandMax all [●]/[bullet] → null (true RHP, not price-fixed)"
+      ]
+    },
+    "UTKAL": {
+      "totalIssueShares": 5234000,
+      "freshIssueShares": 5234000,
+      "ofsShares": 0,
+      "marketMakerShares": 264000,
+      "marketMakerName": "Giriraj Stock Broking Limited",
+      "netOfferShares": 4970000,
+      "preIssueShares": 14300000,
+      "postIssueShares": 19534000,
+      "saleType": "Fresh capital only",
+      "issueType": "Bookbuilding",
+      "listingAt": "BSE SME",
+      "faceValue": 10,
+      "priceBandMin": 62,
+      "priceBandMax": 66,
+      "lotSize": 2000,
+      "_arithmetic": {
+        "freshEqualsMmPlusNet": true,
+        "postEqualsPrePlusFresh": true,
+        "totalEqualsFreshPlusOfs": true,
+        "marketMakerPctOfTotal": 5.04
+      },
+      "_rupeeAmounts": {
+        "computable": true,
+        "capPrice": 66,
+        "unit": "Lakhs",
+        "totalAmountLakhs": 3454.44,
+        "freshAmountLakhs": 3454.44,
+        "netAmountLakhs": 3280.2,
+        "marketMakerAmountLakhs": 174.24,
+        "_raw": {
+          "totalAmountRupees": 345444000,
+          "freshAmountRupees": 345444000,
+          "netAmountRupees": 328020000,
+          "marketMakerAmountRupees": 17424000
+        }
+      },
+      "_anomalies": [
+        "marketMakerName 'Giriraj Stock Broking Limited' (no 'Private') differs from HORIZON's 'Giriraj Stock Broking Private Limited' — likely two distinct/renamed entities OR inconsistent naming across docs; flag for canonical entity resolution",
+        "totalIssueShares source carries asterisk footnote marker (52,34,000*) — strip footnote markers before parseNum",
+        "faceValue source uses 'Rs 10/-' and 'Rs10/-' forms (no ₹ glyph) — patterns must accept rs\\.?/Rs/₹ and trailing '/-'"
+      ]
+    }
+  },
+  "discrepancies": [
+    "NO arithmetic failures: both docs pass freshEqualsMmPlusNet, postEqualsPrePlusFresh, AND the derived totalEqualsFreshPlusOfs invariant. Confidence-gating checks all green.",
+    "Market-maker NAME inconsistency across the two docs: HORIZON = 'Giriraj Stock Broking Private Limited' vs UTKAL = 'Giriraj Stock Broking Limited' (no 'Private'). Same MM share count (264,000) and similar issue structure. Cannot determine from this data whether these are the same entity (naming drift / rename) or two different brokers. Requires canonical entity resolution — do NOT silently merge.",
+    "OCR typo in HORIZON source: 'Girtraj Stock Broking Private Limited' appears in the Glossary defined-term row alongside the correct 'Giriraj...'. Name extraction must prefer the most-frequent / non-typo variant and apply fuzzy dedupe (jaroWinkler.js already in utils).",
+    "₹ amounts are NOT present in either RHP (disclosed as ₹[●]/₹[bullet] Lakhs). They MUST be computed as shares × cap price. HORIZON has no cap price ([●]) → ₹ amounts are NULL and uncomputable; only UTKAL (cap=66) yields figures. Any consumer expecting ₹ on HORIZON must treat as pending-price.",
+    "HORIZON is a true RHP with undecided price band/lot ([●]), so priceBandMin, priceBandMax, lotSize are all null. UTKAL is price-fixed (62–66, lot 2000). Same field, two maturity states — schema must allow null and a 'priceFixed' boolean.",
+    "Footnote/asterisk markers (52,34,000*, Total Offer Size^) contaminate the numeric cell — must be stripped before numeric parsing.",
+    "Net-meaning ambiguity (from label research, latent risk here): on SME 'Net = Total − Market Maker Reservation'; on mainboard 'Net = Offer − Employee Reservation'. Both sample docs are SME so freshEqualsMmPlusNet is the right invariant — but the parser must branch on listing platform / presence of Employee Reservation before choosing the net invariant, else mainboard docs will spuriously fail.",
+    "Indian numbering: source values use lakh-grouped commas (1,42,46,200). The existing parseNum in markdownTables.js strips commas correctly, but any added digit-grouping validation must NOT assume western 3-digit groups."
+  ],
+  "recommendation": "BUILD: Add utils/issueDetailsExtractor.js, reusing the existing utils/markdownTables.js primitives (parseMarkdownTables, splitRow, isTableLine, parseNum) — do NOT re-implement table parsing. Pipeline per doc: (1) classify SME vs mainboard and BSE/NSE from listingAt patterns (presence of 'SME Platform'/'NSE Emerge'/'BSE SME' => SME); this choice drives the net-invariant branch. (2) For each field, iterate parsed table rows, collapse whitespace on the first (label) cell, test against patternSpec[field] case-insensitively with 'issue|offer' tolerance; pull the value from the adjacent non-empty cell. Fall back to cover-paragraph prose regexes (also in patternSpec) when no table row matches — these carry capture groups for the share count. (3) Numeric normalization: strip footnote markers ([*^]) and treat [●]/[bullet]/⚫/\\\\u25cf as null BEFORE calling parseNum; parseNum already handles lakh-comma stripping. (4) marketMakerName: collect ALL name candidates from 'Designated Market Maker' / 'will act as the Market Maker' / 'in this case being' matches, dedupe via utils/jaroWinkler.js, pick the highest-frequency non-typo variant; emit it plus a list of raw variants for audit. Do NOT cross-merge names across documents. (5) saleType: derive — if OFS row/column is 'Nil'/'NOT APPLICABLE' or absent => 'Fresh capital only'; if both Fresh and OFS rows have shares => 'Fresh + OFS'; else read TYPE cell verbatim. (6) ₹ amounts: NEVER read from markdown. Compute amountRupees = shares × priceBandMax (cap); amountLakhs = amountRupees/1e5 for SME (crore/=1e7 for mainboard). If priceBandMax is null ([●] RHP), set every ₹ field null and computable:false with reason 'price band not fixed'. CONFIDENCE GATING — emit confidence:'high' only when ALL THREE arithmetic checks pass: postEqualsPrePlusFresh (post = pre + fresh), totalEqualsFreshPlusOfs (total = fresh + OFS), AND the platform-correct net check (SME: freshEqualsMmPlusNet i.e. fresh = marketMaker + net; mainboard: netEqualsOfferMinusReservations). Additionally validate marketMakerPctOfTotal ≈ 5% as a soft sanity check (warn, don't fail). If any hard invariant fails, downgrade to 'needs_review' and record which equation broke; if a field came only from prose fallback (not a table row), mark fieldProvenance:'prose'. TESTS: add test/issueDetailsExtractor.test.js with both sample docs as fixtures asserting the verified values above, all-green arithmetic, HORIZON ₹ = null/uncomputable, and UTKAL ₹ Lakhs = {total 3454.44, fresh 3454.44, net 3280.20, mm 174.24}."
+}

@@ -30,6 +30,8 @@
     "upstox-js-sdk": "^2.28.0"
   },
   "devDependencies": {
+    "@emnapi/core": "^1.11.0",
+    "@emnapi/runtime": "^1.11.0",
     "vitest": "^4.1.8"
   }
 }

@@ -27,6 +27,8 @@
     "pdf-parse": "1.1.4",
     "pdfjs-dist": "4.4.168",
     "pdfreader": "^3.0.8",
+    "pino": "^9.14.0",
+    "pino-pretty": "^12.1.0",
     "upstox-js-sdk": "^2.28.0"
   },
   "devDependencies": {

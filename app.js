@@ -15,13 +15,15 @@ const { runGmp } = require('./services/gmpService');
 const { runHistorical } = require('./services/historicalService');
 const { runExtraction } = require('./services/extractionService');
 const { createJob, appendLog, completeJob, failJob, getJob, listJobs } = require('./db/jobRepository');
+const { logger, requestLogger } = require('./utils/logger');
 
 function buildApp() {
   const app = express();
   app.use(express.json({ limit: '2mb' }));
+  app.use(requestLogger);
 
   const asyncH = (fn) => (req, res) => fn(req, res).catch((e) => {
-    console.error(`[api] ${req.method} ${req.path}:`, e.message);
+    logger.error({ err: e, method: req.method, path: req.path }, 'Request error');
     res.status(500).json({ error: e.message });
   });
 

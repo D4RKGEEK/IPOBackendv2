@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const { buildApp } = require('./app');
 const { connect } = require('./db/mongo');
+const { logger } = require('./utils/logger');
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,11 +17,7 @@ async function main() {
   await connect();
   const app = buildApp();
   app.listen(PORT, () => {
-    console.log(`IPO API listening on http://localhost:${PORT}`);
-    console.log('  GET  /health');
-    console.log('  GET  /ipos                 — index (filter/sort/search/paginate)');
-    console.log('  GET  /ipos/:slug           — full details (?raw=true for per-source)');
-    console.log('  GET  /sources              — sources + counts');
+    logger.info({ port: PORT }, 'IPO API started');
   });
 }
 

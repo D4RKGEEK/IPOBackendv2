@@ -14,6 +14,7 @@ const { parseMarkdownTables, findPeriodRow, parseNum } = require('../utils/markd
 const { computeApplicationTable } = require('../utils/lotSizeCalculator');
 const { extractIssueDetails, computeAmounts } = require('../utils/issueDetailsExtractor');
 const { extractIntermediaries } = require('../utils/intermediariesExtractor');
+const { extractObjects } = require('../utils/objectsExtractor');
 
 // KPI row matchers — abbreviation- AND phrase-aware (prospectus tables use both).
 const KPI_METRICS = [
@@ -153,7 +154,7 @@ async function runExtraction(slug, opts = {}) {
   if (lotDetails) log(`computed lot table (${lotDetails.applications.length} tiers)`);
 
   const docType = pickDoc(ipo);
-  let financials = null; let kpis = null; let issueDetails = null; let intermediaries = null;
+  let financials = null; let kpis = null; let issueDetails = null; let intermediaries = null; let objects = null;
   if (docType) {
     const sym = ipo.symbol || ipo.slug;
     log(`reading ${docType} markdown from R2`);
@@ -196,8 +197,11 @@ async function runExtraction(slug, opts = {}) {
     };
     log(`issue details: confidence ${raw.confidence} — ${JSON.stringify(raw._arithmetic)}`);
 
-    intermediaries = { ...extractIntermediaries(md), source: docType, extractedAt: new Date().toISOString() };
+    intermediaries = { ...extractIntermediaries(md, { companyName: ipo.companyName }), source: docType, extractedAt: new Date().toISOString() };
     log(`intermediaries: ${intermediaries.leadManagers.length} LM, registrar ${intermediaries.registrar ? '✓' : '✗'}, company ${intermediaries.company ? '✓' : '✗'}`);
+
+    const obj = extractObjects(md);
+    if (obj) { objects = { ...obj, docSource: docType, extractedAt: new Date().toISOString() }; log(`objects: ${obj.objects.length} (${obj.source}), total ${obj.totalCr ?? '?'} Cr`); }
   } else {
     log('no extracted document markdown available — lot details only');
   }
@@ -209,6 +213,7 @@ async function runExtraction(slug, opts = {}) {
   if (lotDetails) set.lotDetails = lotDetails;
   if (issueDetails) set.issueDetails = issueDetails;
   if (intermediaries) set.intermediaries = intermediaries;
+  if (objects) set.objects = objects;
   await collections.ipos().updateOne({ slug }, { $set: set });
 
   return {
@@ -218,6 +223,7 @@ async function runExtraction(slug, opts = {}) {
     lotDetails: lotDetails ? { tiers: lotDetails.applications.length } : null,
     issueDetails: issueDetails ? { confidence: issueDetails.confidence, saleType: issueDetails.saleType } : null,
     intermediaries: intermediaries ? { leadManagers: intermediaries.leadManagers.length, registrar: !!intermediaries.registrar } : null,
+    objects: objects ? { count: objects.objects.length, totalCr: objects.totalCr, source: objects.source } : null,
   };
 }
 

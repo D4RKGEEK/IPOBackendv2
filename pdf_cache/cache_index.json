@@ -391,5 +391,40 @@
     "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
     "status": "success",
     "downloadedAt": "2026-06-10T10:02:34.474Z"
+  },
+  "https://example.com/test-first-call-1781087366460.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/7a0591b0517b_test-first-call-1781087366460.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T10:29:26.461Z"
+  },
+  "https://example.com/test-first-call-1781087912528.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/1ec4b8da9010_test-first-call-1781087912528.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T10:38:32.531Z"
+  },
+  "https://example.com/test-first-call-1781089045467.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/edae3b85cc0a_test-first-call-1781089045467.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T10:57:25.468Z"
+  },
+  "https://example.com/test-first-call-1781089409806.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/e6716188ef28_test-first-call-1781089409806.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:03:29.807Z"
+  },
+  "https://example.com/test-first-call-1781089696187.pdf": {
+    "filePath": "/Users/vaibhav/Desktop/nse/pdf_cache/d9e36c6205d0_test-first-call-1781089696187.pdf",
+    "etag": "\"abc123\"",
+    "sha256": "a4debd8d0f0f680e29b99008ed887f4d2c0e1b5b2614f488d0fb7ec784171cd3",
+    "status": "success",
+    "downloadedAt": "2026-06-10T11:08:16.189Z"
   }
 }

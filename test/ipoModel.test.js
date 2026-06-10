@@ -4,7 +4,7 @@ const require = createRequire(import.meta.url);
 
 const { slugify } = require('../utils/slug');
 const { toIpoDoc, issueType, subscription, documentsMap } = require('../db/ipoModel');
-const { diffFields } = require('../db/ipoRepository');
+const { diffFields, mergeDocuments } = require('../db/ipoRepository');
 
 describe('slugify', () => {
   it('builds company-name-ipo, stripping suffixes', () => {
@@ -71,6 +71,19 @@ describe('toIpoDoc', () => {
     expect(doc.documents.drhp.url).toContain('drive.google.com');
     expect(Object.keys(doc.sources).sort()).toEqual(['groww', 'upstox']);
     expect(doc.raw_sources.upstox.lot_size).toBe(333);
+  });
+});
+
+describe('mergeDocuments', () => {
+  it('preserves processing fields when a re-scrape brings only {url, source}', () => {
+    const existing = { rhp: { url: 'u', status: 'extracted', markdownUrl: 'md', pageHashes: ['a', 'b'] } };
+    const incoming = { rhp: { url: 'u2', source: 'nse' } };
+    const out = mergeDocuments(existing, incoming);
+    expect(out.rhp.status).toBe('extracted');   // not wiped
+    expect(out.rhp.markdownUrl).toBe('md');
+    expect(out.rhp.pageHashes).toEqual(['a', 'b']);
+    expect(out.rhp.url).toBe('u2');              // url updated
+    expect(out.rhp.source).toBe('nse');
   });
 });
 

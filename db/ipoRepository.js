@@ -56,6 +56,20 @@ function mergePreferIncoming(base = {}, incoming = {}) {
 }
 
 /**
+ * Deep-merge the documents map per docType. Incoming (from a scrape) only
+ * carries {url, source}; this preserves processing fields written by the
+ * document pipeline (status, markdownUrl, r2Url, pageHashes, sections) instead
+ * of clobbering them on every re-scrape.
+ */
+function mergeDocuments(existing = {}, incoming = {}) {
+  const out = { ...existing };
+  for (const [type, inc] of Object.entries(incoming || {})) {
+    out[type] = mergePreferIncoming(out[type] || {}, inc || {});
+  }
+  return out;
+}
+
+/**
  * Upsert one standardized record. Returns { action, slug, changes }.
  * action ∈ new | updated | unchanged.
  */
@@ -89,7 +103,7 @@ async function upsertInto(existing, incoming, now) {
 
   // Merge: documents/sources/raw_sources deep-merge; scalars prefer incoming-if-present.
   const merged = mergePreferIncoming(existing, incoming);
-  merged.documents = mergePreferIncoming(existing.documents, incoming.documents);
+  merged.documents = mergeDocuments(existing.documents, incoming.documents);
   merged.sources = { ...(existing.sources || {}), ...(incoming.sources || {}) };
   merged.raw_sources = { ...(existing.raw_sources || {}), ...(incoming.raw_sources || {}) };
   merged.createdAt = existing.createdAt || now;
@@ -174,4 +188,4 @@ async function recordError(slug, operation, message) {
   );
 }
 
-module.exports = { upsertRecord, findBySlug, query, deleteBySlug, recordError, findExisting, resolveSlug, diffFields };
+module.exports = { upsertRecord, findBySlug, query, deleteBySlug, recordError, findExisting, resolveSlug, diffFields, mergeDocuments };

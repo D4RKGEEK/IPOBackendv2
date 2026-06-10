@@ -50,12 +50,46 @@ function dedupeParties(list) {
   return out;
 }
 
-/** Email + phone appearing shortly after an anchor position. */
-function contactNear(text, fromIndex, window = 400) {
-  const seg = text.slice(fromIndex, fromIndex + window);
-  const email = (seg.match(/e-?mail[^@:]{0,14}:?\s*\[?([\w.+-]+@[\w.-]+\.\w{2,})/i) || [])[1] || null;
-  const phone = (seg.match(/tel(?:ephone)?\.?\s*:?\s*(\+?\d[\d\s().-]{6,16}\d)/i) || [])[1] || null;
-  return { email: cleanEmail(email), phone: cleanPhone(phone) };
+/** First significant lowercase token of a name (e.g. "Marwadi…" → "marwadi"). */
+function nameToken(name) {
+  const m = String(name || '').toLowerCase().match(/[a-z]{4,}/);
+  return m ? m[0] : null;
+}
+
+/** Find an email whose local-part or domain contains the party's name token. */
+function emailFor(text, name) {
+  const token = nameToken(name);
+  if (!token) return null;
+  const m = text.match(new RegExp(`([\\w.+-]*${token}[\\w.+-]*@[\\w.-]+\\.\\w{2,}|[\\w.+-]+@[\\w.-]*${token}[\\w.-]*\\.\\w{2,})`, 'i'));
+  return m ? cleanEmail(m[1]) : null;
+}
+
+/** Find a website URL whose host contains the token. */
+function websiteFor(text, name) {
+  const token = nameToken(name);
+  if (!token) return null;
+  const m = text.match(new RegExp(`(https?:\\/\\/[\\w.-]*${token}[\\w.-]*\\.[^\\s\\])]+)`, 'i'));
+  return m ? m[1].replace(/[\\)\].*;,'"]+$/, '') : null;
+}
+
+const PHONE_RE = /(?:tel(?:ephone)?\.?\s*(?:no\.?)?|phone|mobile)\s*[:.]?\s*(\+?\d[\d\s().-]{6,16}\d)/i;
+
+/**
+ * A labelled phone near an anchor: prefer the phone AFTER the anchor (a party's
+ * phone typically follows its name/email), else the nearest phone before it.
+ */
+function phoneNear(text, idx, fwd = 300, back = 220) {
+  const after = text.slice(idx, idx + fwd).match(PHONE_RE);
+  if (after) return cleanPhone(after[1]);
+  const before = [...text.slice(Math.max(0, idx - back), idx).matchAll(new RegExp(PHONE_RE, 'ig'))];
+  return before.length ? cleanPhone(before[before.length - 1][1]) : null;
+}
+
+/** Resolve a party's email (by name domain) + phone (anchored to that email). */
+function partyContact(text, name, anchorIdx) {
+  const email = emailFor(text, name);
+  const idx = email ? text.indexOf(email) : anchorIdx;
+  return { email, phone: phoneNear(text, idx >= 0 ? idx : anchorIdx) };
 }
 
 /** Lead manager(s): the named Book Running Lead Manager(s). */
@@ -65,40 +99,50 @@ function extractLeadManagers(text) {
   let m;
   while ((m = re.exec(text)) !== null) {
     const name = canonName(m[1]);
-    if (looksLikeName(name)) found.push({ name, ...contactNear(text, m.index) });
+    if (looksLikeName(name)) found.push({ name, ...partyContact(text, name, m.index) });
   }
   return dedupeParties(found);
 }
 
-/** Registrar to the Issue/Offer + its contact. */
+/** Registrar to the Issue/Offer + its contact. ("/" separator handles glossary forms.) */
 function extractRegistrar(text) {
   const found = [];
-  const re = new RegExp(`registrar\\s+(?:and\\s+share\\s+transfer\\s+agent\\s+)?to\\s+the\\s+(?:issue|offer)\\s*[,:]?\\s*(${NAME})`, 'ig');
+  const re = new RegExp(`registrar\\s+(?:and\\s+share\\s+transfer\\s+agent\\s+)?to\\s+the\\s+(?:issue|offer)\\s*[/,:]?\\s*(${NAME})`, 'ig');
   let m;
   while ((m = re.exec(text)) !== null) {
     const name = canonName(m[1]);
-    if (looksLikeName(name)) found.push({ name, ...contactNear(text, m.index) });
+    if (looksLikeName(name)) found.push({ name, ...partyContact(text, name, m.index) });
   }
   const parties = dedupeParties(found);
-  // Prefer the entry carrying contact details.
   return parties.sort((a, b) => (b.email ? 1 : 0) - (a.email ? 1 : 0))[0] || null;
 }
 
-/** Company registered office + contact block. */
-function extractCompany(text) {
-  // Prefer the clean prose block ("Registered Office: <addr> Tel: ... Website: ... E-mail id: ...").
-  const office = (text.match(/registered\s+office\s*:\s*(.+?)\s*(?:tel\b|telephone|website|e-?mail|contact\s+person|corporate\s+office)/i) || [])[1];
-  const block = text.match(/registered\s+office\s*:[\s\S]{0,400}/i);
-  const seg = block ? block[0] : text;
-  const tel = (seg.match(/tel(?:ephone)?\.?\s*:?\s*(\+?\d[\d\s().-]{6,16}\d)/i) || [])[1] || null;
-  const website = (seg.match(/website\s*:?\s*\[?(https?:\/\/[^\s\])]+)/i) || [])[1] || null;
-  const email = (seg.match(/e-?mail(?:\s+id)?\s*:?\s*\[?([\w.+-]+@[\w.-]+\.\w{2,})/i) || [])[1] || null;
-  const contactPerson = (seg.match(/contact\s+person\s*:?\s*([A-Z][A-Za-z. ]+?)\s*(?:,|;|\bcompany\s+secretary|\be-?mail|\btel\b)/i) || [])[1] || null;
+/** Company registered office + contact. Uses the company name to resolve its
+ *  own email/website by domain (robust to scrambled cover tables). */
+function extractCompany(text, companyName) {
+  // The clean office line has a colon ("Registered Office: <addr>"); the garbled
+  // cover ("REGISTERED OFFICE | |") does not, so requiring the colon avoids junk.
+  const officeRe = /registered\s+office\s*:\s*(.+?)\s*(?:tel\b|telephone|website|e-?mail|contact\s+person|corporate\s+office|corporate\s+identity)/i;
+  const office = (text.match(officeRe) || [])[1];
+  const officeIdx = text.search(/registered\s+office/i);
+  const block = officeIdx >= 0 ? text.slice(officeIdx, officeIdx + 700) : text;
+
+  // Company email/website by domain token (e.g. "Vahh Chemicals" → vahhchemicals.com).
+  let email = companyName ? emailFor(text, companyName) : null;
+  let website = companyName ? websiteFor(text, companyName) : null;
+  // Fallbacks: a labelled email/website within the office block.
+  if (!email) email = (block.match(/e-?mail(?:\s+id)?\s*:?\s*\[?([\w.+-]+@[\w.-]+\.\w{2,})/i) || [])[1] || null;
+  if (!website) website = (block.match(/(https?:\/\/[^\s\])]+)/i) || [])[1] || null;
+
+  // Phone anchored to the company email (reliable) rather than the office label.
+  const phone = phoneNear(text, email ? text.indexOf(email) : (officeIdx >= 0 ? officeIdx : 0));
+  const contactPerson = (block.match(/contact\s+person\s*:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})/i) || [])[1] || null;
+
   const result = {
     registeredOffice: office ? cleanName(office) : null,
     contactPerson: contactPerson ? cleanName(contactPerson) : null,
     email: cleanEmail(email),
-    phone: cleanPhone(tel),
+    phone,
     website: website ? website.replace(/[\\)\].*;,'"]+$/, '') : null,
   };
   return Object.values(result).some((v) => v) ? result : null;
@@ -109,12 +153,12 @@ function extractCompany(text) {
  * @param {string} md
  * @returns {{ leadManagers: object[], registrar: object|null, company: object|null }}
  */
-function extractIntermediaries(md) {
+function extractIntermediaries(md, opts = {}) {
   const text = norm(md);
   return {
     leadManagers: extractLeadManagers(text),
     registrar: extractRegistrar(text),
-    company: extractCompany(text),
+    company: extractCompany(text, opts.companyName),
   };
 }
 

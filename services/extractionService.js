@@ -17,6 +17,8 @@ const { extractIntermediaries } = require('../utils/intermediariesExtractor');
 const { extractObjects } = require('../utils/objectsExtractor');
 const { extractPromoters } = require('../utils/promotersExtractor');
 const { validateExtraction } = require('../utils/validation');
+const { extractFinancialsFromItems, extractKpisFromItems } = require('../utils/pdfTableParser');
+const { readPageItems } = require('../utils/pdfToHtml');
 
 // KPI row matchers — abbreviation- AND phrase-aware (prospectus tables use both).
 const KPI_METRICS = [

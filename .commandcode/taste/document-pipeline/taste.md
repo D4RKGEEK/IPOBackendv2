@@ -5,3 +5,4 @@
 - Do NOT use Firecrawl as a fallback for extraction — the data returned is unreliable/incorrect; rely solely on regex extraction from the original Nutrient-generated markdown. Confidence: 0.85
 - Include provenance logging for all extracted data: track extraction method (regex vs firecrawl fallback), which module/function did the extraction, and why fallback was triggered. NOTE: Firecrawl fallback is deprecated. Confidence: 0.75
 - Cap Firecrawl fallback page range at 200 pages max per section. Confidence: 0.70
+- Parse financial data from PDF coordinates (x,y positions via pdfjs readPageItems) instead of regex on flat text or LLM extraction — deterministic, no hallucination, no pattern maintenance. Confidence: 0.80

@@ -37,10 +37,6 @@ const { getText } = require('./r2');
 async function retrySection(opts) {
   const log = opts.log || (() => {});
   if (!opts.extractFn || typeof opts.extractFn !== 'function') return { ok: false, error: 'no_extractFn_provided' };
-  if (!sectionKey) {
-    if (NOOP_SECTIONS.has(opts.sectionName)) return { ok: false, error: 'no_extractor_needed' };
-    return { ok: false, error: `unknown section: ${opts.sectionName}` };
-  }
 
   const { start, end } = opts.pageRange || {};
   if (!start || !end || end < start) return { ok: false, error: `invalid page range: ${JSON.stringify(opts.pageRange)}` };

@@ -138,4 +138,4 @@ function flattenExtraction(data, sectionKey) {
   return flat;
 }
 
-module.exports = { retrySection, SECTION_EXTRACTORS };
+module.exports = { retrySection };

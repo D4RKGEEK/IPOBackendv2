@@ -116,4 +116,4 @@ async function parseHtml(htmlContent, filename, schema, prompt, opts = {}) {
   return json.data?.json || json.data || json;
 }
 
-module.exports = { scrapeToMarkdown, parseWithSchema, parseHtml, parseRequiredTimeout, getApiKey, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS };
+module.exports = { scrapeToMarkdown, parseHtml, parseRequiredTimeout, getApiKey, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS };

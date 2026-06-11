@@ -22,19 +22,42 @@ const { processDocument: pipelineProcess } = require('../utils/docPipeline');
 
 const OVERLAP_SKIP = 0.9; // skip RHP extraction if ≥90% of its pages are in the DRHP
 
+/**
+ * Section signals per section key (short name).
+ * These match actual section content (not TOC lines).
+ */
 const SECTION_SIGNALS = [
-  ['financials', /restated|financial statements|profit (and|&) loss|balance sheet/i],
-  ['risk-factors', /risk factors/i],
-  ['objects-of-issue', /objects of the (issue|offer)/i],
-  ['capital-structure', /capital structure/i],
-  ['management', /our management|board of directors/i],
-  ['kpis', /key performance indicator|basis for (the )?(offer|issue) price/i],
+  ['financials', /restated\s+financial|financial\s+statements?|profit\s+(and|&)\s+loss|balance\s+sheet/i],
+  ['risk-factors', /^risk\s+factors\b/i],
+  ['objects-of-issue', /^objects?\s+of\s+the\s+(issue|offer)\b/i],
+  ['capital-structure', /^capital\s+structure\b/i],
+  ['management', /^our\s+management\b|board\s+of\s+directors/i],
+  ['kpis', /key\s+performance\s+indicator|basis\s+for\s+(the\s+)?(offer|issue)\s+price/i],
 ];
 
 const sha256 = (s) => crypto.createHash('sha256').update(String(s).replace(/\s+/g, ' ').trim()).digest('hex');
 
 /**
+ * Check if a page looks like a TOC page — many lines ending in page numbers.
+ * A page is TOC-like if >30% of non-trivial lines end in a number (1-4 digits).
+ * @param {string} pageText
+ * @returns {boolean}
+ */
+function isTocPage(pageText) {
+  const lines = pageText.split('\n').filter((l) => l.trim().length > 8);
+  if (lines.length < 3) return false;
+  const withPageNum = lines.filter((l) => /\s+\d{1,4}\s*$/.test(l.trim()));
+  return withPageNum.length / lines.length > 0.3;
+}
+
+/**
  * Detect section page ranges from per-page text.
+ * 
+ * Key improvement over the old version: skips TOC pages (pages 1-3ish) where
+ * section names appear as list entries, not actual section content. This
+ * prevents matching "Financial Information" in a TOC entry instead of the
+ * real financial section header.
+ *
  * Each entry: { start, end } — 1-based page numbers, inclusive.
  * The end page is inferred from the next section's start; the last section
  * defaults to the document's total page count.
@@ -42,8 +65,15 @@ const sha256 = (s) => crypto.createHash('sha256').update(String(s).replace(/\s+/
  * @returns {object}  e.g. { financials: { start:45, end:72 }, kpis: { start:78, end:85 } }
  */
 function detectSections(pages) {
+  // First pass: identify TOC pages so we can skip them.
+  const tocPages = new Set();
+  for (let i = 0; i < Math.min(pages.length, 10); i++) {
+    if (isTocPage(pages[i])) tocPages.add(i);
+  }
+
   const found = {}; // name -> start page (1-based)
   for (let i = 0; i < pages.length; i++) {
+    if (tocPages.has(i)) continue; // skip TOC — matches would be TOC entries, not real headings
     const text = pages[i];
     for (const [name, re] of SECTION_SIGNALS) {
       if (found[name] != null) continue;

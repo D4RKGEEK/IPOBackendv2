@@ -17,6 +17,7 @@ const { extractIntermediaries } = require('../utils/intermediariesExtractor');
 const { extractObjects } = require('../utils/objectsExtractor');
 const { extractPromoters } = require('../utils/promotersExtractor');
 const { validateExtraction } = require('../utils/validation');
+const { retrySection } = require('../utils/sectionFallback');
 
 // KPI row matchers — abbreviation- AND phrase-aware (prospectus tables use both).
 const KPI_METRICS = [
@@ -264,6 +265,94 @@ async function runExtraction(slug, opts = {}) {
 
   const validation = validateExtraction(flat, { provenance: allProvenance });
   log(`validation: score ${validation.score}${validation.needsReview ? ' — NEEDS REVIEW' : ''} (${validation.sanity.flagged.length} sanity flags, ${validation.consistency.failed.length} consistency fails)`);
+
+  // ── Fallback: retry failed sections with PDF-slice → Firecrawl ──────────
+  let usedFallback = false;
+  if (validation.needsReview && docType) {
+    const docMeta = (ipo.documents || {})[docType] || {};
+    const sectionPages = docMeta.sectionPages || {};
+    const errorFields = new Set(validation.sanity.flagged.map((f) => f.field));
+
+    const sectionMap = [
+      { name: 'financials', fields: ['revenueFromOperations','totalIncome','ebitda','profitAfterTax','netWorth','totalBorrowings','basicEPS','dilutedEPS','ronw','netAssetValue'] },
+      { name: 'kpis', fields: ['roce','ronw','roe','debtEquity','ebitdaMargin','patMargin','grossMargin','priceToBook','currentRatio','nav','eps'] },
+      { name: 'objectsOfIssue', fields: ['objectCount','objectsTotal'] },
+    ];
+
+    for (const { name, fields } of sectionMap) {
+      // Only retry if this section has flagged fields and we have page ranges
+      if (!fields.some((f) => errorFields.has(f))) continue;
+      
+      // sectionPages uses short names like 'financials', 'kpis', 'objects-of-issue'
+      const pageKey = name === 'objectsOfIssue' ? 'objects-of-issue' : name;
+      const pageRange = sectionPages[pageKey];
+      if (!pageRange || !pageRange.start || !pageRange.end) continue;
+
+      log(`  fallback triggered for "${name}" (pages ${pageRange.start}-${pageRange.end}, flagged: ${fields.filter((f) => errorFields.has(f)).join(',')})`);
+
+      const result = await retrySection({
+        slug,
+        docType,
+        sectionName: name,
+        pageRange,
+        pdfUrl: docMeta.r2Url || docMeta.url || null,
+        localPdfPath: null,
+        log,
+      });
+
+      if (result.ok && result.data) {
+        if (name === 'financials') {
+          financials = { ...result.data, source: `${docType}::fallback`, extractedAt: new Date().toISOString() };
+        } else if (name === 'kpis') {
+          kpis = { ...result.data, source: `${docType}::fallback`, extractedAt: new Date().toISOString() };
+        } else if (name === 'objectsOfIssue') {
+          objects = { ...result.data, docSource: `${docType}::fallback`, extractedAt: new Date().toISOString() };
+          objectsRaw = result.data;
+        }
+        usedFallback = true;
+        log(`  fallback "${name}" succeeded (score ${result.validation.score})`);
+      } else {
+        log(`  fallback "${name}" failed: ${result.error}`);
+      }
+    }
+
+    // Re-run validation if fallback replaced any data
+    if (usedFallback) {
+      const newFlat = {};
+      if (financials) {
+        for (const [k, vals] of Object.entries(financials.metrics || {})) {
+          const lastVal = Array.isArray(vals) ? vals[vals.length - 1] : null;
+          if (lastVal != null) newFlat[k] = lastVal;
+        }
+      }
+      if (kpis) {
+        for (const [k, vals] of Object.entries(kpis.kpis || {})) {
+          const lastVal = Array.isArray(vals) ? vals[vals.length - 1] : null;
+          if (lastVal != null) newFlat[k] = lastVal;
+        }
+      }
+      if (issueDetails) {
+        for (const k of ['totalIssueShares','freshIssueShares','ofsShares','marketMakerShares',
+          'employeeReservationShares','netOfferShares','preIssueShares','postIssueShares']) {
+          if (issueDetails[k] != null) newFlat[k] = issueDetails[k];
+        }
+        if (ipo.priceBand) { newFlat.priceMin = ipo.priceBand.min; newFlat.priceMax = ipo.priceBand.max; }
+        if (ipo.faceValue) newFlat.faceValue = ipo.faceValue;
+        if (ipo.issuePrice) newFlat.issuePrice = ipo.issuePrice;
+      }
+      if (promoters) { newFlat.promoters = promoters.promoters; newFlat.promoterCount = promoters.promoters.length; }
+      if (intermediaries) newFlat.leadManagerCount = intermediaries.leadManagers.length;
+      if (objects) { newFlat.objectCount = objects.objects.length; if (objects.total != null) newFlat.objectsTotal = objects.total; }
+
+      const newValidation = validateExtraction(newFlat);
+      log(`post-fallback validation: score ${newValidation.score}${newValidation.needsReview ? ' — STILL NEEDS REVIEW' : ' — PASSED'}`);
+      // Merge fallback validation info into the stored validation
+      validation.fallbackAttempted = true;
+      validation.fallbackUsed = usedFallback;
+      validation.fallbackValidationScore = newValidation.score;
+      validation.fallbackNeedsReview = newValidation.needsReview;
+    }
+  }
 
   const now = new Date().toISOString();
   const set = { updatedAt: now, validation };

@@ -5,4 +5,4 @@
 - Use fallback chain for extraction: regex → validate → for failed sections → slice PDF to section pages → Firecrawl scrape → re-run extractor → validate. Confidence: 0.80
 - Include provenance logging for all extracted data: track extraction method (regex vs firecrawl fallback), which module/function did the extraction, and why fallback was triggered. Confidence: 0.75
 - Cap Firecrawl fallback page range at 200 pages max per section. Confidence: 0.70
-- In the Firecrawl fallback path, upload the **sliced PDF** to R2 (not sliced markdown) — the markdown from Firecrawl/Nutrient doesn't contain consistent page markers so slicing by page is impossible on text; Firecrawl scrapes the PDF URL and returns clean markdown. Confidence: 0.75
+- In the Firecrawl fallback path, Firecrawl must receive **markdown only, never PDFs** — the user explicitly corrected that Firecrawl should only get markdown, not PDF files. Confidence: 0.75

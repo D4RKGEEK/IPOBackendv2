@@ -60,30 +60,32 @@ async function retrySection(opts) {
     return { ok: false, error: `slice_failed: ${e.message}` };
   }
 
-  // 3. Convert sliced PDF to markdown locally (free, fast, no PDF page credits)
-  let sliceMd;
+  // 3. Read per-page text from the sliced PDF, format as markdown
+  let pageTexts;
   try {
-    const { convertPdfToMarkdown } = require('./pdfToMarkdownLocal');
-    const result = await convertPdfToMarkdown(slicePath);
-    sliceMd = result.markdown;
-    log(`  fallback ${opts.sectionName}: local conversion → ${sliceMd.length} chars`);
+    const { readPageTexts } = require('./financialsExtractor');
+    pageTexts = await readPageTexts(slicePath);
   } catch (e) {
     fs.unlink(slicePath, () => {});
-    return { ok: false, error: `md_conversion_failed: ${e.message}` };
+    return { ok: false, error: `page_text_failed: ${e.message}` };
   }
   fs.unlink(slicePath, () => {});
 
-  // 4. Upload the markdown to R2 so Firecrawl can reach it
+  // Build markdown with page headers so Firecrawl has structure to work with
+  const md = `# Section: ${opts.sectionName} (pages ${start}-${end})\n\n`
+    + pageTexts.map((t, i) => `## Page ${start + i}\n\n${t}`).join('\n\n');
+
+  // 4. Upload markdown to R2
   const sliceKey = `fallback/${opts.slug}/${opts.docType}/${opts.sectionName}_p${start}-${end}.md`;
-  if (!(await objectExists(sliceKey))) await putText(sliceKey, sliceMd);
+  if (!(await objectExists(sliceKey))) await putText(sliceKey, md);
   const sliceUrl = getPublicUrl(sliceKey);
 
-  // 5. Firecrawl scrape the uploaded markdown (1 credit — no PDF page fees)
+  // 5. Firecrawl scrape the uploaded markdown (1 credit)
   let fcMd;
   try {
     const result = await scrapeToMarkdown(sliceUrl);
     fcMd = result.markdown;
-    log(`  fallback ${opts.sectionName}: Firecrawl returned ${fcMd.length} chars`);
+    log(`  fallback ${opts.sectionName}: ${fcMd.length} chars`);
   } catch (e) {
     return { ok: false, error: `firecrawl_failed: ${e.message}` };
   }

@@ -69,8 +69,8 @@ function emailFor(text, name) {
 function websiteFor(text, name) {
   const token = nameToken(name);
   if (!token) return null;
-  const m = text.match(new RegExp(`(https?:\\/\\/[\\w.-]*${token}[\\w.-]*\\.[^\\s\\])]+)`, 'i'));
-  return m ? m[1].replace(/[\\)\].*;,'"]+$/, '') : null;
+  const m = text.match(new RegExp(`(https?:\\/\\/[\\w.-]*${token}[\\w.-]*\\.[^\\s<>"'|]+)`, 'i'));
+  return m ? m[1].replace(/[\\)\];,.'"]+$/, '') : null;
 }
 
 const PHONE_RE = /(?:tel(?:ephone)?\.?\s*(?:no\.?)?|phone|mobile)\s*[:.]?\s*(\+?\d[\d\s().-]{6,16}\d)/i;
@@ -133,7 +133,7 @@ function extractCompany(text, companyName) {
   let website = companyName ? websiteFor(text, companyName) : null;
   // Fallbacks: a labelled email/website within the office block.
   if (!email) email = (block.match(/e-?mail(?:\s+id)?\s*:?\s*\[?([\w.+-]+@[\w.-]+\.\w{2,})/i) || [])[1] || null;
-  if (!website) website = (block.match(/(https?:\/\/[^\s\])]+)/i) || [])[1] || null;
+  if (!website) website = (block.match(/(https?:\/\/[^\s<>"'|]+)/i) || [])[1] || null;
 
   // Phone anchored to the company email (reliable) rather than the office label.
   const phone = phoneNear(text, email ? text.indexOf(email) : (officeIdx >= 0 ? officeIdx : 0));

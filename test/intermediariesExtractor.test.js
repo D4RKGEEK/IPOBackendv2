@@ -46,6 +46,27 @@ describe('extractIntermediaries (HORIZON)', () => {
   });
 });
 
+describe('extractIntermediaries (garbled cover / scrambled table)', () => {
+  it('strips trailing pipe/quote/junk from website URL', () => {
+    // Real observed: garbled PDF cover where table cell spills garbage after the URL.
+    const GARBLED = `
+REGISTERED OFFICE: 1703, Nirmal Tower, 26, Barakhamba Road, Connaught Place, New Delhi, India, 110001
+EMAIL: investor@seil.net.in
+WEBSITE: https://seil.net.in/|"nuh fi
+    `;
+    const d = extractIntermediaries(GARBLED, { companyName: 'SEIL Energy' });
+    expect(d.company.website).toBe('https://seil.net.in/');
+    expect(d.company.email).toBe('investor@seil.net.in');
+    expect(d.company.registeredOffice).toMatch(/Nirmal Tower/);
+  });
+
+  it('strips trailing angle-bracket junk from website URL', () => {
+    const ANGLE = `Website: https://examplecorp.com/<http://examplecorp.com>`;
+    const d = extractIntermediaries(ANGLE, { companyName: 'Example Corp' });
+    expect(d.company.website).toBe('https://examplecorp.com/');
+  });
+});
+
 describe('extractIntermediaries (empty / no parties)', () => {
   it('returns empty/null structures gracefully', () => {
     const d = extractIntermediaries('some unrelated prospectus text with no parties');

@@ -67,13 +67,20 @@ function detectSections(pages) {
       if (re.test(text)) found[name] = i + 1; // 1-based page
     }
   }
-  // Derive end pages: next section's start - 1, or total pages
+  // Derive end pages: next section's start - 1, or total pages.
+  // If two sections start on the same page (same heading detected), give
+  // the earlier one a minimal 1-page range and move on.
   const total = pages.length;
   const result = {};
   const names = Object.keys(found).sort((a, b) => found[a] - found[b]);
   for (let i = 0; i < names.length; i++) {
     const start = found[names[i]];
-    const end = i < names.length - 1 ? found[names[i + 1]] - 1 : total;
+    // Find the next unique start page that's strictly greater than this one
+    let nextStart = null;
+    for (let j = i + 1; j < names.length; j++) {
+      if (found[names[j]] > start) { nextStart = found[names[j]]; break; }
+    }
+    const end = nextStart != null ? nextStart - 1 : total;
     result[names[i]] = { start, end };
   }
   return result;

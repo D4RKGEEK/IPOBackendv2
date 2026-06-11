@@ -157,12 +157,13 @@ async function runExtraction(slug, opts = {}) {
   if (lotDetails) log(`computed lot table (${lotDetails.applications.length} tiers)`);
 
   const docType = pickDoc(ipo);
+  let md = null;
   let financials = null; let kpis = null; let issueDetails = null; let intermediaries = null; let objects = null; let promoters = null;
   let issueDetailsRaw = null; let objectsRaw = null; let promotersRaw = null;
   if (docType) {
     const sym = ipo.symbol || ipo.slug;
     log(`reading ${docType} markdown from R2`);
-    const md = await getText(docKey(sym, docType, 'md'));
+    md = await getText(docKey(sym, docType, 'md'));
     const tables = parseMarkdownTables(md);
     log(`parsed ${tables.length} markdown tables`);
     const fin = extractFinancials(tables);
@@ -296,8 +297,11 @@ async function runExtraction(slug, opts = {}) {
         docType,
         sectionName: name,
         pageRange,
-        pdfUrl: docMeta.r2Url || docMeta.url || null,
-        localPdfPath: null,
+        markdown: md,
+        extractFn: name === 'financials' ? (m) => extractFinancials(parseMarkdownTables(m))
+          : name === 'kpis' ? (m) => extractKpis(parseMarkdownTables(m))
+          : name === 'objectsOfIssue' ? (m) => extractObjects(m)
+          : null,
         log,
       });
 

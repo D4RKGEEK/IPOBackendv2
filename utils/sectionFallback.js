@@ -2,75 +2,41 @@
 
 /**
  * sectionFallback.js — retry extraction for a single section that failed
- * regex-based validation, using Firecrawl on a page-range PDF slice.
+ * regex-based validation, using Firecrawl on a page-range markdown slice.
  *
  * Flow:
- *   regex extraction → validate → failed? → slice PDF to section pages →
- *   upload slice to R2 → Firecrawl scrape (markdown + structured JSON) →
- *   re-run deterministic extractor on the returned markdown → validate → return
+ *   regex extraction → validate → failed? → slice the existing markdown
+ *   (which has "===== PAGE N =====" markers) to the section's page range →
+ *   upload text slice to R2 → Firecrawl scrape → re-run deterministic
+ *   extractor → validate → return
+ *
+ * No PDF re-parsing — we already have the full markdown. Slicing text is
+ * instant and costs nothing.
  *
  * Adding support for a new section? Just add an entry to SECTION_EXTRACTORS below.
  */
 
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
 const { scrapeToMarkdown } = require('./firecrawl');
-const { uploadFile, getPublicUrl, objectExists } = require('./r2');
+const { getPublicUrl, objectExists, putText } = require('./r2');
 const { validateExtraction } = require('./validation');
-
-// ---------------------------------------------------------------------------
-// Per-section: which extractor to call, and what Firecrawl JSON prompt to use.
-// ---------------------------------------------------------------------------
-const SECTION_EXTRACTORS = {
-  financials: {
-    extractorPath: '../utils/financialsExtractor',
-    extractFn: 'extractFinancials',
-    prompt: 'Extract the restated financial summary table: revenue, expenses, profit, balance sheet items, EPS. Return as structured JSON with periods and metric values.',
-  },
-  kpis: {
-    extractorPath: '../utils/kpiExtractor',
-    extractFn: 'extractKpis',
-    prompt: 'Extract key performance indicators / financial ratios: ROCE, RONW, ROE, debt-equity, EBITDA margin, PAT margin, NAV, EPS. Return as structured JSON.',
-  },
-  objectsOfIssue: {
-    extractorPath: '../utils/objectsExtractor',
-    extractFn: 'extractObjects',
-    prompt: 'Extract the objects of the issue / use of proceeds table: each object name and its estimated amount. Include the total. Return as structured JSON.',
-  },
-  issueDetails: {
-    extractorPath: '../utils/issueDetailsExtractor',
-    extractFn: 'extractIssueDetails',
-    prompt: 'Extract IPO issue structure: total issue size, fresh issue, OFS, market maker reservation, employee reservation, net offer, pre/post issue shares. Return as structured JSON.',
-  },
-};
-
-/** Fallback: does nothing for sections we can't handle yet. */
-const NOOP_SECTIONS = new Set(['riskFactors', 'management']);
-
-// ---------------------------------------------------------------------------
-// Core
-// ---------------------------------------------------------------------------
+const { getText } = require('./r2');
 
 /**
- * Retry extraction for a single section using Firecrawl on a PDF slice.
+ * Retry extraction for a single section using Firecrawl on a markdown slice.
  *
  * @param {object} opts
  * @param {string} opts.slug        — IPO slug
  * @param {string} opts.docType      — 'drhp' | 'rhp' | 'final'
  * @param {string} opts.sectionName  — section short name (e.g. 'financials')
  * @param {{ start: number, end: number }} opts.pageRange  — 1-based page range
- * @param {string} [opts.pdfUrl]     — R2 public URL to download the full PDF (used if no localPdfPath)
- * @param {string} [opts.localPdfPath] — local file path of the full PDF (preferred)
+ * @param {string} opts.markdown     — full document markdown (with PAGE markers)
+ * @param {Function} opts.extractFn  — extractor function(md) that returns parsed data
  * @param {object} [opts.log]        — logger
  * @returns {Promise<{ ok: boolean, data?: object, validation?: object, error?: string }>}
  */
 async function retrySection(opts) {
   const log = opts.log || (() => {});
-
-  const sectionKey = Object.keys(SECTION_EXTRACTORS).find(
-    (k) => k === opts.sectionName || k.toLowerCase() === opts.sectionName.toLowerCase()
-  );
+  if (!opts.extractFn || typeof opts.extractFn !== 'function') return { ok: false, error: 'no_extractFn_provided' };
   if (!sectionKey) {
     if (NOOP_SECTIONS.has(opts.sectionName)) return { ok: false, error: 'no_extractor_needed' };
     return { ok: false, error: `unknown section: ${opts.sectionName}` };
@@ -80,86 +46,65 @@ async function retrySection(opts) {
   if (!start || !end || end < start) return { ok: false, error: `invalid page range: ${JSON.stringify(opts.pageRange)}` };
   const pageCount = end - start + 1;
   if (pageCount > 200) return { ok: false, error: `page range too large (${pageCount} pages, max 200)` };
-  log(`  fallback: slicing ${pageCount} pages (${start}-${end}) — Firecrawl cost approx ${pageCount} credits`);
+  if (!opts.markdown) return { ok: false, error: 'no_markdown_provided' };
 
-  const cfg = SECTION_EXTRACTORS[sectionKey];
-
-  // 1. Get a local PDF path (download from R2 if needed)
-  let localPdfPath = opts.localPdfPath;
-  if (!localPdfPath && opts.pdfUrl) {
-    localPdfPath = await downloadPdfFromUrl(opts.pdfUrl, opts.slug, opts.docType);
-    log(`  fallback ${sectionKey}: downloaded PDF from R2`);
+  // 1. Slice markdown to the section's page range using PAGE markers.
+  const pageRe = /=====\s*PAGE\s+(\d+)\s*=====/gi;
+  const pages = [];
+  let lastIdx = 0;
+  let lastPage = null;
+  let m;
+  while ((m = pageRe.exec(opts.markdown)) !== null) {
+    const pageNum = parseInt(m[1], 10);
+    if (lastPage != null) pages.push({ page: lastPage, start: lastIdx, end: m.index });
+    lastPage = pageNum;
+    lastIdx = m.index;
   }
-  if (!localPdfPath) return { ok: false, error: 'no_pdf_source_available' };
+  if (lastPage != null) pages.push({ page: lastPage, start: lastIdx, end: opts.markdown.length });
 
-  // 2. Slice PDF to the section's page range
-  let slicePath;
-  try {
-    slicePath = await slicePdfPages(localPdfPath, start, end);
-    log(`  fallback ${sectionKey}: sliced pages ${start}-${end} → ${path.basename(slicePath)}`);
-  } catch (e) {
-    return { ok: false, error: `slice_failed: ${e.message}` };
-  }
+  const sliceParts = pages.filter((p) => p.page >= start && p.page <= end);
+  if (!sliceParts.length) return { ok: false, error: `no pages found in range ${start}-${end}` };
 
-  // 3. Upload sliced PDF to R2 so Firecrawl can reach it
-  const sliceKey = `fallback/${opts.slug}/${opts.docType}/${sectionKey}_p${start}-${end}.pdf`;
-  try {
-    if (!(await objectExists(sliceKey))) {
-      await uploadFile(slicePath, sliceKey);
-    }
-  } catch (e) {
-    fs.unlink(slicePath, () => {});
-    return { ok: false, error: `upload_failed: ${e.message}` };
-  }
+  const slicedMd = sliceParts.map((p) => opts.markdown.slice(p.start, p.end)).join('\n');
+  log(`  fallback ${opts.sectionName}: sliced ${sliceParts.length} pages (${start}-${end}) from markdown → ${slicedMd.length} chars`);
+
+  // 2. Upload sliced markdown to R2 so Firecrawl can reach it
+  const sliceKey = `fallback/${opts.slug}/${opts.docType}/${opts.sectionName}_p${start}-${end}.md`;
+  if (!(await objectExists(sliceKey))) await putText(sliceKey, slicedMd);
   const sliceUrl = getPublicUrl(sliceKey);
-  fs.unlink(slicePath, () => {});
 
-  // 3. Firecrawl scrape the sliced PDF → markdown + structured JSON
+  // 3. Firecrawl scrape the sliced markdown
   let md;
   try {
     const result = await scrapeToMarkdown(sliceUrl);
     md = result.markdown;
-    log(`  fallback ${sectionKey}: Firecrawl returned ${md.length} chars of markdown`);
+    log(`  fallback ${opts.sectionName}: Firecrawl returned ${md.length} chars`);
   } catch (e) {
     return { ok: false, error: `firecrawl_failed: ${e.message}` };
   }
   if (!md || md.length < 50) return { ok: false, error: 'firecrawl_returned_empty_markdown' };
 
-  // 4. Run the relevant deterministic extractor on the section markdown
+  // 4. Run the extractor directly on the Firecrawl markdown
   let extracted;
   try {
-    const mod = require(cfg.extractorPath);
-    const fn = mod[cfg.extractFn];
-    if (typeof fn !== 'function') return { ok: false, error: `extractor ${cfg.extractFn} not found` };
-    extracted = fn(md);
-    log(`  fallback ${sectionKey}: extractor returned ${extracted ? 'data' : 'null'}`);
+    extracted = opts.extractFn(md);
+    log(`  fallback ${opts.sectionName}: extractor returned ${extracted ? 'data' : 'null'}`);
   } catch (e) {
     return { ok: false, error: `extraction_failed: ${e.message}` };
   }
   if (!extracted) return { ok: false, error: 'extractor_returned_null' };
 
   // 5. Validate
-  const flat = flattenExtraction(extracted, sectionKey);
+  const flat = flattenExtraction(extracted, opts.sectionName);
   const validation = validateExtraction(flat);
 
-  log(`  fallback ${sectionKey}: validation score=${validation.score}, needsReview=${validation.needsReview}`);
+  log(`  fallback ${opts.sectionName}: validation score=${validation.score}, needsReview=${validation.needsReview}`);
 
   return {
     ok: validation.score >= 0.7 && !validation.needsReview,
     data: extracted,
     validation,
   };
-}
-
-/**
- * Slice a PDF to [start, end] pages using pdfSlicer.
- */
-async function slicePdfPages(inputPath, start, end) {
-  if (!inputPath || !fs.existsSync(inputPath)) throw new Error(`PDF not found: ${inputPath}`);
-  const { slicePdf } = require('./pdfSlicer');
-  const out = path.join(os.tmpdir(), `fallback_${path.basename(inputPath, '.pdf')}_p${start}-${end}_${Date.now()}.pdf`);
-  await slicePdf(inputPath, start, end, out);
-  return out;
 }
 
 /**
@@ -191,19 +136,6 @@ function flattenExtraction(data, sectionKey) {
     }
   }
   return flat;
-}
-
-/**
- * Download a PDF from a URL to a temp file and return the local path.
- */
-async function downloadPdfFromUrl(url, slug, docType) {
-  const { downloadPdf } = require('./pdfDownloader');
-  // pdfDownloader already handles URL → local file
-  const dl = await downloadPdf(url);
-  if (dl.status !== 'success' && dl.status !== 'already_parsed') {
-    throw new Error(`download_failed: ${dl.status}`);
-  }
-  return dl.filePath;
 }
 
 module.exports = { retrySection, SECTION_EXTRACTORS };

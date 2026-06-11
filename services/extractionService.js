@@ -17,7 +17,6 @@ const { extractIntermediaries } = require('../utils/intermediariesExtractor');
 const { extractObjects } = require('../utils/objectsExtractor');
 const { extractPromoters } = require('../utils/promotersExtractor');
 const { validateExtraction } = require('../utils/validation');
-const { retrySection } = require('../utils/sectionFallback');
 
 // KPI row matchers — abbreviation- AND phrase-aware (prospectus tables use both).
 const KPI_METRICS = [
@@ -266,98 +265,6 @@ async function runExtraction(slug, opts = {}) {
 
   const validation = validateExtraction(flat, { provenance: allProvenance });
   log(`validation: score ${validation.score}${validation.needsReview ? ' — NEEDS REVIEW' : ''} (${validation.sanity.flagged.length} sanity flags, ${validation.consistency.failed.length} consistency fails)`);
-
-  // ── Fallback: retry failed sections with PDF-slice → Firecrawl ──────────
-  // If validation failed (sanity, consistency, or low score), identify which
-  // sections are responsible and retry just those sections via Firecrawl on a
-  // page-range PDF slice.
-  let usedFallback = false;
-  if (validation.needsReview && docType) {
-    const docMeta = (ipo.documents || {})[docType] || {};
-    const sectionPages = docMeta.sectionPages || {};
-
-    // Map sections to their relevant validation fields
-    const sectionMap = [
-      { name: 'financials', fields: ['revenueFromOperations','totalIncome','ebitda','profitAfterTax','netWorth','totalBorrowings','basicEPS','dilutedEPS','ronw','netAssetValue'], shortKey: 'financials' },
-      { name: 'kpis', fields: ['roce','ronw','roe','debtEquity','ebitdaMargin','patMargin','grossMargin','priceToBook','currentRatio','nav','eps'], shortKey: 'kpis' },
-      { name: 'objectsOfIssue', fields: ['objectCount','objectsTotal'], shortKey: 'objects-of-issue' },
-    ];
-
-    for (const { name, shortKey } of sectionMap) {
-      // If validation flagged needsReview, try Firecrawl on every section that
-      // has page ranges. The per-section retry is scoped to just that section's
-      // pages so it's cheap (1-20 pages typically, max 200).
-      const pageRange = sectionPages[shortKey];
-      if (!pageRange || !pageRange.start || !pageRange.end) continue;
-
-      log(`  fallback: "${name}" needs review → slicing pages ${pageRange.start}-${pageRange.end} for Firecrawl`);
-
-      const result = await retrySection({
-        slug,
-        docType,
-        sectionName: name,
-        pageRange,
-        pdfUrl: docMeta.r2Url || docMeta.url,
-        log,
-      });
-
-      if (result.ok && result.data) {
-        if (name === 'financials') {
-          const m = result.data.metrics || [];
-          const metrics = {};
-          for (const item of m) if (item.key && item.values) metrics[item.key] = item.values;
-          financials = { periods: result.data.periods || [], metrics, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
-        } else if (name === 'kpis') {
-          const kpiObj = {};
-          for (const item of (result.data.kpis || [])) if (item.key && item.values) kpiObj[item.key] = item.values;
-          kpis = { periods: result.data.periods || null, kpis: kpiObj, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
-        } else if (name === 'objectsOfIssue') {
-          objects = { ...result.data, docSource: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
-          objectsRaw = result.data;
-        }
-        usedFallback = true;
-        log(`  fallback "${name}" succeeded (score ${result.validation.score})`);
-      } else {
-        log(`  fallback "${name}" failed: ${result.error}`);
-      }
-    }
-
-    // Re-run validation if fallback replaced any data
-    if (usedFallback) {
-      const newFlat = {};
-      if (financials) {
-        for (const [k, vals] of Object.entries(financials.metrics || {})) {
-          const lastVal = Array.isArray(vals) ? vals[vals.length - 1] : null;
-          if (lastVal != null) newFlat[k] = lastVal;
-        }
-      }
-      if (kpis) {
-        for (const [k, vals] of Object.entries(kpis.kpis || {})) {
-          const lastVal = Array.isArray(vals) ? vals[vals.length - 1] : null;
-          if (lastVal != null) newFlat[k] = lastVal;
-        }
-      }
-      if (issueDetails) {
-        for (const k of ['totalIssueShares','freshIssueShares','ofsShares','marketMakerShares',
-          'employeeReservationShares','netOfferShares','preIssueShares','postIssueShares']) {
-          if (issueDetails[k] != null) newFlat[k] = issueDetails[k];
-        }
-        if (ipo.priceBand) { newFlat.priceMin = ipo.priceBand.min; newFlat.priceMax = ipo.priceBand.max; }
-        if (ipo.faceValue) newFlat.faceValue = ipo.faceValue;
-        if (ipo.issuePrice) newFlat.issuePrice = ipo.issuePrice;
-      }
-      if (promoters) { newFlat.promoters = promoters.promoters; newFlat.promoterCount = promoters.promoters.length; }
-      if (intermediaries) newFlat.leadManagerCount = intermediaries.leadManagers.length;
-      if (objects) { newFlat.objectCount = objects.objects.length; if (objects.total != null) newFlat.objectsTotal = objects.total; }
-
-      const newValidation = validateExtraction(newFlat);
-      log(`post-fallback validation: score ${newValidation.score}${newValidation.needsReview ? ' — STILL NEEDS REVIEW' : ' — PASSED'}`);
-      validation.fallbackAttempted = true;
-      validation.fallbackUsed = usedFallback;
-      validation.fallbackValidationScore = newValidation.score;
-      validation.fallbackNeedsReview = newValidation.needsReview;
-    }
-  }
 
   const now = new Date().toISOString();
   const set = { updatedAt: now, validation };

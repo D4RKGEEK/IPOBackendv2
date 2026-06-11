@@ -1,11 +1,7 @@
 # document-pipeline
-- Upload HTML directly to Firecrawl's `/v2/parse` endpoint (multipart file upload) instead of uploading to R2 first — avoids R2 storage and round-trip latency. Confidence: 0.65
+- Upload HTML directly to Firecrawl's `/v2/parse` endpoint (multipart file upload) instead of uploading to R2 first — avoids R2 storage and round-trip latency. NOTE: Deprecated — Firecrawl not used anymore. Confidence: 0.65
 - Resolve Google Drive document links to direct download URLs instead of rejecting them. Confidence: 0.70
 - Detect section page ranges by skipping the first ~5 pages (cover + TOC) of Indian IPO prospectuses since pdfjs-dist returns text as space-joined strings (no line breaks), making trailing-page-number heuristics unreliable. Confidence: 0.75
-- Minimize Firecrawl API calls — prefer batch/single-call strategies over per-section API calls to reduce cost and latency. Confidence: 0.65
-- Use fallback chain for extraction: regex → validate → for failed sections → slice PDF to section pages → Firecrawl scrape → re-run extractor → validate. Confidence: 0.80
-- Include provenance logging for all extracted data: track extraction method (regex vs firecrawl fallback), which module/function did the extraction, and why fallback was triggered. Confidence: 0.75
+- Do NOT use Firecrawl as a fallback for extraction — the data returned is unreliable/incorrect; rely solely on regex extraction from the original Nutrient-generated markdown. Confidence: 0.85
+- Include provenance logging for all extracted data: track extraction method (regex vs firecrawl fallback), which module/function did the extraction, and why fallback was triggered. NOTE: Firecrawl fallback is deprecated. Confidence: 0.75
 - Cap Firecrawl fallback page range at 200 pages max per section. Confidence: 0.70
-- In the Firecrawl fallback path, Firecrawl must receive **markdown or HTML, never raw PDFs** — user explicitly corrected that PDFs should not be sent to Firecrawl (to avoid per-page PDF fees); HTML is preferred because Firecrawl charges 1 credit flat for HTML vs per-page for PDF. Confidence: 0.90
-- When passing pdfjs-extracted text through Firecrawl, wrap it in HTML with `<table>` tags around pipe-delimited content so Firecrawl's markdown converter can properly structure the tables on re-scrape. Confidence: 0.85
-- Use Firecrawl's **`/v2/parse` endpoint with per-section JSON schemas + extraction prompts** as the fallback — for each section that fails validation, convert its pages to HTML and call Parse with a section-specific JSON schema and prompt describing what to extract (e.g., financials schema gets revenue/PAT/EBITDA fields, other sections get their own schemas). Confidence: 0.45

@@ -282,18 +282,10 @@ async function runExtraction(slug, opts = {}) {
       { name: 'objectsOfIssue', fields: ['objectCount','objectsTotal'], shortKey: 'objects-of-issue' },
     ];
 
-    for (const { name, fields, shortKey } of sectionMap) {
-      // Check if this section has sanity-flagged fields
-      const sanityInvolved = validation.sanity.flagged.some((f) => fields.includes(f.field));
-
-      // Check if the section failed to extract anything at all
-      const extractedNothing = (name === 'financials' && (!financials || !Object.keys(financials.metrics || {}).length))
-        || (name === 'kpis' && (!kpis || !Object.keys(kpis.kpis || {}).length))
-        || (name === 'objectsOfIssue' && (!objects || !objects.objects.length));
-
-      // Only trigger Firecrawl when we actually need better data
-      if (!sanityInvolved && !extractedNothing) continue;
-
+    for (const { name, shortKey } of sectionMap) {
+      // If validation flagged needsReview, try Firecrawl on every section that
+      // has page ranges. The per-section retry is scoped to just that section's
+      // pages so it's cheap (1-20 pages typically, max 200).
       const pageRange = sectionPages[shortKey];
       if (!pageRange || !pageRange.start || !pageRange.end) continue;
 

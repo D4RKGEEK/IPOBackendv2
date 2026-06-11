@@ -78,13 +78,22 @@ function parseTable(items, yTolerance = 3, xTolerance = 5) {
 // ---------------------------------------------------------------------------
 
 const FIN_METRICS = [
-  ['revenueFromOperations', ['revenue from operations', 'revenue from operation']],
+  ['totalAssets', ['total assets', 'total equity and liabilities', 'balance sheet total']],
   ['totalIncome', ['total income']],
+  ['revenueFromOperations', ['revenue from operations', 'revenue from operation', 'i. revenue']],
   ['ebitda', ['ebitda', 'earnings before interest']],
-  ['profitAfterTax', ['profit/(loss) for the period', 'profit for the period', 'profit after tax', 'profit/ (loss) for the period', 'net profit']],
-  ['netWorth', ['net worth', 'total equity']],
-  ['totalBorrowings', ['total borrowings', 'long-term borrowings', 'short-term borrowings']],
-  ['basicEPS', ['basic.*eps', 'basic.*earning.*share', 'earning.*share']],
+  ['profitBeforeTax', ['profit before tax', 'profit/(loss) before tax', 'profit before exceptional']],
+  ['profitAfterTax', ['profit/(loss) for the period', 'profit for the period', 'profit after tax', 'profit/ (loss) for the period', 'net profit', 'xi. profit']],
+  ['netWorth', ['total equity', 'total shareholder', 'net worth']],
+  ['reservesAndSurplus', ['reserves and surplus', 'reserves & surplus']],
+  ['shareCapital', ['share capital']],
+  ['totalAssets', ['total equity and liabilities', 'total assets']],
+  ['totalBorrowings', ['total borrowings']], // NOT 'borrowings' — that would match long-term/short-term first
+  ['longTermBorrowings', ['long-term borrowings', 'long term borrowings']],
+  ['shortTermBorrowings', ['short-term borrowings', 'short term borrowings']],
+  ['depreciation', ['depreciation and amortization', 'depreciation']],
+  ['financeCosts', ['finance costs', 'finance cost']],
+  ['basicEPS', ['basic.*eps', 'basic.*earning.*share', 'earning.*share', 'basic']],
   ['dilutedEPS', ['diluted.*eps', 'diluted.*earning.*share']],
   ['ronw', ['return on net worth', 'ronw']],
   ['netAssetValue', ['net asset value', 'nav per share']],
@@ -133,18 +142,25 @@ function matchMetric(cellText, metricList) {
 // ---------------------------------------------------------------------------
 
 function readValues(row, periodXs) {
+  // Filter valid data cells (numbers, not annotations)
+  const dataCells = row.cells.filter((c) => {
+    const clean = c.text.replace(/[,()]/g, '');
+    if (!IS_NUMBER.test(clean) && !/^-?\d*\.?\d+$/.test(clean)) return false;
+    if (!clean.includes(',') && !clean.includes('.') && /^\d{1,3}$/.test(clean)) return false;
+    return true;
+  });
+  if (!dataCells.length) return periodXs.map(() => null);
+
+  // Greedy nearest-neighbor assignment without reuse
+  const used = new Set();
   return periodXs.map((px) => {
-    // Find the cell in this row with the best x-match to this period position,
-    // skipping annexure refs (small integers like 21, 22)
-    const dataCells = row.cells.filter((c) => {
-      const clean = c.text.replace(/[,()]/g, '');
-      return IS_NUMBER.test(clean) || /^-?\d*\.?\d+$/.test(clean);
-    });
-    let best = null, bestDist = 60;
-    for (const dc of dataCells) {
-      const dx = Math.abs(dc.x - px);
-      if (dx < bestDist) { best = dc; bestDist = dx; }
+    let best = null, bestDist = 120, bestIdx = -1;
+    for (let i = 0; i < dataCells.length; i++) {
+      if (used.has(i)) continue;
+      const dx = Math.abs(dataCells[i].x - px);
+      if (dx < bestDist) { bestDist = dx; best = dataCells[i]; bestIdx = i; }
     }
+    if (best) used.add(bestIdx);
     return best ? parseIndianNum(best.text) : null;
   });
 }

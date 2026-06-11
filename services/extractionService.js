@@ -196,6 +196,17 @@ async function runExtraction(slug, opts = {}) {
                 if (!merged.metrics[k]) merged.metrics[k] = v;
               }
             }
+            // Compute EBITDA = PBT + Finance Costs + Depreciation (if not explicitly present)
+            if (!merged.metrics.ebitda && merged.metrics.profitBeforeTax) {
+              const fc = merged.metrics.financeCosts || merged.metrics.profitBeforeTax.map(() => 0);
+              const da = merged.metrics.depreciation || merged.metrics.profitBeforeTax.map(() => 0);
+              if (merged.metrics.profitBeforeTax.every((v) => v != null)) {
+                merged.metrics.ebitda = merged.metrics.profitBeforeTax.map((v, i) => {
+                  const pbt = v || 0;
+                  return pbt + (fc[i] || 0) + (da[i] || 0);
+                });
+              }
+            }
             financials = { ...merged, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
             log(`financials (pdf coords): ${Object.keys(merged.metrics).length} metrics from ${finResults.length} pages`);
           }

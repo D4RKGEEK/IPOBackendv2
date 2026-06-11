@@ -6,6 +6,15 @@
  * we can see how well extraction works across the corpus.
  */
 
+// Polyfill for pdfjs-dist (Node <22 compat)
+if (typeof Promise.withResolvers === 'undefined') {
+  Promise.withResolvers = function () {
+    let resolve, reject;
+    const promise = new Promise((res, rej) => { resolve = res; reject = rej; });
+    return { promise, resolve, reject };
+  };
+}
+
 require('dotenv').config();
 
 const { connect, collections, close } = require('../db/mongo');

@@ -9,6 +9,7 @@
  */
 
 const { parseMarkdownTables, parseNum } = require('./markdownTables');
+const { provenance } = require('./validation');
 
 const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 const round2 = (n) => (n == null ? null : Math.round(n * 100) / 100);
@@ -110,7 +111,12 @@ function extractObjects(md) {
   const known = objects.map((o) => o.amount).filter((v) => v != null);
   if (total == null && known.length) total = round2(known.reduce((a, b) => a + b, 0));
 
-  return { objects, total, totalCr: cr(total), unit, source };
+  const _provenance = {};
+  _provenance.objects = provenance('objects', source === 'table' ? 'pickObjectsTable::table-rows' : 'objectsFromList::numbered-list', 'objects-of-issue', source);
+  _provenance.unit = provenance('unit', 'detectUnit::regex', 'objects-of-issue', 'prose');
+  if (total != null) _provenance.total = provenance('total', source === 'table' ? 'table-total-row' : 'sum-of-known', 'objects-of-issue', source);
+
+  return { objects, total, totalCr: cr(total), unit, source, _provenance };
 }
 
 module.exports = { extractObjects, cleanObjectName, pickObjectsTable, objectsFromList, detectUnit };

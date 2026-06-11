@@ -10,6 +10,7 @@
  */
 
 const { jaroWinkler } = require('./jaroWinkler');
+const { provenance } = require('./validation');
 
 const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 const cleanName = (s) => norm(s).replace(/[•·*"“”]/g, '').replace(/\s*,\s*$/, '').trim();
@@ -155,11 +156,14 @@ function extractCompany(text, companyName) {
  */
 function extractIntermediaries(md, opts = {}) {
   const text = norm(md);
-  return {
-    leadManagers: extractLeadManagers(text),
-    registrar: extractRegistrar(text),
-    company: extractCompany(text, opts.companyName),
-  };
+  const leadManagers = extractLeadManagers(text);
+  const registrar = extractRegistrar(text);
+  const company = extractCompany(text, opts.companyName);
+  const _provenance = {};
+  if (leadManagers.length) _provenance.leadManagers = provenance('leadManagers', 'lead_manager_regex', 'cover-or-intermediaries-section', 'prose');
+  if (registrar) _provenance.registrar = provenance('registrar', 'registrar_regex', 'cover-or-intermediaries-section', 'prose');
+  if (company) _provenance.company = provenance('company', 'company_block_regex', 'cover', 'prose');
+  return { leadManagers, registrar, company, _provenance };
 }
 
 module.exports = { extractIntermediaries, extractLeadManagers, extractRegistrar, extractCompany, cleanName, cleanPhone, cleanEmail };

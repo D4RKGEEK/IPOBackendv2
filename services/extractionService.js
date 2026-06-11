@@ -16,6 +16,7 @@ const { extractIssueDetails, computeAmounts } = require('../utils/issueDetailsEx
 const { extractIntermediaries } = require('../utils/intermediariesExtractor');
 const { extractObjects } = require('../utils/objectsExtractor');
 const { extractPromoters } = require('../utils/promotersExtractor');
+const { validateExtraction } = require('../utils/validation');
 
 // KPI row matchers — abbreviation- AND phrase-aware (prospectus tables use both).
 const KPI_METRICS = [
@@ -156,6 +157,7 @@ async function runExtraction(slug, opts = {}) {
 
   const docType = pickDoc(ipo);
   let financials = null; let kpis = null; let issueDetails = null; let intermediaries = null; let objects = null; let promoters = null;
+  let issueDetailsRaw = null; let objectsRaw = null; let promotersRaw = null;
   if (docType) {
     const sym = ipo.symbol || ipo.slug;
     log(`reading ${docType} markdown from R2`);
@@ -169,6 +171,7 @@ async function runExtraction(slug, opts = {}) {
 
     // Offer structure (shares from RHP, ₹ amounts computed from API cap price).
     const raw = extractIssueDetails(md, { isSme: ipo.issueType === 'SME' });
+    issueDetailsRaw = raw;
     const capPrice = ipo.issuePrice || (ipo.priceBand && ipo.priceBand.max) || null;
     const amounts = computeAmounts(raw, capPrice, ipo.issueType === 'SME');
     issueDetails = {
@@ -202,16 +205,68 @@ async function runExtraction(slug, opts = {}) {
     log(`intermediaries: ${intermediaries.leadManagers.length} LM, registrar ${intermediaries.registrar ? '✓' : '✗'}, company ${intermediaries.company ? '✓' : '✗'}`);
 
     const obj = extractObjects(md);
-    if (obj) { objects = { ...obj, docSource: docType, extractedAt: new Date().toISOString() }; log(`objects: ${obj.objects.length} (${obj.source}), total ${obj.totalCr ?? '?'} Cr`); }
+    if (obj) { objectsRaw = obj; objects = { ...obj, docSource: docType, extractedAt: new Date().toISOString() }; log(`objects: ${obj.objects.length} (${obj.source}), total ${obj.totalCr ?? '?'} Cr`); }
 
     const promo = extractPromoters(md);
-    if (promo) { promoters = { ...promo, docSource: docType, extractedAt: new Date().toISOString() }; log(`promoters: ${promo.promoters.length} names, confidence ${promo.confidence}`); }
+    if (promo) { promotersRaw = promo; promoters = { ...promo, docSource: docType, extractedAt: new Date().toISOString() }; log(`promoters: ${promo.promoters.length} names, confidence ${promo.confidence}`); }
   } else {
     log('no extracted document markdown available — lot details only');
   }
 
+  // ── Validation pass ──────────────────────────────────────────────────────
+  // Collect ALL extracted values into a flat map for cross-field consistency.
+  const flat = {};
+  // Financials
+  if (financials) {
+    for (const [k, vals] of Object.entries(financials.metrics || {})) {
+      const lastVal = Array.isArray(vals) ? vals[vals.length - 1] : null;
+      if (lastVal != null) flat[k] = lastVal;
+    }
+  }
+  // KPIs
+  if (kpis) {
+    for (const [k, vals] of Object.entries(kpis.kpis || {})) {
+      const lastVal = Array.isArray(vals) ? vals[vals.length - 1] : null;
+      if (lastVal != null) flat[k] = lastVal;
+    }
+  }
+  // Issue details
+  if (issueDetails) {
+    for (const k of ['totalIssueShares','freshIssueShares','ofsShares','marketMakerShares',
+      'employeeReservationShares','netOfferShares','preIssueShares','postIssueShares']) {
+      if (issueDetails[k] != null) flat[k] = issueDetails[k];
+    }
+    if (ipo.priceBand) { flat.priceMin = ipo.priceBand.min; flat.priceMax = ipo.priceBand.max; }
+    if (ipo.faceValue) flat.faceValue = ipo.faceValue;
+    if (ipo.issuePrice) flat.issuePrice = ipo.issuePrice;
+  }
+  // Promoters
+  if (promoters) {
+    flat.promoters = promoters.promoters;
+    flat.promoterCount = promoters.promoters.length;
+  }
+  // Intermediaries
+  if (intermediaries) {
+    flat.leadManagerCount = intermediaries.leadManagers.length;
+  }
+  // Objects
+  if (objects) {
+    flat.objectCount = objects.objects.length;
+    if (objects.total != null) flat.objectsTotal = objects.total;
+  }
+
+  // Build provenance from all extractors
+  const allProvenance = {};
+  if (issueDetailsRaw && issueDetailsRaw._provenance) Object.assign(allProvenance, issueDetailsRaw._provenance);
+  if (objectsRaw && objectsRaw._provenance) Object.assign(allProvenance, objectsRaw._provenance);
+  if (promotersRaw && promotersRaw._provenance) Object.assign(allProvenance, promotersRaw._provenance);
+  if (intermediaries && intermediaries._provenance) Object.assign(allProvenance, intermediaries._provenance);
+
+  const validation = validateExtraction(flat, { provenance: allProvenance });
+  log(`validation: score ${validation.score}${validation.needsReview ? ' — NEEDS REVIEW' : ''} (${validation.sanity.flagged.length} sanity flags, ${validation.consistency.failed.length} consistency fails)`);
+
   const now = new Date().toISOString();
-  const set = { updatedAt: now };
+  const set = { updatedAt: now, validation };
   if (financials) set.financials = financials;
   if (kpis) set.kpis = kpis;
   if (lotDetails) set.lotDetails = lotDetails;
@@ -230,6 +285,7 @@ async function runExtraction(slug, opts = {}) {
     intermediaries: intermediaries ? { leadManagers: intermediaries.leadManagers.length, registrar: !!intermediaries.registrar } : null,
     objects: objects ? { count: objects.objects.length, totalCr: objects.totalCr, source: objects.source } : null,
     promoters: promoters ? { count: promoters.promoters.length, names: promoters.promoters, confidence: promoters.confidence } : null,
+    validation: { score: validation.score, needsReview: validation.needsReview, flagged: validation.sanity.flagged.length, consistencyFails: validation.consistency.failed.length },
   };
 }
 

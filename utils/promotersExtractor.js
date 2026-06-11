@@ -12,6 +12,7 @@
  */
 
 const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+const { provenance } = require('./validation');
 
 /** Known non-name boilerplate that can appear after "PROMOTERS OF THE COMPANY:" */
 const NON_NAMES = /^(?:the\s+)?(?:issue|offer)\s*$/i;
@@ -127,6 +128,15 @@ function extractPromoters(md) {
 
   if (hits.length === 0) return null;
 
+  // Track which source patterns produced the names
+  const _provenance = {};
+  for (const h of hits) {
+    for (const n of h.names) {
+      const key = n.toLowerCase().replace(/[^a-z]/g, '');
+      if (!_provenance[key]) _provenance[key] = provenance('promoter', h.source, 'promoters-section', h.source);
+    }
+  }
+
   // Dedupe: collect all unique names across all hits (deduped by normalized form)
   const seen = new Set();
   const allNames = [];
@@ -140,16 +150,16 @@ function extractPromoters(md) {
 
   // Prefer cover page source
   const cover = hits.find((h) => h.source === 'cover');
-  if (cover) return { promoters: allNames, confidence: 'high', source: 'multi' };
+  if (cover) return { promoters: allNames, confidence: 'high', source: 'multi', _provenance };
 
   // 2+ patterns = high confidence
   const uniqueSources = new Set(hits.map((h) => h.source));
   if (uniqueSources.size >= 2 || hits.length >= 2) {
-    return { promoters: allNames, confidence: 'high', source: 'multi' };
+    return { promoters: allNames, confidence: 'high', source: 'multi', _provenance };
   }
 
   // Single non-cover pattern
-  return { promoters: allNames, confidence: 'medium', source: hits[0].source };
+  return { promoters: allNames, confidence: 'medium', source: hits[0].source, _provenance };
 }
 
 module.exports = { extractPromoters, parseNames };

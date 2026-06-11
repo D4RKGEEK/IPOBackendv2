@@ -17,6 +17,7 @@
 
 const { parseMarkdownTables } = require('./markdownTables');
 const { jaroWinkler } = require('./jaroWinkler');
+const { provenance } = require('./validation');
 
 const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
@@ -164,13 +165,20 @@ function deriveSaleType(fresh, ofs) {
   return 'Fresh capital only';
 }
 
-/** Extract issue-details from RHP markdown. */
+/** Extract issue-details from RHP markdown with provenance tracking. */
 function extractIssueDetails(md, opts = {}) {
   const isSme = opts.isSme !== false; // default SME (most of our data)
   const tables = parseMarkdownTables(md);
   const text = norm(md);
   const cand = {};
-  for (const field of Object.keys(LABEL_PATTERNS)) cand[field] = candidatesFor(tables, text, field);
+  const _provenance = {};
+  for (const field of Object.keys(LABEL_PATTERNS)) {
+    cand[field] = candidatesFor(tables, text, field);
+    const tableVals = allFromTables(tables, LABEL_PATTERNS[field] || []);
+    const proseVals = allFromProse(text, PROSE_PATTERNS[field] || []);
+    if (tableVals.length) _provenance[field] = provenance(field, `LABEL_PATTERNS::${field}`, 'issue-table', 'table-row');
+    else if (proseVals.length) _provenance[field] = provenance(field, `PROSE_PATTERNS::${field}`, 'cover', 'prose');
+  }
 
   const out = {};
   out.ofsShares = cand.ofsShares[0] ?? null;
@@ -184,6 +192,10 @@ function extractIssueDetails(md, opts = {}) {
     out.marketMakerShares = r.mm;
     out.employeeReservationShares = r.emp;
     out.netOfferShares = r.net;
+    if (r.fresh != null) _provenance.freshIssueShares = provenance('freshIssueShares', 'resolveReservations::arithmetic', 'issue-table', 'table-row');
+    if (r.mm != null) _provenance.marketMakerShares = provenance('marketMakerShares', 'resolveReservations::arithmetic', 'issue-table', 'table-row');
+    if (r.emp != null) _provenance.employeeReservationShares = provenance('employeeReservationShares', 'resolveReservations::arithmetic', 'issue-table', 'table-row');
+    if (r.net != null) _provenance.netOfferShares = provenance('netOfferShares', 'resolveReservations::arithmetic', 'issue-table', 'table-row');
   } else {
     // Mainboard: no market maker; offer = fresh + OFS; net = offer − reservations.
     out.marketMakerShares = null;
@@ -191,29 +203,42 @@ function extractIssueDetails(md, opts = {}) {
     out.freshIssueShares = ofsOnly ? 0 : (cand.freshIssueShares[0] ?? null);
     out.netOfferShares = cand.netOfferShares[0] ?? null;
   }
-  if (out.ofsShares == null && /(ofs\s+size\s+nil|entire\s+(?:issue|offer)\s+constitutes\s+fresh|offer\s+for\s+sale[^.]{0,20}(?:nil|not\s+applicable))/i.test(text)) out.ofsShares = 0;
+  if (out.ofsShares == null && /(ofs\s+size\s+nil|entire\s+(?:issue|offer)\s+constitutes\s+fresh|offer\s+for\s+sale[^.]{0,20}(?:nil|not\s+applicable))/i.test(text)) {
+    out.ofsShares = 0;
+    _provenance.ofsShares = provenance('ofsShares', 'PROSE_PATTERNS::ofs_nil_detected', 'cover', 'prose');
+  }
 
   // Total = fresh + ofs (or a matching candidate).
   const computedTotal = (out.freshIssueShares != null || out.ofsShares != null) ? (out.freshIssueShares || 0) + (out.ofsShares || 0) : null;
   out.totalIssueShares = cand.totalIssueShares.find((t) => t === computedTotal) ?? cand.totalIssueShares[0] ?? computedTotal;
+  if (!_provenance.totalIssueShares && out.totalIssueShares != null) {
+    _provenance.totalIssueShares = provenance('totalIssueShares', cand.totalIssueShares.find((t) => t === computedTotal) ? 'LABEL_PATTERNS::totalIssueShares' : 'computed::fresh+ofs', 'issue-table', 'computed');
+  }
 
   const pp = resolvePrePost(cand.preIssueShares, cand.postIssueShares, out.freshIssueShares);
   out.preIssueShares = pp.pre;
   out.postIssueShares = pp.post;
+  if (pp.pre != null) _provenance.preIssueShares = provenance('preIssueShares', 'resolvePrePost::arithmetic', 'issue-table', 'table-row');
+  if (pp.post != null) _provenance.postIssueShares = provenance('postIssueShares', 'resolvePrePost::arithmetic', 'issue-table', 'table-row');
   out._isSme = isSme;
 
   const mm = extractMarketMaker(text);
   out.marketMakerName = mm.name;
   out._marketMakerVariants = mm.variants;
+  if (mm.name) _provenance.marketMakerName = provenance('marketMakerName', 'NAME_PATTERNS', 'cover', 'prose');
+
   out.issueType = /fixed\s+price\s+(?:issue|offer)|100%\s+fixed\s+price/i.test(text) ? 'Fixed Price'
     : /book\s*build/i.test(text) ? 'Bookbuilding' : null;
+  if (out.issueType) _provenance.issueType = provenance('issueType', 'PROSE_PATTERNS::issueType', 'cover', 'prose');
   out.listingAt = /\bBSE\s*SME\b|SME\s+platform\s+of\s+BSE/i.test(text) ? 'BSE SME'
     : /\bNSE\s+EMERGE\b|emerge\s+platform\s+of\s+(?:the\s+)?(?:national\s+stock\s+exchange|nse)/i.test(text) ? 'NSE SME'
     : /\bBSE\b/.test(text) ? 'BSE' : /\bNSE\b/.test(text) ? 'NSE' : null;
+  if (out.listingAt) _provenance.listingAt = provenance('listingAt', 'PROSE_PATTERNS::listingAt', 'cover', 'prose');
   out.saleType = deriveSaleType(out.freshIssueShares, out.ofsShares);
 
   out._arithmetic = arithmetic(out, isSme);
   out.confidence = confidenceOf(out._arithmetic, out);
+  out._provenance = _provenance;
   return out;
 }
 

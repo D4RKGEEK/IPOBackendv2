@@ -38,19 +38,6 @@ const SECTION_SIGNALS = [
 const sha256 = (s) => crypto.createHash('sha256').update(String(s).replace(/\s+/g, ' ').trim()).digest('hex');
 
 /**
- * Check if a page looks like a TOC page — many lines ending in page numbers.
- * A page is TOC-like if >30% of non-trivial lines end in a number (1-4 digits).
- * @param {string} pageText
- * @returns {boolean}
- */
-function isTocPage(pageText) {
-  const lines = pageText.split('\n').filter((l) => l.trim().length > 8);
-  if (lines.length < 3) return false;
-  const withPageNum = lines.filter((l) => /\s+\d{1,4}\s*$/.test(l.trim()));
-  return withPageNum.length / lines.length > 0.3;
-}
-
-/**
  * Detect section page ranges from per-page text.
  * 
  * Key improvement over the old version: skips TOC pages (pages 1-3ish) where
@@ -66,14 +53,14 @@ function isTocPage(pageText) {
  */
 function detectSections(pages) {
   // First pass: identify TOC pages so we can skip them.
-  const tocPages = new Set();
-  for (let i = 0; i < Math.min(pages.length, 10); i++) {
-    if (isTocPage(pages[i])) tocPages.add(i);
-  }
+  // pdfjs-dist returns text as space-joined (not newline-separated), so the
+  // earlier isTocPage() heuristic that checked trailing page numbers on
+  // individual lines doesn't work. The reliable approach: skip the first ~5
+  // pages which are always cover + TOC in Indian IPO prospectuses.
+  const tocPageCount = Math.min(5, pages.length);
 
   const found = {}; // name -> start page (1-based)
-  for (let i = 0; i < pages.length; i++) {
-    if (tocPages.has(i)) continue; // skip TOC — matches would be TOC entries, not real headings
+  for (let i = tocPageCount; i < pages.length; i++) {
     const text = pages[i];
     for (const [name, re] of SECTION_SIGNALS) {
       if (found[name] != null) continue;

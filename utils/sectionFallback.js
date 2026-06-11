@@ -92,7 +92,16 @@ async function retrySection(opts) {
   }
   if (!localPdfPath) return { ok: false, error: 'no_pdf_source_available' };
 
-  // 2. Upload sliced PDF to R2 so Firecrawl can reach it
+  // 2. Slice PDF to the section's page range
+  let slicePath;
+  try {
+    slicePath = await slicePdfPages(localPdfPath, start, end);
+    log(`  fallback ${sectionKey}: sliced pages ${start}-${end} → ${path.basename(slicePath)}`);
+  } catch (e) {
+    return { ok: false, error: `slice_failed: ${e.message}` };
+  }
+
+  // 3. Upload sliced PDF to R2 so Firecrawl can reach it
   const sliceKey = `fallback/${opts.slug}/${opts.docType}/${sectionKey}_p${start}-${end}.pdf`;
   try {
     if (!(await objectExists(sliceKey))) {

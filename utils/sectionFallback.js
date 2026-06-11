@@ -63,19 +63,20 @@ async function retrySection(opts) {
     return { ok: false, error: `slice_failed: ${e.message}` };
   }
 
-  // 3. Read per-page text from the sliced PDF → build HTML
-  let pageTexts;
+  // 3. Read per-page text items (with coordinates) from the sliced PDF → build HTML with tables
+  let pageItems;
   try {
-    const { readPageTexts } = require('./financialsExtractor');
-    pageTexts = await readPageTexts(slicePath);
+    const { readPageItems } = require('./pdfToHtml');
+    pageItems = await readPageItems(slicePath);
   } catch (e) {
     fs.unlink(slicePath, () => {});
     return { ok: false, error: `page_text_failed: ${e.message}` };
   }
   fs.unlink(slicePath, () => {});
 
-  const html = buildHtml(section.shortName, start, pageTexts);
-  log(`  fallback ${opts.sectionName}: built HTML (${html.length} chars, ${pageTexts.length} pages)`);
+  const { pagesToHtml } = require('./pdfToHtml');
+  const html = pagesToHtml(pageItems, `${opts.sectionName} (pages ${start}-${end})`);
+  log(`  fallback ${opts.sectionName}: built HTML with coordinate-based tables (${html.length} chars, ${pageItems.length} pages)`);
 
   // 4. Firecrawl /v2/parse with JSON schema — send HTML directly (no R2 needed)
   let data;
@@ -100,18 +101,6 @@ async function retrySection(opts) {
     data,
     validation,
   };
-}
-
-/** Build a simple HTML doc from per-page text. */
-function buildHtml(sectionName, startPage, pageTexts) {
-  const rows = pageTexts.map((t, i) => {
-    const safe = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return `<h2>Page ${startPage + i}</h2>\n<pre>${safe}</pre>`;
-  });
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
-<h1>${sectionName}</h1>
-${rows.join('\n')}
-</body></html>`;
 }
 
 /** Download PDF to temp file, return path. */

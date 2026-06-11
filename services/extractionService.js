@@ -167,10 +167,61 @@ async function runExtraction(slug, opts = {}) {
     md = await getText(docKey(sym, docType, 'md'));
     const tables = parseMarkdownTables(md);
     log(`parsed ${tables.length} markdown tables`);
-    const fin = extractFinancials(tables);
-    const kpi = extractKpis(tables);
-    if (fin) { financials = { ...fin, source: docType, extractedAt: new Date().toISOString() }; log(`financials: ${Object.keys(fin.metrics).length} metrics over ${fin.periods.length} periods`); }
-    if (kpi) { kpis = { ...kpi, source: docType, extractedAt: new Date().toISOString() }; log(`kpis: ${Object.keys(kpi.kpis).length} ratios`); }
+
+    // Coordinate-based financials + KPIs (primary — more accurate than regex on flat text)
+    try {
+      const docMeta = (ipo.documents || {})[docType] || {};
+      const pdfUrl = docMeta.r2Url || docMeta.url;
+      if (pdfUrl) {
+        const { downloadPdf } = require('../utils/pdfDownloader');
+        const dl = await downloadPdf(pdfUrl);
+        if (dl.status === 'success' || dl.status === 'already_parsed') {
+          const pages = await readPageItems(dl.filePath);
+
+          const finItems = pages.filter((p) => {
+            const t = p.items.map((i) => i.str).join(' ');
+            return /\brestated\b/i.test(t) && /\bprofit.*loss|balance sheet|financial statement/i.test(t);
+          });
+          if (finItems.length) {
+            for (const page of finItems) {
+              const result = extractFinancialsFromItems(page.items);
+              if (result && Object.keys(result.metrics).length >= 2) {
+                financials = { ...result, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
+                log(`financials (pdf coords): ${Object.keys(result.metrics).length} metrics on page ${page.pageNum} over ${result.periods.length} periods`);
+                break;
+              }
+            }
+          }
+
+          const kpiItems = pages.filter((p) => {
+            const t = p.items.map((i) => i.str).join(' ');
+            return /\b(?:return on|roce|ronw|roe|deb.*equity)\b/i.test(t) && /%\b/.test(t);
+          });
+          if (kpiItems.length) {
+            for (const page of kpiItems) {
+              const result = extractKpisFromItems(page.items);
+              if (result && Object.keys(result.kpis).length >= 2) {
+                kpis = { ...result, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
+                log(`kpis (pdf coords): ${Object.keys(result.kpis).length} ratios on page ${page.pageNum}`);
+                break;
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      log(`coordinate extraction failed: ${e.message}`);
+    }
+
+    // Fallback: regex on markdown tables (if coordinate extraction didn't yield results)
+    if (!financials) {
+      const fin = extractFinancials(tables);
+      if (fin) { financials = { ...fin, source: docType, extractedAt: new Date().toISOString() }; log(`financials (regex): ${Object.keys(fin.metrics).length} metrics over ${fin.periods.length} periods`); }
+    }
+    if (!kpis) {
+      const kpi = extractKpis(tables);
+      if (kpi) { kpis = { ...kpi, source: docType, extractedAt: new Date().toISOString() }; log(`kpis (regex): ${Object.keys(kpi.kpis).length} ratios`); }
+    }
 
     // Offer structure (shares from RHP, ₹ amounts computed from API cap price).
     const raw = extractIssueDetails(md, { isSme: ipo.issueType === 'SME' });

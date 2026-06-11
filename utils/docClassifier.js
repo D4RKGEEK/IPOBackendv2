@@ -81,7 +81,7 @@ async function extractCoverText(input, opts = {}) {
   const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
   const fs = require('fs');
   const bytes = Buffer.isBuffer(input) ? input : fs.readFileSync(input);
-  const doc = await pdfjsLib.getDocument({ data: new Uint8Array(bytes), verbosity: 0 }).promise;
+  const doc = await pdfjsLib.getDocument({ data: new Uint8Array(bytes), verbosity: 0, disableWorker: true }).promise;
   const pages = Math.min(opts.pages || 1, doc.numPages);
   let text = '';
   for (let i = 1; i <= pages; i++) {

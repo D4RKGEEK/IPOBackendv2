@@ -89,7 +89,7 @@ function norm(s) {
 async function readPageTexts(filePath) {
   const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
   const data = new Uint8Array(fs.readFileSync(filePath));
-  const doc = await pdfjsLib.getDocument({ data, verbosity: 0 }).promise;
+  const doc = await pdfjsLib.getDocument({ data, verbosity: 0, disableWorker: true }).promise;
   const pages = [];
   for (let i = 1; i <= doc.numPages; i++) {
     const page = await doc.getPage(i);

@@ -138,7 +138,7 @@ async function detectAllTables(filePath) {
   const fs = require('fs');
 
   const data = new Uint8Array(fs.readFileSync(filePath));
-  const doc = await pdfjsLib.getDocument({ data }).promise;
+  const doc = await pdfjsLib.getDocument({ data, disableWorker: true }).promise;
   const totalPages = doc.numPages;
 
   const allTables = [];

@@ -151,7 +151,7 @@ async function extractFinancials(filePath, options = {}) {
   const fs = require('fs');
 
   const data = new Uint8Array(fs.readFileSync(filePath));
-  const doc = await pdfjsLib.getDocument({ data }).promise;
+  const doc = await pdfjsLib.getDocument({ data, disableWorker: true }).promise;
   const totalPages = doc.numPages;
 
   const startPage = options.startPage || 1;

@@ -297,7 +297,7 @@ async function runExtraction(slug, opts = {}) {
         docType,
         sectionName: name,
         pageRange,
-        markdown: md,
+        pdfUrl: docMeta.r2Url || docMeta.url,
         extractFn: name === 'financials' ? (m) => extractFinancials(parseMarkdownTables(m))
           : name === 'kpis' ? (m) => extractKpis(parseMarkdownTables(m))
           : name === 'objectsOfIssue' ? (m) => extractObjects(m)

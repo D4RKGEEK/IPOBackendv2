@@ -2,36 +2,32 @@
 
 /**
  * sectionFallback.js — retry extraction for a single section that failed
- * regex-based validation, using Firecrawl on a page-range markdown slice.
+ * regex-based validation, using Firecrawl on a page-range PDF slice.
  *
  * Flow:
- *   regex extraction → validate → failed? → slice the existing markdown
- *   (which has "===== PAGE N =====" markers) to the section's page range →
- *   upload text slice to R2 → Firecrawl scrape → re-run deterministic
- *   extractor → validate → return
- *
- * No PDF re-parsing — we already have the full markdown. Slicing text is
- * instant and costs nothing.
- *
- * Adding support for a new section? Just add an entry to SECTION_EXTRACTORS below.
+ *   regex extraction → validate → failed? → download full PDF →
+ *   slice to section's page range → upload slice to R2 →
+ *   Firecrawl scrape → re-run deterministic extractor → validate → return
  */
 
+const path = require('path');
+const os = require('os');
+const fs = require('fs');
 const { scrapeToMarkdown } = require('./firecrawl');
-const { getPublicUrl, objectExists, putText } = require('./r2');
+const { putText, getPublicUrl, objectExists } = require('./r2');
 const { validateExtraction } = require('./validation');
-const { getText } = require('./r2');
 
 /**
- * Retry extraction for a single section using Firecrawl on a markdown slice.
+ * Retry extraction for a single section using Firecrawl on a PDF slice.
  *
  * @param {object} opts
- * @param {string} opts.slug        — IPO slug
- * @param {string} opts.docType      — 'drhp' | 'rhp' | 'final'
- * @param {string} opts.sectionName  — section short name (e.g. 'financials')
+ * @param {string} opts.slug          — IPO slug
+ * @param {string} opts.docType       — 'drhp' | 'rhp' | 'final'
+ * @param {string} opts.sectionName   — section short name (e.g. 'financials')
  * @param {{ start: number, end: number }} opts.pageRange  — 1-based page range
- * @param {string} opts.markdown     — full document markdown (with PAGE markers)
- * @param {Function} opts.extractFn  — extractor function(md) that returns parsed data
- * @param {object} [opts.log]        — logger
+ * @param {string} opts.pdfUrl        — URL to download the full PDF
+ * @param {Function} opts.extractFn   — extractor function(text) that returns parsed data
+ * @param {object} [opts.log]         — logger
  * @returns {Promise<{ ok: boolean, data?: object, validation?: object, error?: string }>}
  */
 async function retrySection(opts) {
@@ -42,58 +38,70 @@ async function retrySection(opts) {
   if (!start || !end || end < start) return { ok: false, error: `invalid page range: ${JSON.stringify(opts.pageRange)}` };
   const pageCount = end - start + 1;
   if (pageCount > 200) return { ok: false, error: `page range too large (${pageCount} pages, max 200)` };
-  if (!opts.markdown) return { ok: false, error: 'no_markdown_provided' };
 
-  // 1. Slice markdown to the section's page range using PAGE markers.
-  const pageRe = /=====\s*PAGE\s+(\d+)\s*=====/gi;
-  const pages = [];
-  let lastIdx = 0;
-  let lastPage = null;
-  let m;
-  while ((m = pageRe.exec(opts.markdown)) !== null) {
-    const pageNum = parseInt(m[1], 10);
-    if (lastPage != null) pages.push({ page: lastPage, start: lastIdx, end: m.index });
-    lastPage = pageNum;
-    lastIdx = m.index;
+  // 1. Download the full PDF
+  let localPdf;
+  try {
+    localPdf = await downloadPdfFromUrl(opts.pdfUrl);
+    log(`  fallback ${opts.sectionName}: downloaded PDF`);
+  } catch (e) {
+    return { ok: false, error: `download_failed: ${e.message}` };
   }
-  if (lastPage != null) pages.push({ page: lastPage, start: lastIdx, end: opts.markdown.length });
+  if (!localPdf) return { ok: false, error: 'no_pdf_source_available' };
 
-  const sliceParts = pages.filter((p) => p.page >= start && p.page <= end);
-  if (!sliceParts.length) return { ok: false, error: `no pages found in range ${start}-${end}` };
+  // 2. Slice to the section's page range
+  let slicePath;
+  try {
+    const { slicePdf } = require('./pdfSlicer');
+    slicePath = path.join(os.tmpdir(), `fallback_${opts.slug}_${opts.sectionName}_p${start}-${end}_${Date.now()}.pdf`);
+    await slicePdf(localPdf, start, end, slicePath);
+    log(`  fallback ${opts.sectionName}: sliced pages ${start}-${end} (${pageCount} pages)`);
+  } catch (e) {
+    return { ok: false, error: `slice_failed: ${e.message}` };
+  }
 
-  const slicedMd = sliceParts.map((p) => opts.markdown.slice(p.start, p.end)).join('\n');
-  log(`  fallback ${opts.sectionName}: sliced ${sliceParts.length} pages (${start}-${end}) from markdown → ${slicedMd.length} chars`);
+  // 3. Convert sliced PDF to markdown locally (free, fast, no PDF page credits)
+  let sliceMd;
+  try {
+    const { convertPdfToMarkdown } = require('./pdfToMarkdownLocal');
+    const result = await convertPdfToMarkdown(slicePath);
+    sliceMd = result.markdown;
+    log(`  fallback ${opts.sectionName}: local conversion → ${sliceMd.length} chars`);
+  } catch (e) {
+    fs.unlink(slicePath, () => {});
+    return { ok: false, error: `md_conversion_failed: ${e.message}` };
+  }
+  fs.unlink(slicePath, () => {});
 
-  // 2. Upload sliced markdown to R2 so Firecrawl can reach it
+  // 4. Upload the markdown to R2 so Firecrawl can reach it
   const sliceKey = `fallback/${opts.slug}/${opts.docType}/${opts.sectionName}_p${start}-${end}.md`;
-  if (!(await objectExists(sliceKey))) await putText(sliceKey, slicedMd);
+  if (!(await objectExists(sliceKey))) await putText(sliceKey, sliceMd);
   const sliceUrl = getPublicUrl(sliceKey);
 
-  // 3. Firecrawl scrape the sliced markdown
-  let md;
+  // 5. Firecrawl scrape the uploaded markdown (1 credit — no PDF page fees)
+  let fcMd;
   try {
     const result = await scrapeToMarkdown(sliceUrl);
-    md = result.markdown;
-    log(`  fallback ${opts.sectionName}: Firecrawl returned ${md.length} chars`);
+    fcMd = result.markdown;
+    log(`  fallback ${opts.sectionName}: Firecrawl returned ${fcMd.length} chars`);
   } catch (e) {
     return { ok: false, error: `firecrawl_failed: ${e.message}` };
   }
-  if (!md || md.length < 50) return { ok: false, error: 'firecrawl_returned_empty_markdown' };
+  if (!fcMd || fcMd.length < 50) return { ok: false, error: 'firecrawl_returned_empty_markdown' };
 
-  // 4. Run the extractor directly on the Firecrawl markdown
+  // 6. Run the extractor on Firecrawl's result
   let extracted;
   try {
-    extracted = opts.extractFn(md);
+    extracted = opts.extractFn(fcMd);
     log(`  fallback ${opts.sectionName}: extractor returned ${extracted ? 'data' : 'null'}`);
   } catch (e) {
     return { ok: false, error: `extraction_failed: ${e.message}` };
   }
   if (!extracted) return { ok: false, error: 'extractor_returned_null' };
 
-  // 5. Validate
+  // 6. Validate
   const flat = flattenExtraction(extracted, opts.sectionName);
   const validation = validateExtraction(flat);
-
   log(`  fallback ${opts.sectionName}: validation score=${validation.score}, needsReview=${validation.needsReview}`);
 
   return {
@@ -103,10 +111,14 @@ async function retrySection(opts) {
   };
 }
 
-/**
- * Flatten an extraction result into key→value pairs for validation.
- * (Minimal — covers the common fields; the validation itself handles gaps.)
- */
+/** Download a PDF from a URL to a temp file and return the local path. */
+async function downloadPdfFromUrl(url) {
+  const { downloadPdf } = require('./pdfDownloader');
+  const dl = await downloadPdf(url);
+  if (dl.status !== 'success' && dl.status !== 'already_parsed') throw new Error(dl.status);
+  return dl.filePath;
+}
+
 function flattenExtraction(data, sectionKey) {
   const flat = {};
   if (sectionKey === 'financials' && data.metrics) {

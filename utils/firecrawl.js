@@ -81,4 +81,39 @@ async function scrapeToMarkdown(url, opts = {}) {
   throw new Error('Firecrawl scrape failed: exhausted retries');
 }
 
-module.exports = { scrapeToMarkdown, parseRequiredTimeout, getApiKey, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS };
+/**
+ * Parse HTML content directly via Firecrawl /v2/parse with file upload.
+ * No R2 upload needed — sends the HTML as a multipart file.
+ *
+ * @param {string} htmlContent — raw HTML string
+ * @param {string} filename — e.g. "financials_p15-38.html"
+ * @param {object} schema — JSON Schema for structured output
+ * @param {string} prompt — extraction instructions
+ * @param {object} [opts] — { timeout }
+ * @returns {Promise<object>} parsed JSON data
+ */
+async function parseHtml(htmlContent, filename, schema, prompt, opts = {}) {
+  const form = new FormData();
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  form.append('file', blob, filename);
+  form.append('options', JSON.stringify({
+    onlyMainContent: true,
+    formats: [{ type: 'json', schema, prompt }],
+  }));
+
+  const timeout = opts.timeout || 120000;
+  const res = await fetch('https://api.firecrawl.dev/v2/parse', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${getApiKey()}` },
+    body: form,
+    signal: AbortSignal.timeout(timeout),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const msg = json.error || `HTTP ${res.status}`;
+    throw new Error(`Firecrawl parse failed: ${typeof msg === 'string' ? msg : JSON.stringify(msg)}`);
+  }
+  return json.data?.json || json.data || json;
+}
+
+module.exports = { scrapeToMarkdown, parseWithSchema, parseHtml, parseRequiredTimeout, getApiKey, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS };

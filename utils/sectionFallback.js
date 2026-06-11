@@ -2,37 +2,41 @@
 
 /**
  * sectionFallback.js — retry extraction for a single section that failed
- * regex-based validation, using Firecrawl on a page-range PDF slice.
+ * regex-based validation, using Firecrawl /v1/scrape with JSON schema.
  *
  * Flow:
- *   regex extraction → validate → failed? → download full PDF →
- *   slice to section's page range → upload slice to R2 →
- *   Firecrawl scrape → re-run deterministic extractor → validate → return
+ *   regex extraction → validate → fail?
+ *   → slice PDF to section pages → read per-page text → build HTML →
+ *   upload HTML to R2 → Firecrawl scrape with section's JSON schema + prompt →
+ *   get clean structured JSON → validate → return
+ *
+ * Adding a new section? Just add an entry in utils/sectionSchemas.js.
+ * This file doesn't need to change.
  */
 
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
-const { scrapeToMarkdown } = require('./firecrawl');
-const { putText, getPublicUrl, objectExists } = require('./r2');
+const { parseHtml } = require('./firecrawl');
 const { validateExtraction } = require('./validation');
+const { getSection } = require('./sectionSchemas');
 
 /**
- * Retry extraction for a single section using Firecrawl on a PDF slice.
+ * Retry extraction using Firecrawl JSON extraction on a page-range HTML slice.
  *
  * @param {object} opts
  * @param {string} opts.slug          — IPO slug
  * @param {string} opts.docType       — 'drhp' | 'rhp' | 'final'
- * @param {string} opts.sectionName   — section short name (e.g. 'financials')
+ * @param {string} opts.sectionName   — short name from sectionSchemas (e.g. 'financials')
  * @param {{ start: number, end: number }} opts.pageRange  — 1-based page range
  * @param {string} opts.pdfUrl        — URL to download the full PDF
- * @param {Function} opts.extractFn   — extractor function(text) that returns parsed data
  * @param {object} [opts.log]         — logger
  * @returns {Promise<{ ok: boolean, data?: object, validation?: object, error?: string }>}
  */
 async function retrySection(opts) {
   const log = opts.log || (() => {});
-  if (!opts.extractFn || typeof opts.extractFn !== 'function') return { ok: false, error: 'no_extractFn_provided' };
+  const section = getSection(opts.sectionName);
+  if (!section) return { ok: false, error: `unknown section: ${opts.sectionName}` };
 
   const { start, end } = opts.pageRange || {};
   if (!start || !end || end < start) return { ok: false, error: `invalid page range: ${JSON.stringify(opts.pageRange)}` };
@@ -43,24 +47,23 @@ async function retrySection(opts) {
   let localPdf;
   try {
     localPdf = await downloadPdfFromUrl(opts.pdfUrl);
-    log(`  fallback ${opts.sectionName}: downloaded PDF`);
   } catch (e) {
     return { ok: false, error: `download_failed: ${e.message}` };
   }
-  if (!localPdf) return { ok: false, error: 'no_pdf_source_available' };
+  if (!localPdf) return { ok: false, error: 'no_pdf_source' };
 
   // 2. Slice to the section's page range
   let slicePath;
   try {
     const { slicePdf } = require('./pdfSlicer');
-    slicePath = path.join(os.tmpdir(), `fallback_${opts.slug}_${opts.sectionName}_p${start}-${end}_${Date.now()}.pdf`);
+    slicePath = path.join(os.tmpdir(), `fb_${opts.slug}_${opts.sectionName}_p${start}-${end}_${Date.now()}.pdf`);
     await slicePdf(localPdf, start, end, slicePath);
-    log(`  fallback ${opts.sectionName}: sliced pages ${start}-${end} (${pageCount} pages)`);
+    log(`  fallback ${opts.sectionName}: sliced pages ${start}-${end} (${pageCount} pgs)`);
   } catch (e) {
     return { ok: false, error: `slice_failed: ${e.message}` };
   }
 
-  // 3. Read per-page text from the sliced PDF, format as markdown
+  // 3. Read per-page text from the sliced PDF → build HTML
   let pageTexts;
   try {
     const { readPageTexts } = require('./financialsExtractor');
@@ -71,49 +74,47 @@ async function retrySection(opts) {
   }
   fs.unlink(slicePath, () => {});
 
-  // Build markdown with page headers so Firecrawl has structure to work with
-  const md = `# Section: ${opts.sectionName} (pages ${start}-${end})\n\n`
-    + pageTexts.map((t, i) => `## Page ${start + i}\n\n${t}`).join('\n\n');
+  const html = buildHtml(section.shortName, start, pageTexts);
+  log(`  fallback ${opts.sectionName}: built HTML (${html.length} chars, ${pageTexts.length} pages)`);
 
-  // 4. Upload markdown to R2
-  const sliceKey = `fallback/${opts.slug}/${opts.docType}/${opts.sectionName}_p${start}-${end}.md`;
-  if (!(await objectExists(sliceKey))) await putText(sliceKey, md);
-  const sliceUrl = getPublicUrl(sliceKey);
-
-  // 5. Firecrawl scrape the uploaded markdown (1 credit)
-  let fcMd;
+  // 4. Firecrawl /v2/parse with JSON schema — send HTML directly (no R2 needed)
+  let data;
   try {
-    const result = await scrapeToMarkdown(sliceUrl);
-    fcMd = result.markdown;
-    log(`  fallback ${opts.sectionName}: ${fcMd.length} chars`);
+    const filename = `${opts.slug}_${opts.sectionName}_p${start}-${end}.html`;
+    data = await parseHtml(html, filename, section.schema, section.prompt);
+    log(`  fallback ${opts.sectionName}: Firecrawl returned structured data`);
   } catch (e) {
     return { ok: false, error: `firecrawl_failed: ${e.message}` };
   }
-  if (!fcMd || fcMd.length < 50) return { ok: false, error: 'firecrawl_returned_empty_markdown' };
-
-  // 6. Run the extractor on Firecrawl's result
-  let extracted;
-  try {
-    extracted = opts.extractFn(fcMd);
-    log(`  fallback ${opts.sectionName}: extractor returned ${extracted ? 'data' : 'null'}`);
-  } catch (e) {
-    return { ok: false, error: `extraction_failed: ${e.message}` };
+  if (!data || (Array.isArray(data.metrics) && !data.metrics.length)) {
+    return { ok: false, error: 'firecrawl_returned_empty_data' };
   }
-  if (!extracted) return { ok: false, error: 'extractor_returned_null' };
 
   // 6. Validate
-  const flat = flattenExtraction(extracted, opts.sectionName);
+  const flat = flattenExtraction(data, opts.sectionName);
   const validation = validateExtraction(flat);
   log(`  fallback ${opts.sectionName}: validation score=${validation.score}, needsReview=${validation.needsReview}`);
 
   return {
     ok: validation.score >= 0.7 && !validation.needsReview,
-    data: extracted,
+    data,
     validation,
   };
 }
 
-/** Download a PDF from a URL to a temp file and return the local path. */
+/** Build a simple HTML doc from per-page text. */
+function buildHtml(sectionName, startPage, pageTexts) {
+  const rows = pageTexts.map((t, i) => {
+    const safe = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return `<h2>Page ${startPage + i}</h2>\n<pre>${safe}</pre>`;
+  });
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+<h1>${sectionName}</h1>
+${rows.join('\n')}
+</body></html>`;
+}
+
+/** Download PDF to temp file, return path. */
 async function downloadPdfFromUrl(url) {
   const { downloadPdf } = require('./pdfDownloader');
   const dl = await downloadPdf(url);
@@ -121,25 +122,28 @@ async function downloadPdfFromUrl(url) {
   return dl.filePath;
 }
 
-function flattenExtraction(data, sectionKey) {
+/** Flatten Firecrawl JSON into key→value map for validation. */
+function flattenExtraction(data, sectionName) {
   const flat = {};
-  if (sectionKey === 'financials' && data.metrics) {
-    for (const [k, vals] of Object.entries(data.metrics)) {
-      const last = Array.isArray(vals) ? vals[vals.length - 1] : null;
-      if (last != null) flat[k] = last;
+  if (sectionName === 'financials' && Array.isArray(data.metrics)) {
+    for (const m of data.metrics) {
+      const vals = m.values || [];
+      const last = vals[vals.length - 1];
+      if (last != null) flat[m.key] = last;
     }
   }
-  if (sectionKey === 'kpis' && data.kpis) {
-    for (const [k, vals] of Object.entries(data.kpis)) {
-      const last = Array.isArray(vals) ? vals[vals.length - 1] : null;
-      if (last != null) flat[k] = last;
+  if (sectionName === 'kpis' && Array.isArray(data.kpis)) {
+    for (const k of data.kpis) {
+      const vals = k.values || [];
+      const last = vals[vals.length - 1];
+      if (last != null) flat[k.key] = last;
     }
   }
-  if (sectionKey === 'objectsOfIssue' && data.objects) {
+  if (sectionName === 'objectsOfIssue' && Array.isArray(data.objects)) {
     flat.objectCount = data.objects.length;
     if (data.total != null) flat.objectsTotal = data.total;
   }
-  if (sectionKey === 'issueDetails') {
+  if (sectionName === 'issueDetails') {
     for (const k of ['totalIssueShares','freshIssueShares','ofsShares','marketMakerShares',
       'employeeReservationShares','netOfferShares','preIssueShares','postIssueShares']) {
       if (data[k] != null) flat[k] = data[k];

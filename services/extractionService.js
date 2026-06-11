@@ -298,17 +298,23 @@ async function runExtraction(slug, opts = {}) {
         sectionName: name,
         pageRange,
         pdfUrl: docMeta.r2Url || docMeta.url,
-        extractFn: name === 'financials' ? (m) => extractFinancials(parseMarkdownTables(m))
-          : name === 'kpis' ? (m) => extractKpis(parseMarkdownTables(m))
-          : name === 'objectsOfIssue' ? (m) => extractObjects(m)
-          : null,
         log,
       });
 
       if (result.ok && result.data) {
-        if (name === 'financials') financials = { ...result.data, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
-        else if (name === 'kpis') kpis = { ...result.data, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
-        else if (name === 'objectsOfIssue') { objects = { ...result.data, docSource: `${docType}::firecrawl`, extractedAt: new Date().toISOString() }; objectsRaw = result.data; }
+        if (name === 'financials') {
+          const m = result.data.metrics || [];
+          const metrics = {};
+          for (const item of m) if (item.key && item.values) metrics[item.key] = item.values;
+          financials = { periods: result.data.periods || [], metrics, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
+        } else if (name === 'kpis') {
+          const kpiObj = {};
+          for (const item of (result.data.kpis || [])) if (item.key && item.values) kpiObj[item.key] = item.values;
+          kpis = { periods: result.data.periods || null, kpis: kpiObj, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
+        } else if (name === 'objectsOfIssue') {
+          objects = { ...result.data, docSource: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
+          objectsRaw = result.data;
+        }
         usedFallback = true;
         log(`  fallback "${name}" succeeded (score ${result.validation.score})`);
       } else {

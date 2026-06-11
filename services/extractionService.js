@@ -178,34 +178,47 @@ async function runExtraction(slug, opts = {}) {
         if (dl.status === 'success' || dl.status === 'already_parsed') {
           const pages = await readPageItems(dl.filePath);
 
-          const finItems = pages.filter((p) => {
+          // Find all pages that look like restated financial statements
+          const finPages = pages.filter((p) => {
             const t = p.items.map((i) => i.str).join(' ');
             return /\brestated\b/i.test(t) && /\bprofit.*loss|balance sheet|financial statement/i.test(t);
           });
-          if (finItems.length) {
-            for (const page of finItems) {
-              const result = extractFinancialsFromItems(page.items);
-              if (result && Object.keys(result.metrics).length >= 2) {
-                financials = { ...result, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
-                log(`financials (pdf coords): ${Object.keys(result.metrics).length} metrics on page ${page.pageNum} over ${result.periods.length} periods`);
-                break;
+          const finResults = [];
+          for (const page of finPages) {
+            const result = extractFinancialsFromItems(page.items);
+            if (result && Object.keys(result.metrics).length) finResults.push(result);
+          }
+          if (finResults.length) {
+            // Merge metrics across all financial pages (they're on different pages)
+            const merged = { periods: finResults[0].periods, metrics: {} };
+            for (const r of finResults) {
+              for (const [k, v] of Object.entries(r.metrics)) {
+                if (!merged.metrics[k]) merged.metrics[k] = v;
               }
             }
+            financials = { ...merged, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
+            log(`financials (pdf coords): ${Object.keys(merged.metrics).length} metrics from ${finResults.length} pages`);
           }
 
-          const kpiItems = pages.filter((p) => {
+          // Find all KPI/ratio pages
+          const kpiPages = pages.filter((p) => {
             const t = p.items.map((i) => i.str).join(' ');
-            return /\b(?:return on|roce|ronw|roe|deb.*equity)\b/i.test(t) && /%\b/.test(t);
+            return /\b(?:return on|roce|ronw|roe|deb.*equity)\b/i.test(t) && /%/i.test(t);
           });
-          if (kpiItems.length) {
-            for (const page of kpiItems) {
-              const result = extractKpisFromItems(page.items);
-              if (result && Object.keys(result.kpis).length >= 2) {
-                kpis = { ...result, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
-                log(`kpis (pdf coords): ${Object.keys(result.kpis).length} ratios on page ${page.pageNum}`);
-                break;
+          const kpiResults = [];
+          for (const page of kpiPages) {
+            const result = extractKpisFromItems(page.items);
+            if (result && Object.keys(result.kpis).length) kpiResults.push(result);
+          }
+          if (kpiResults.length) {
+            const merged = { periods: kpiResults[0].periods, kpis: {} };
+            for (const r of kpiResults) {
+              for (const [k, v] of Object.entries(r.kpis)) {
+                if (!merged.kpis[k]) merged.kpis[k] = v;
               }
             }
+            kpis = { ...merged, source: `${docType}::coordinates`, extractedAt: new Date().toISOString() };
+            log(`kpis (pdf coords): ${Object.keys(merged.kpis).length} ratios from ${kpiResults.length} pages`);
           }
         }
       }

@@ -267,28 +267,37 @@ async function runExtraction(slug, opts = {}) {
   log(`validation: score ${validation.score}${validation.needsReview ? ' — NEEDS REVIEW' : ''} (${validation.sanity.flagged.length} sanity flags, ${validation.consistency.failed.length} consistency fails)`);
 
   // ── Fallback: retry failed sections with PDF-slice → Firecrawl ──────────
+  // If validation failed (sanity, consistency, or low score), identify which
+  // sections are responsible and retry just those sections via Firecrawl on a
+  // page-range PDF slice.
   let usedFallback = false;
   if (validation.needsReview && docType) {
     const docMeta = (ipo.documents || {})[docType] || {};
     const sectionPages = docMeta.sectionPages || {};
-    const errorFields = new Set(validation.sanity.flagged.map((f) => f.field));
 
+    // Map sections to their relevant validation fields
     const sectionMap = [
-      { name: 'financials', fields: ['revenueFromOperations','totalIncome','ebitda','profitAfterTax','netWorth','totalBorrowings','basicEPS','dilutedEPS','ronw','netAssetValue'] },
-      { name: 'kpis', fields: ['roce','ronw','roe','debtEquity','ebitdaMargin','patMargin','grossMargin','priceToBook','currentRatio','nav','eps'] },
-      { name: 'objectsOfIssue', fields: ['objectCount','objectsTotal'] },
+      { name: 'financials', fields: ['revenueFromOperations','totalIncome','ebitda','profitAfterTax','netWorth','totalBorrowings','basicEPS','dilutedEPS','ronw','netAssetValue'], shortKey: 'financials' },
+      { name: 'kpis', fields: ['roce','ronw','roe','debtEquity','ebitdaMargin','patMargin','grossMargin','priceToBook','currentRatio','nav','eps'], shortKey: 'kpis' },
+      { name: 'objectsOfIssue', fields: ['objectCount','objectsTotal'], shortKey: 'objects-of-issue' },
     ];
 
-    for (const { name, fields } of sectionMap) {
-      // Only retry if this section has flagged fields and we have page ranges
-      if (!fields.some((f) => errorFields.has(f))) continue;
-      
-      // sectionPages uses short names like 'financials', 'kpis', 'objects-of-issue'
-      const pageKey = name === 'objectsOfIssue' ? 'objects-of-issue' : name;
-      const pageRange = sectionPages[pageKey];
+    for (const { name, fields, shortKey } of sectionMap) {
+      // Check if this section has sanity-flagged fields
+      const sanityInvolved = validation.sanity.flagged.some((f) => fields.includes(f.field));
+
+      // Check if the section failed to extract anything at all
+      const extractedNothing = (name === 'financials' && (!financials || !Object.keys(financials.metrics || {}).length))
+        || (name === 'kpis' && (!kpis || !Object.keys(kpis.kpis || {}).length))
+        || (name === 'objectsOfIssue' && (!objects || !objects.objects.length));
+
+      // Only trigger Firecrawl when we actually need better data
+      if (!sanityInvolved && !extractedNothing) continue;
+
+      const pageRange = sectionPages[shortKey];
       if (!pageRange || !pageRange.start || !pageRange.end) continue;
 
-      log(`  fallback triggered for "${name}" (pages ${pageRange.start}-${pageRange.end}, flagged: ${fields.filter((f) => errorFields.has(f)).join(',')})`);
+      log(`  fallback: "${name}" needs review → slicing pages ${pageRange.start}-${pageRange.end} for Firecrawl`);
 
       const result = await retrySection({
         slug,
@@ -301,14 +310,9 @@ async function runExtraction(slug, opts = {}) {
       });
 
       if (result.ok && result.data) {
-        if (name === 'financials') {
-          financials = { ...result.data, source: `${docType}::fallback`, extractedAt: new Date().toISOString() };
-        } else if (name === 'kpis') {
-          kpis = { ...result.data, source: `${docType}::fallback`, extractedAt: new Date().toISOString() };
-        } else if (name === 'objectsOfIssue') {
-          objects = { ...result.data, docSource: `${docType}::fallback`, extractedAt: new Date().toISOString() };
-          objectsRaw = result.data;
-        }
+        if (name === 'financials') financials = { ...result.data, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
+        else if (name === 'kpis') kpis = { ...result.data, source: `${docType}::firecrawl`, extractedAt: new Date().toISOString() };
+        else if (name === 'objectsOfIssue') { objects = { ...result.data, docSource: `${docType}::firecrawl`, extractedAt: new Date().toISOString() }; objectsRaw = result.data; }
         usedFallback = true;
         log(`  fallback "${name}" succeeded (score ${result.validation.score})`);
       } else {
@@ -346,7 +350,6 @@ async function runExtraction(slug, opts = {}) {
 
       const newValidation = validateExtraction(newFlat);
       log(`post-fallback validation: score ${newValidation.score}${newValidation.needsReview ? ' — STILL NEEDS REVIEW' : ' — PASSED'}`);
-      // Merge fallback validation info into the stored validation
       validation.fallbackAttempted = true;
       validation.fallbackUsed = usedFallback;
       validation.fallbackValidationScore = newValidation.score;

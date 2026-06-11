@@ -78,7 +78,9 @@ async function retrySection(opts) {
 
   const { start, end } = opts.pageRange || {};
   if (!start || !end || end < start) return { ok: false, error: `invalid page range: ${JSON.stringify(opts.pageRange)}` };
-  if (end - start > 80) return { ok: false, error: `page range too large (${end - start} pages), aborting` };
+  const pageCount = end - start + 1;
+  if (pageCount > 200) return { ok: false, error: `page range too large (${pageCount} pages, max 200)` };
+  log(`  fallback: slicing ${pageCount} pages (${start}-${end}) — Firecrawl cost approx ${pageCount} credits`);
 
   const cfg = SECTION_EXTRACTORS[sectionKey];
 

@@ -1,0 +1,11 @@
+[phases.setup]
+npmPlatform = 'linux'
+
+[phases.build]
+cmds = ['npm install']
+
+[variables]
+NODE_ENV = 'production'
+
+[system]
+packages = ['curl']

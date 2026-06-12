@@ -19,8 +19,8 @@ RUN groupadd -g 1001 nodejs && \
     useradd -m -u 1001 -g nodejs nodejs
 
 # Copy production dependencies
-COPY --from=builder /app/node_modules ./node_modules
-COPY package*.json ./
+COPY --chown=nodejs:nodejs --from=builder /app/node_modules ./node_modules
+COPY --chown=nodejs:nodejs package*.json ./
 
 # Copy source code
 COPY --chown=nodejs:nodejs . .
